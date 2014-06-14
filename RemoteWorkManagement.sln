@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scio.RemoteWorkManagement", "RemoteWorkManagement\Scio.RemoteWorkManagement.csproj", "{F940BA2E-CC61-4103-A370-56F6A0458565}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Scio.RemoteManagementDB", "ScioRemoteManagement\Scio.RemoteManagementDB.sqlproj", "{870EB4E7-0497-4148-A922-8F1D16254CCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scio.RemoteManagementModels", "Scio.RemoteManagementModels\Scio.RemoteManagementModels.csproj", "{C99BEEEF-A353-4E94-9159-31F0566F326D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D0877A87-D2A8-4E05-BFCE-0687B90431CE}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F940BA2E-CC61-4103-A370-56F6A0458565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F940BA2E-CC61-4103-A370-56F6A0458565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F940BA2E-CC61-4103-A370-56F6A0458565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F940BA2E-CC61-4103-A370-56F6A0458565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{870EB4E7-0497-4148-A922-8F1D16254CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{870EB4E7-0497-4148-A922-8F1D16254CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{870EB4E7-0497-4148-A922-8F1D16254CCB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{870EB4E7-0497-4148-A922-8F1D16254CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{870EB4E7-0497-4148-A922-8F1D16254CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{870EB4E7-0497-4148-A922-8F1D16254CCB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C99BEEEF-A353-4E94-9159-31F0566F326D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99BEEEF-A353-4E94-9159-31F0566F326D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99BEEEF-A353-4E94-9159-31F0566F326D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99BEEEF-A353-4E94-9159-31F0566F326D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

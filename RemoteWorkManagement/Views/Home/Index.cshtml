@@ -1,0 +1,67 @@
+﻿@model RemoteWorkManagement.Models.LoginModel
+
+<div class="login-layout">
+    <div class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="login-container">
+                        <div class="position-relative">
+                            <div id="login-box" class="login-box visible widget-box no-border">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <h4 class="header blue lighter bigger">
+                                            <i class="icon-coffee green"></i>
+                                            Please enter your credentials
+                                        </h4>
+                                        <div class="space-6"></div>
+
+
+                                        @using (Html.BeginForm("Authorize", "Home", FormMethod.Post, new { @id = "login" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <fieldset>
+                                                @Html.LabelFor(m => m.Email, new { @class = "block clearfix" })
+                                                <span class="btn-block input-icon input-icon-right">
+                                                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email", @tabindex = 1, @class = "form-control", @type = "email" })
+                                                    <i class="icon-user"></i>
+                                                </span>
+
+                                                @Html.LabelFor(m => m.Password, new { @class = "block clearfix" })
+                                                <span class="btn-block input-icon input-icon-right">
+                                                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "Password", @tabindex = 1, @class = "form-control", @type = "password" })
+                                                    <i class="icon-lock"></i>
+                                                </span>
+
+                                                <div class="space"></div>
+
+                                                <div class="clearfix">
+                                                    <label class="inline">
+                                                        <input type="checkbox" class="ace" />
+                                                        <span class="lbl"> Remember Me</span>
+                                                    </label>
+
+                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                        <i class="icon-key"></i>
+                                                        Login
+                                                    </button>
+                                                </div>
+                                                <div class="space-4"></div>
+                                            </fieldset>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div ng-app="myApp">
+        <div ng-controller="HomeCtrl">
+            {{name}}
+        </div>
+    </div>*@
