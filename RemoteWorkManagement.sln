@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scio.RemoteWorkManagement", "RemoteWorkManagement\Scio.RemoteWorkManagement.csproj", "{F940BA2E-CC61-4103-A370-56F6A0458565}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C99BEEEF-A353-4E94-9159-31F0566F326D} = {C99BEEEF-A353-4E94-9159-31F0566F326D}
+	EndProjectSection
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Scio.RemoteManagementDB", "ScioRemoteManagement\Scio.RemoteManagementDB.sqlproj", "{870EB4E7-0497-4148-A922-8F1D16254CCB}"
 EndProject

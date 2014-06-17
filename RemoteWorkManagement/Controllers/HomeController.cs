@@ -13,60 +13,23 @@ namespace RemoteWorkManagement.Controllers
             _membershipProvider = membershipProvider;
         }
 
-        public HomeController()
-        {
-            
-        }
-
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
 
         /// <summary>
-        /// Authorizes the specified model.
+        /// Authorizes the specified username.
         /// </summary>
-        /// <param name="model">The model.</param>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Authorize(LoginModel model)
+        public ActionResult Authorize(string username, string password)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Index", model);
-            }
-            MembershipUser membershipUser = _membershipProvider.GetUser(model.Email, false);
-            if (membershipUser == null)
-            {
-                ModelState.AddModelError("Email", "Email con contraseña no validos");
-                return View("Index", model);
-            }
-            if (membershipUser.IsLockedOut)
-            {
-                ModelState.AddModelError("Email", "El usuario esta bloqueado. Contacte a su administrador");
-                return View("Index", model);
-            }
-            if (!_membershipProvider.ValidateUser(model.Email, model.Password))
-            {
-                ModelState.AddModelError("Email", "Email o contraseña invalidos");
-                return View("Index", model);
-            }
-            FormsAuthentication.SetAuthCookie(model.Email, true);
-            return RedirectToAction("Index", "Dashboard");
+            var sucess =_membershipProvider.ValidateUser(username, password);
+            return null;
         }
     }
 }

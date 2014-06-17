@@ -1,11 +1,20 @@
 ﻿@model RemoteWorkManagement.Models.LoginModel
-
 <div class="login-layout">
     <div class="main-container">
         <div class="main-content">
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
+                <div class="col-sm-offset-10 col-sm-offset-1">
                     <div class="login-container">
+                        <div class="center">
+                            <h1>
+                                <i class="icon-leaf green"></i>
+                                <span class="blue">Remote</span>
+                                <span class="green">Manager</span>
+                            </h1>
+                            <h4 class="blue">&copy; Scio Consulting</h4>
+                        </div>
+
+                        <div class="space-6"></div>
                         <div class="position-relative">
                             <div id="login-box" class="login-box visible widget-box no-border">
                                 <div class="widget-body">
@@ -15,23 +24,30 @@
                                             Please enter your credentials
                                         </h4>
                                         <div class="space-6"></div>
-
-
                                         @using (Html.BeginForm("Authorize", "Home", FormMethod.Post, new { @id = "login" }))
                                         {
                                             @Html.AntiForgeryToken()
                                             <fieldset>
-                                                @Html.LabelFor(m => m.Email, new { @class = "block clearfix" })
-                                                <span class="btn-block input-icon input-icon-right">
-                                                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email", @tabindex = 1, @class = "form-control", @type = "email" })
-                                                    <i class="icon-user"></i>
-                                                </span>
+                                                <label class="block clearfix">
+                                                    <span class="btn-block input-icon input-icon-right">
+                                                        <input type="email" class="form-control" placeholder="Email" style="width: 280px" tabindex="1" 
+                                                               name="username"
+                                                               autofocus
+                                                               required
+                                                               data-bv-emailaddress-message="Invalid email address"/>
+                                                        <i class="icon-user"></i>
+                                                    </span>
+                                                </label>
 
-                                                @Html.LabelFor(m => m.Password, new { @class = "block clearfix" })
-                                                <span class="btn-block input-icon input-icon-right">
-                                                    @Html.TextBoxFor(m => m.Email, new { @placeholder = "Password", @tabindex = 1, @class = "form-control", @type = "password" })
-                                                    <i class="icon-lock"></i>
-                                                </span>
+                                                <label class="block clearfix">
+                                                    <span class="btn-block input-icon input-icon-right">
+                                                        <input type="password" class="form-control" placeholder="Password" style="width: 280px" tabindex="2"
+                                                               name="password"
+                                                               required
+                                                               data-bv-notempty-message="The password is required and cannot be empty"/>
+                                                        <i class="icon-lock"></i>
+                                                    </span>
+                                                </label>
 
                                                 <div class="space"></div>
 
@@ -41,7 +57,7 @@
                                                         <span class="lbl"> Remember Me</span>
                                                     </label>
 
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" tabindex="3">
                                                         <i class="icon-key"></i>
                                                         Login
                                                     </button>
@@ -59,9 +75,3 @@
         </div>
     </div>
 </div>
-
-@*<div ng-app="myApp">
-        <div ng-controller="HomeCtrl">
-            {{name}}
-        </div>
-    </div>*@

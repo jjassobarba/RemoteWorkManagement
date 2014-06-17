@@ -67,4 +67,7 @@
     <Build Include="dbo\Tables\UsersInRoles.sql" />
     <None Include="Scripts\ScriptsIgnoredOnImport.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scio.RemoteManagementDB.publish.xml" />
+  </ItemGroup>
 </Project>

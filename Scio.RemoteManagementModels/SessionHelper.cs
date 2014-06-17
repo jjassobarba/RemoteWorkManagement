@@ -9,6 +9,7 @@ namespace Scio.RemoteManagementModels
         public static ISessionFactory CreateSessionFactory(string connstr)
         {
             return Fluently.Configure()
+                .ExposeConfiguration(cfg => cfg.Properties.Add("use_proxy_validator","false"))
                 .Database(MsSqlConfiguration.MsSql2012
                     .ConnectionString(connstr))
                 .Mappings(
