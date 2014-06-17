@@ -60,6 +60,7 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="Scripts\" />
+    <Folder Include="PostDeployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
@@ -69,5 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Scio.RemoteManagementDB.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeployment\Roles.sql" />
   </ItemGroup>
 </Project>
