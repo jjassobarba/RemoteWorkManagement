@@ -160,6 +160,7 @@
     <Compile Include="App_Start\Plumbing\PersistenceFacility.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WindsorContainerConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -170,6 +171,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\avatar\profile-default.png" />
     <Content Include="Content\bootstrap\css\ace-fonts.css" />
     <Content Include="Content\bootstrap\css\ace-ie.min.css" />
     <Content Include="Content\bootstrap\css\ace-rtl.min.css" />
@@ -274,6 +276,7 @@
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\app\Controllers\HomeController.js" />
+    <Content Include="Scripts\bootstrap\ace-extra.min.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular\angular-touch.min.js.map" />
     <Content Include="Scripts\angular\angular-sanitize.min.js.map" />
@@ -569,6 +572,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_InnerLayout.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

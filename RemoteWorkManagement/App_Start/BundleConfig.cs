@@ -23,7 +23,8 @@ namespace RemoteWorkManagement
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap/bootstrap.js",
+                      "~/Scripts/bootstrap/bootstrap.min.js",
+                      "~/Scripts/bootstrap/ace-extra.min.js",
                       "~/Scripts/respond/respond.js"));            
 
             // Set EnableOptimizations to false for debugging. For more information,
