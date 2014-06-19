@@ -9,7 +9,12 @@ namespace RemoteWorkManagement
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery/jquery-{version}.js"));
+                        "~/Scripts/jquery/jquery-1.10.2.min.js",
+                        "~/Scripts/jquery/jquery-ui-1.10.3.full.min.js",
+                        "~/Scripts/jquery/jquery-ui-1.10.3.custom.min.js"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/mainScripts").Include(
+                        "~/Scripts/scripts/main.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery/jquery.validate*"));
@@ -25,6 +30,7 @@ namespace RemoteWorkManagement
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap/bootstrap.min.js",
                       "~/Scripts/bootstrap/ace-extra.min.js",
+                      "~/Scripts/bootstrap/ace-elements.min.js",
                       "~/Scripts/respond/respond.js"));            
 
             // Set EnableOptimizations to false for debugging. For more information,

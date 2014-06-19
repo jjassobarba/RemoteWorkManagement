@@ -1,0 +1,16 @@
+﻿<div>
+    @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new {@id = "RegisterUser"}))
+    {
+        <fieldset>
+            <label class="block clearfix">
+                <span class="input-icon input-icon-right input-xlarge">
+                    <input type="email" class="form-control input-xlarge" placeholder="Email"
+                           name="username"
+                           required
+                           data-bv-emailaddress-message="Invalid email address"/>
+                    <i class="icon-envelope"></i>
+                </span>
+            </label>
+        </fieldset>
+    }
+</div>

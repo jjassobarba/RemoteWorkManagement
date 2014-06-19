@@ -276,6 +276,7 @@
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\app\Controllers\HomeController.js" />
+    <Content Include="Scripts\bootstrap\ace-elements.min.js" />
     <Content Include="Scripts\bootstrap\ace-extra.min.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular\angular-touch.min.js.map" />
@@ -541,10 +542,13 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery\jquery-1.9.0.min.js" />
     <Content Include="Scripts\jquery\jquery-1.9.0.min.map" />
     <None Include="Scripts\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Scripts\jquery\jquery-ui-1.10.3.full.min.js" />
     <Content Include="Scripts\jquery\jquery.validate.js" />
     <Content Include="Scripts\jquery\jquery.validate.min.js" />
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.js" />
@@ -553,6 +557,7 @@
     <Content Include="Scripts\respond\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond\respond.min.js" />
+    <Content Include="Scripts\scripts\main.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -575,6 +580,9 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_InnerLayout.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\UserPartials\_CreateUser.cshtml" />
+    <Content Include="Views\Admin\UserPartials\_EditUser.cshtml" />
+    <Content Include="Views\Admin\UserPartials\_UserReports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
