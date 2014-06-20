@@ -1,16 +1,95 @@
 ﻿<div>
-    @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new {@id = "RegisterUser"}))
+    @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { @id = "RegisterUser" }))
     {
         <fieldset>
-            <label class="block clearfix">
-                <span class="input-icon input-icon-right input-xlarge">
-                    <input type="email" class="form-control input-xlarge" placeholder="Email"
-                           name="username"
-                           required
-                           data-bv-emailaddress-message="Invalid email address"/>
-                    <i class="icon-envelope"></i>
-                </span>
-            </label>
+            <div class="col-md-4">
+                <label class="control-label bolder blue">
+                    General Information
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="text" class="form-control input-xlarge" placeholder="First Name"
+                               name="firstname"
+                               required
+                               data-bv-notempty-message="First name required" />
+                        <i class="icon-edit"></i>
+                    </span>
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="text" class="form-control input-xlarge" placeholder="Last Name"
+                               name="lastname"
+                               required
+                               data-bv-notempty-message="Last name required" />
+                        <i class="icon-edit"></i>
+                    </span>
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="email" class="form-control input-xlarge" placeholder="Email"
+                               name="username"
+                               required
+                               data-bv-emailaddress-message="Invalid email address" />
+                        <i class="icon-envelope"></i>
+                    </span>
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="text" class="form-control input-xlarge" placeholder="Position"
+                               name="position" />
+                        <i class="icon-edit"></i>
+                    </span>
+                </label>
+            </div>
+            <div class="col-md-4">
+                <div class=" control-group ">
+                    <label class=" control-label bolder blue">
+                        Days to work in remote
+                    </label>
+                    <div class="checkbox">
+                        <label>
+                            <input name="cbMonday" type="checkbox" class="ace" />
+                            <span class="lbl">Monday</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input name="cbTuesday" type="checkbox" class="ace" />
+                            <span class="lbl">Tuesday</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input name="cbWednesday" type="checkbox" class="ace" />
+                            <span class="lbl">Wednesday</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input name="cbThursday" type="checkbox" class="ace" />
+                            <span class="lbl">Thursday</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input name="cbFriday" type="checkbox" class="ace" />
+                            <span class="lbl">Friday</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="clear">
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <label class="control-label bolder blue">
+                    Upload Picture
+                </label>
+                <input type="file" id="uploadImageButton" />
+                <input type="file" id="uploadImageArea" />
+            </div>
         </fieldset>
     }
 </div>
+
