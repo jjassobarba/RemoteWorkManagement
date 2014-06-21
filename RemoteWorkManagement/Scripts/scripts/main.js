@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
+    //Create the tabs for the user page
     $("#tabs").tabs();
     
+    //Create the image uploader zone for the user
     $("#uploadImageArea").ace_file_input({
         style: 'well',
         btn_choose: 'Drop image here or click to choose',
@@ -22,6 +24,7 @@
         //console.log($(this).data('ace_input_method'));
     });
     
+    //Create the uploader for the button in the user page
     $('#uploadImageButton').ace_file_input({
         no_file: 'No File ...',
         btn_choose: 'Choose',
@@ -33,5 +36,15 @@
         //blacklist:'exe|php'
         //onchange:''
         //
+    });
+    
+    $("input[type='radio']").change(function () {
+
+        if ($(this).val() == "flexOther") {
+            $("#otherInputText").show();
+        } else {
+            $("#otherInputText").hide();
+        }
+
     });
 });

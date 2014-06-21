@@ -162,6 +162,7 @@
     <Compile Include="App_Start\WindsorContainerConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -583,6 +584,7 @@
     <Content Include="Views\Admin\UserPartials\_CreateUser.cshtml" />
     <Content Include="Views\Admin\UserPartials\_EditUser.cshtml" />
     <Content Include="Views\Admin\UserPartials\_UserReports.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

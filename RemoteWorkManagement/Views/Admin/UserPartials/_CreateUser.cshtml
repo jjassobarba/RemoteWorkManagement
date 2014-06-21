@@ -40,47 +40,106 @@
                         <i class="icon-edit"></i>
                     </span>
                 </label>
+                <label class="control-label bolder blue">
+                    Project Leader
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="text" class="form-control input-xlarge" placeholder="Project Leader Name"
+                               name="plName"
+                               required
+                               data-bv-notempty-message="Project Leader required" />
+                        <i class="icon-edit"></i>
+                    </span>
+                </label>
             </div>
             <div class="col-md-4">
-                <div class=" control-group ">
-                    <label class=" control-label bolder blue">
-                        Days to work in remote
-                    </label>
-                    <div class="checkbox">
-                        <label>
-                            <input name="cbMonday" type="checkbox" class="ace" />
-                            <span class="lbl">Monday</span>
-                        </label>
+                <div class="row">
+                    <div class="pull-left">
+                        <div class=" control-group ">
+                            <label class=" control-label bolder blue">
+                                Days to work in remote
+                            </label>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="cbMonday" type="checkbox" class="ace" />
+                                    <span class="lbl">Monday</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="cbTuesday" type="checkbox" class="ace" />
+                                    <span class="lbl">Tuesday</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="cbWednesday" type="checkbox" class="ace" />
+                                    <span class="lbl">Wednesday</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="cbThursday" type="checkbox" class="ace" />
+                                    <span class="lbl">Thursday</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="cbFriday" type="checkbox" class="ace" />
+                                    <span class="lbl">Friday</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="checkbox">
-                        <label>
-                            <input name="cbTuesday" type="checkbox" class="ace" />
-                            <span class="lbl">Tuesday</span>
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input name="cbWednesday" type="checkbox" class="ace" />
-                            <span class="lbl">Wednesday</span>
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input name="cbThursday" type="checkbox" class="ace" />
-                            <span class="lbl">Thursday</span>
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input name="cbFriday" type="checkbox" class="ace" />
-                            <span class="lbl">Friday</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="clear">
-                    <button type="submit" class="btn btn-primary btn-block">Register</button>
-                </div>
+                    <div class="offset2">
+                        <div class="control-group">
+                            <label class="control-label bolder blue">Flextime Schedule</label>
+                            <div class="radio">
+                                <label>
+                                    <input name="flextime" type="radio" class="ace" value="flex1" />
+                                    <span class="lbl">08:00 - 17:00</span>
+                                </label>
+                            </div><div class="radio">
+                                <label>
+                                    <input name="flextime" type="radio" class="ace" value="flex2" />
+                                    <span class="lbl">08:30 - 17:30</span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input name="flextime" type="radio" class="ace" value="flex3" />
+                                    <span class="lbl">09:00 - 18:00</span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input name="flextime" type="radio" class="ace" value="flex4" />
+                                    <span class="lbl">09:30 - 18:30</span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input name="flextime" type="radio" class="ace" id="rbOther" value="flexOther" />
+                                    <span class="lbl">Other</span>
+                                </label>
+                                <div id="otherInputText" style="display: none">
+                                    <span class="input-icon input-icon-right input-xlarge">
+                                        <input type="text" class="form-control input-xlarge" placeholder="Please specify"
+                                               name="otherTime" />
+                                        <i class="icon-edit"></i>
+                                    </span>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin-top: 20px">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                </div>
             </div>
             <div class="col-md-4">
                 <label class="control-label bolder blue">
