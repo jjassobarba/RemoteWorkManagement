@@ -15,5 +15,11 @@ namespace RemoteWorkManagement.Controllers
         {
             return View();
         }
+
+        //Get Notifications
+        public ActionResult Notifications()
+        {
+            return View();
+        }
     }
 }

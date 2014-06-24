@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     //Create the tabs for the user page
     $("#tabs").tabs();
-    
+
     //Create the image uploader zone for the user
     $("#uploadImageArea").ace_file_input({
         style: 'well',
@@ -18,12 +18,11 @@
             //3 = 'THUMBNAIL_FAILED'
             //alert(error_code);
         }
-
     }).on('change', function () {
         //console.log($(this).data('ace_input_files'));
         //console.log($(this).data('ace_input_method'));
     });
-    
+
     //Create the uploader for the button in the user page
     $('#uploadImageButton').ace_file_input({
         no_file: 'No File ...',
@@ -32,12 +31,12 @@
         droppable: false,
         onchange: null,
         thumbnail: true,
-        whitelist:'gif|png|jpg|jpeg'
+        whitelist: 'gif|png|jpg|jpeg'
         //blacklist:'exe|php'
         //onchange:''
         //
     });
-    
+
     $("input[type='radio']").change(function () {
 
         if ($(this).val() == "flexOther") {
@@ -46,5 +45,42 @@
             $("#otherInputText").hide();
         }
 
+    });
+
+    $("#selectColaborator").chosen();
+    
+    $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+        _title: function (title) {
+            var $title = this.options.title || '&nbsp;'
+            if (("title_html" in this.options) && this.options.title_html == true)
+                title.html($title);
+            else title.text($title);
+        }
+    }));
+
+    $("#addEmailButton").on('click', function (e) {
+        e.preventDefault();
+
+        var dialog = $("#email-dialog").removeClass('hide').dialog({
+            modal: true,
+            title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='icon-ok'></i> jQuery UI Dialog</h4></div>",
+            title_html: true,
+            buttons: [
+                {
+                    text: "Cancel",
+                    "class": "btn btn-xs",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                {
+                    text: "OK",
+                    "class": "btn btn-primary btn-xs",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            ]
+        });
     });
 });

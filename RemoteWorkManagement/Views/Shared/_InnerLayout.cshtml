@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Remote Work Management</title>
+    <link href="~/Content/bootstrap/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
@@ -14,8 +16,9 @@
     <link href="~/Content/bootstrap/css/sidebarmenu.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/css/ace-skins.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/css/prettify.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/chosen.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/validator/css/bootstrapValidator.min.css" rel="stylesheet" />
+    <link href="~/Content/css/main.css" rel="stylesheet" />
     <script type="text/javascript" src="~/Scripts/angular/angular.min.js"></script>
     <script type="text/javascript" src="~/Scripts/app/Controllers/HomeController.js"></script>
     <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
@@ -112,6 +115,12 @@
                             <span class="menu-text">Users</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="/Admin/Notifications">
+                            <i class="icon-bell"></i>
+                            <span class="menu-text">Notification</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="sidebar-collapse" id="sidebar-collapse">
                     <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
@@ -120,7 +129,7 @@
                     try { ace.settings.check('sidebar', 'collapsed'); } catch (e) { }
                 </script>
             </div>
-            <div class="main-content">
+            <div class="main-content" ng-app="RemoteManagement">
                 @RenderBody()
             </div>
         </div>
@@ -128,7 +137,8 @@
     
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/mainScripts")
+    @*@Scripts.Render("~/bundles/mainScripts")*@
+    <script type="text/javascript" src="~/Scripts/scripts/main.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

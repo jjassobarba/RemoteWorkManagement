@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "Notifications";
+    Layout = "~/Views/Shared/_InnerLayout.cshtml";
+}
+<div ng-controller="HomeCtrl">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed'); } catch (e) { }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/Admin/">Home</a>
+            </li>
+            <li class="active">Notifications</li>
+        </ul>
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                Notifications
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    User Notifications
+                </small>
+            </h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="selectColaborator">Select a colaborator</label>
+                    <br />
+                    <select id="selectColaborator" class="width-30 chosen-select" data-placeholder="Choose a Colaborator...">
+                        <option value="">&nbsp;</option>
+                        <option value="asesina">Helena Mata Morros</option>
+                        <option value="angelito">Angel Jasso</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input name="sendNotifications" class="ace ace-switch ace-switch-3" type="checkbox" />
+                        <span class="lbl">Send Email Notifications</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row vertical-spacer">
+                <div class="col-xs-8">
+                    <div id="userProfile" class="user-profile">
+                        <div class="col-xs-12 col-sm-3 center">
+                            <span class="profile-picture">
+                                <img class="editable img-responsive" id="profilePicture" src="~/Content/avatar/profile-default.png" alt="Profile Picture" />
+                            </span>
+
+                            <div class="space space-4"></div>
+                            <a href="#" class="btn btn-sm btn-block btn-primary">
+                                <i class="icon-envelope-alt bigger-110"></i>
+                                <span class="bigger-110">Send a message</span>
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-9">
+                            <h4 class="blue">
+                                <span class="middle"> Jhon Doe</span>
+
+                                <span class="label label-purple arrowed-in-right">
+                                    <i class="icon-circle smaller-80 align-middle"></i>
+                                    online
+                                </span>
+                            </h4>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Email</div>
+                                <div class="profile-info-value">
+                                    <span>jhondoe@sciodev.com</span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Position</div>
+                                <div class="profile-info-value">
+                                    <span>Application Developer</span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Flextime</div>
+                                <div class="profile-info-value">
+                                    <span>9:00 - 18:00</span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name">Remote Work</div>
+                                <div class="profile-info-value">
+                                    <span>Monday, Tuesday, Friday</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class=" control-group ">
+                        <label class=" control-label bolder blue">
+                            Notify to
+                        </label>
+                        <div class="checkbox">
+                            <label>
+                                <input name="cbProjectLeader" type="checkbox" class="ace" ng-model="selectedValue" />
+                                <span class="lbl">Project Leader</span>
+                            </label>
+                            <label ng-show="selectedValue" class="clearfix">
+                                <span class="input-icon input-icon-right input-large">
+                                    <input type="email" class="form-control input-large" placeholder="Email"
+                                           name="plEmail"
+                                           required
+                                           data-bv-emailaddress-message="Invalid email address" />
+                                    <i class="icon-envelope"></i>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input name="cbTeam" type="checkbox" class="ace" ng-model="selectedTeamValue" />
+                                <span class="lbl">Team</span>
+                            </label>
+                            <label ng-show="selectedTeamValue" class="clearfix">
+                                <span class="input-icon input-icon-right input-large">
+                                    <input type="email" class="form-control input-large" placeholder="Email"
+                                           name="tEmail"
+                                           required
+                                           data-bv-emailaddress-message="Invalid email address" />
+                                    <i class="icon-envelope"></i>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="optionButtonAlign">
+                        <button class="btn btn-minier btn-purple" id="addEmailButton">Options</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="email-dialog" class="hide">
+        
+    </div>
+</div>
