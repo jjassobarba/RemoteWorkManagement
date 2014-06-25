@@ -596,6 +596,7 @@
     <Content Include="Views\Admin\UserPartials\_UserReports.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Admin\Notifications.cshtml" />
+    <Content Include="Views\Admin\Reports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
