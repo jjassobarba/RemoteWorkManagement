@@ -121,6 +121,12 @@
                             <span class="menu-text">Notification</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="/Admin/Reports">
+                            <i class="icon-eye-open"></i>
+                            <span class="menu-text">Reports</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="sidebar-collapse" id="sidebar-collapse">
                     <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
@@ -140,5 +146,7 @@
     @*@Scripts.Render("~/bundles/mainScripts")*@
     <script type="text/javascript" src="~/Scripts/scripts/main.js"></script>
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery/jquery.dataTables.bootstrap.js"></script>
 </body>
 </html>

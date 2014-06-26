@@ -21,5 +21,12 @@ namespace RemoteWorkManagement.Controllers
         {
             return View();
         }
+
+        //Get Reports
+        public ActionResult Reports()
+        {
+            ViewBag.Title = "Reports";
+            return View();
+        }
     }
 }
