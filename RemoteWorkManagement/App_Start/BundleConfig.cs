@@ -17,6 +17,8 @@ namespace RemoteWorkManagement
                         "~/Scripts/jquery/typeahead-bs2.min.js",
                         "~/Scripts/jquery/jquery.autosize.min.js",
                         "~/Scripts/jquery/jquery.inputlimiter.1.3.1.min.js",
+                        "~/Scripts/jquery/jquery.dataTables.bootstrap.js",
+                        "~/Scripts/jquery/jquery.dataTables.min.js",
                         "~/Scripts/jquery/jquery.maskedinput.min.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/mainScripts").Include(
