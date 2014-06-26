@@ -1,3 +1,72 @@
 ﻿<div>
-    Edit User Div
+    <fieldset>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label for="editColaborator" class="block clearfix">Select a colaborator</label>
+                <select id="editColaborator" class="width-30 chosen-select" data-placeholder="Choose a Colaborator...">
+                    <option value="">&nbsp;</option>
+                    <option value="asesina">Helena Mata Morros</option>
+                    <option value="angelito">Angel Jasso</option>
+                </select>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <br />
+                <label class="control-label bolder blue">
+                    General Information
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="text" class="form-control input-xlarge" placeholder="First Name"
+                               name="firstname"
+                               required
+                               data-bv-notempty-message="First name required" />
+                        <i class="icon-edit"></i>
+                    </span>
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="text" class="form-control input-xlarge" placeholder="Last Name"
+                               name="lastname"
+                               required
+                               data-bv-notempty-message="Last name required" />
+                        <i class="icon-edit"></i>
+                    </span>
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="email" class="form-control input-xlarge" placeholder="Email"
+                               name="username"
+                               required
+                               data-bv-emailaddress-message="Invalid email address" />
+                        <i class="icon-envelope"></i>
+                    </span>
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="text" class="form-control input-xlarge" placeholder="Position"
+                               name="position" />
+                        <i class="icon-edit"></i>
+                    </span>
+                </label>
+                <label class="control-label bolder blue">
+                    Project Leader
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <input type="text" class="form-control input-xlarge" placeholder="Project Leader Name"
+                               name="plName"
+                               required
+                               data-bv-notempty-message="Project Leader required" />
+                        <i class="icon-edit"></i>
+                    </span>
+                </label>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        </div>
+    </fieldset>
 </div>

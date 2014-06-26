@@ -134,9 +134,33 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="vertical-spacer">
+                        <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
         </div>
     </div>
     <div id="email-dialog" class="hide">
-        
+        <p>
+            Please type any aditional email address
+        </p>
+        <span class="input-icon input-icon-right input-large">
+            <input type="email" class="form-control input-large" placeholder="Email"
+                   name="extraEmail"
+                   required
+                   data-bv-emailaddress-message="Invalid email address" />
+            <i class="icon-envelope"></i>
+        </span>
+        <button type="button" class="btn btn-xs btn-info">Add</button>
+        <div class="hr hr-12 hr-double"></div>
+        <p>
+            Selected email address:
+        </p>
+        <select class="form-control" id="form-field-select" multiple="multiple"></select>
     </div>
 </div>
