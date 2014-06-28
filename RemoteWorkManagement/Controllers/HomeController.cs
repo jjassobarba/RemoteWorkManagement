@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Helpers;
+using System.Web.Mvc;
 using System.Web.Security;
 using RemoteWorkManagement.Models;
 
@@ -17,7 +19,7 @@ namespace RemoteWorkManagement.Controllers
         {
             return View();
         }
-        
+
 
         /// <summary>
         /// Authorizes the specified username.
@@ -26,10 +28,18 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="password">The password.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Authorize(string username, string password)
+        public JsonResult Authorize(string username, string password)
         {
-            var sucess =_membershipProvider.ValidateUser(username, password);
-            return null;
+            var sucess = _membershipProvider.ValidateUser(username, password);
+            return Json(new { data = sucess });
+        }
+
+        [HttpPost]
+        public JsonResult CreateUser(string username, string password)
+        {
+            MembershipCreateStatus status;
+            _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true,new Guid(), out status);
+            return Json(new {data = status.ToString()});
         }
     }
 }

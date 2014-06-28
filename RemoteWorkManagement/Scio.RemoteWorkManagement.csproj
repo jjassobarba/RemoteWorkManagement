@@ -277,7 +277,10 @@
     <Content Include="Scripts\angular\angular-touch.min.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
+    <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\Controllers\HomeController.js" />
+    <Content Include="Scripts\app\Controllers\UsersCtrl.js" />
+    <Content Include="Scripts\app\Services\UsersService.js" />
     <Content Include="Scripts\bootstrap\ace-elements.min.js" />
     <Content Include="Scripts\bootstrap\ace-extra.min.js" />
     <Content Include="Scripts\errors.json" />

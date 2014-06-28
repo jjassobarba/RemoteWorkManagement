@@ -1,7 +1,6 @@
 ﻿(function () {
-    var scioApp = angular.module('RemoteManagement', []);
-    scioApp.controller('HomeCtrl', ['$scope', function ($scope) {
+    angular.module('RemoteManagement', []).controller('HomeCtrl', function ($scope) {
         $scope.name = "Jhon";
 
-    }]);
+    });
 })();
