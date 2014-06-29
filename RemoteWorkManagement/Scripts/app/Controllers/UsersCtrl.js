@@ -13,7 +13,7 @@
 
         //POST
         $scope.registerUser = function () {
-            userService.registerUser($scope.email, $scope.password).then(console.log("Ok"));
+            userService.registerUser($scope.email).then(console.log("Ok"));
         };
 
         //DELETE

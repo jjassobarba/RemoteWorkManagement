@@ -34,12 +34,22 @@ namespace RemoteWorkManagement.Controllers
             return Json(new { data = sucess });
         }
 
+        /// <summary>
+        /// Creates the user.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="position">The position.</param>
+        /// <param name="projectLeader">The project leader.</param>
+        /// <returns></returns>
         [HttpPost]
-        public JsonResult CreateUser(string username, string password)
+        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string projectLeader)
         {
             MembershipCreateStatus status;
-            _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true,new Guid(), out status);
-            return Json(new {data = status.ToString()});
+            var password = Membership.GeneratePassword(8, 3);
+            _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true, new Guid(), out status);
+            return Json(new { data = status.ToString() });
         }
     }
 }

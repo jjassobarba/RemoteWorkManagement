@@ -1,5 +1,3 @@
-﻿'use strict';
-
-angular.module('RemoteManagement', []);
-  
-  
+﻿(function() {
+    angular.module('RemoteManagement', []);
+})();

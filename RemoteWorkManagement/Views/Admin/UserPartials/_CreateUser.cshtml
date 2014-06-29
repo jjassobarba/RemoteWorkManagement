@@ -1,6 +1,5 @@
 ﻿<div ng-controller="UsersCtrl">
-    @*@using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { @id = "RegisterUser" }))
-    {*@
+    <form ng-submit="registerUser()">
         <fieldset>
             <div class="col-md-4">
                 <label class="control-label bolder blue">
@@ -27,7 +26,10 @@
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="email" class="form-control input-xlarge" placeholder="Email"
+                               ng-model="email"
                                name="username"
+                               data-bv-live="enabled"
+                               data-bv-trigger="focus blur"
                                required
                                data-bv-emailaddress-message="Invalid email address" />
                         <i class="icon-envelope"></i>
@@ -62,31 +64,31 @@
                             </label>
                             <div class="checkbox">
                                 <label>
-                                    <input name="cbMonday" type="checkbox" class="ace" />
+                                    <input name="cbMonday" type="checkbox" class="ace" value="Monday"/>
                                     <span class="lbl">Monday</span>
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="cbTuesday" type="checkbox" class="ace" />
+                                    <input name="cbTuesday" type="checkbox" class="ace" value="Tuesday"/>
                                     <span class="lbl">Tuesday</span>
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="cbWednesday" type="checkbox" class="ace" />
+                                    <input name="cbWednesday" type="checkbox" class="ace" value="Wednesday"/>
                                     <span class="lbl">Wednesday</span>
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="cbThursday" type="checkbox" class="ace" />
+                                    <input name="cbThursday" type="checkbox" class="ace" value="Thursday"/>
                                     <span class="lbl">Thursday</span>
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="cbFriday" type="checkbox" class="ace" />
+                                    <input name="cbFriday" type="checkbox" class="ace" value="Friday"/>
                                     <span class="lbl">Friday</span>
                                 </label>
                             </div>
@@ -148,6 +150,6 @@
                 <input type="file" id="uploadImageArea" />
             </div>
         </fieldset>
-    @*}*@
+    </form>
 </div>
 

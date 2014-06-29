@@ -21,13 +21,12 @@
             return (request.then(handleSuccess, handleError));
         }
 
-        function registerUser(username, password) {
+        function registerUser(username) {
             var request = $http({
                 method: 'post',
-                url: '/Home/Authorize',
+                url: '/Home/CreateUser',
                 params: {
-                    username: username,
-                    password: password
+                    username: username
                 }
             });
             return (request.then(handleSuccess, handleError));
