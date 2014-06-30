@@ -8,7 +8,6 @@ namespace Scio.RemoteManagementModels.Mappings
         public UserInfoMap()
         {
             Id(x => x.IdUserInfo).GeneratedBy.GuidComb();
-            References(x => x.IdMembership).Column("Id");
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Position);
@@ -16,6 +15,7 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.RemoteDays);
             Map(x => x.FlexTime);
             Map(x => x.Picture);
+            References(x => x.IdMembership).Column("Id").LazyLoad();
         }
     }
 }

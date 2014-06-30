@@ -1,5 +1,6 @@
 ﻿using Castle.Windsor;
 using RemoteWorkManagement.App_Start.Installer;
+using Scio.RemoteManagementModels.Configuration;
 
 namespace RemoteWorkManagement.App_Start
 {
@@ -16,6 +17,7 @@ namespace RemoteWorkManagement.App_Start
 
             container.Install(
                 new PersistenceInstaller(),
+                new RepositoriesInstaller(),
                 new ControllerInstaller());
         }
     }

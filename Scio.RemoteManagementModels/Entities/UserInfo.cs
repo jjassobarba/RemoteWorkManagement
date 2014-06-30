@@ -5,7 +5,7 @@ namespace Scio.RemoteManagementModels.Entities
     public class UserInfo
     {
         public virtual Guid IdUserInfo { get; set; }
-        public virtual int IdMembership { get; set; }
+        public virtual Users IdMembership { get; set; }
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual string Position { get; set; }

@@ -1,7 +1,7 @@
 ﻿using Castle.MicroKernel.Facilities;
 using Castle.MicroKernel.Registration;
 using NHibernate;
-using Scio.RemoteManagementModels;
+using Scio.RemoteManagementModels.Configuration;
 
 namespace RemoteWorkManagement.App_Start.Plumbing
 {
@@ -19,9 +19,7 @@ namespace RemoteWorkManagement.App_Start.Plumbing
             var persistenceConfiguration = persistenceConfigurator.BuildModelPersistenceConfiguration("NhConnecString");
             Kernel.Register(
                 Component.For<ISessionFactory>().UsingFactoryMethod(persistenceConfiguration.BuildSessionFactory),
-                Component.For<ISession>()
-                    .UsingFactoryMethod(k => k.Resolve<ISessionFactory>().OpenSession())
-                    .LifestylePerWebRequest());
+                Component.For<ISession>().UsingFactoryMethod(k => k.Resolve<ISessionFactory>().OpenSession()).LifestylePerWebRequest());
         }
     }
 }

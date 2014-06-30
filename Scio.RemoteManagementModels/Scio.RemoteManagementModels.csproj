@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -53,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\PersistenceConfigurator.cs" />
+    <Compile Include="Configuration\RepositoriesInstaller.cs" />
     <Compile Include="Entities\Profiles.cs" />
     <Compile Include="Entities\Roles.cs" />
     <Compile Include="Entities\UserInfo.cs" />
@@ -62,7 +70,6 @@
     <Compile Include="Mappings\UserInfoMap.cs" />
     <Compile Include="Mappings\UsersMap.cs" />
     <Compile Include="Membership\NHMembershipProvider.cs" />
-    <Compile Include="PersistenceConfigurator.cs" />
     <Compile Include="Profile\NHProfileProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoriesContracts\IUserInfoRepository.cs" />

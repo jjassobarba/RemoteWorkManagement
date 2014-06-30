@@ -4,7 +4,7 @@ namespace Scio.RemoteManagementModels.Entities
 {
     public class Profiles
     {
-        public virtual int Id { get; private set; }
+        public virtual int Id { get; set; }
         public virtual int UsersId { get; set; }
         public virtual string ApplicationName { get; set; }
         public virtual bool IsAnonymous { get; set; }

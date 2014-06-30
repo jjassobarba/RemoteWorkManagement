@@ -1,9 +1,8 @@
 ﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using NHibernate.Cfg;
 using Scio.RemoteManagementModels.Membership;
 
-namespace Scio.RemoteManagementModels
+namespace Scio.RemoteManagementModels.Configuration
 {
     public class PersistenceConfigurator
     {
@@ -12,7 +11,7 @@ namespace Scio.RemoteManagementModels
         /// </summary>
         /// <param name="connectionStringKey">The connection string key.</param>
         /// <returns></returns>
-        public virtual Configuration BuildModelPersistenceConfiguration(string connectionStringKey)
+        public virtual NHibernate.Cfg.Configuration BuildModelPersistenceConfiguration(string connectionStringKey)
         {
             var sqlConfiguration = MsSqlConfiguration
                 .MsSql2012

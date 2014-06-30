@@ -1,20 +1,31 @@
 ﻿using System;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
-using RemoteWorkManagement.Models;
+using Scio.RemoteManagementModels.Entities;
+using Scio.RemoteManagementModels.RepositoriesContracts;
 
 namespace RemoteWorkManagement.Controllers
 {
     public class HomeController : Controller
     {
         private readonly MembershipProvider _membershipProvider;
+        private readonly IUserInfoRepository _userInfoRepository;
 
-        public HomeController(MembershipProvider membershipProvider)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeController" /> class.
+        /// </summary>
+        /// <param name="membershipProvider">The membership provider.</param>
+        /// <param name="userInfoRepository">The user information repository.</param>
+        public HomeController(MembershipProvider membershipProvider, IUserInfoRepository userInfoRepository)
         {
             _membershipProvider = membershipProvider;
+            _userInfoRepository = userInfoRepository;
         }
 
+        /// <summary>
+        /// Indexes this instance.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
@@ -49,6 +60,17 @@ namespace RemoteWorkManagement.Controllers
             MembershipCreateStatus status;
             var password = Membership.GeneratePassword(8, 3);
             _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true, new Guid(), out status);
+            if(status == MembershipCreateStatus.Success)
+            {
+                var userInfoObject = new UserInfo()
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Position = position,
+                    ProjectLeader = projectLeader
+                };
+                _userInfoRepository.InsertUser(userInfoObject);
+            }
             return Json(new { data = status.ToString() });
         }
     }
