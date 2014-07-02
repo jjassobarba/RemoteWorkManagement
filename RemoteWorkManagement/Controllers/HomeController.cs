@@ -60,18 +60,44 @@ namespace RemoteWorkManagement.Controllers
             MembershipCreateStatus status;
             var password = Membership.GeneratePassword(8, 3);
             _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true, new Guid(), out status);
-            if(status == MembershipCreateStatus.Success)
+            if (status == MembershipCreateStatus.Success)
             {
+                var userId = _membershipProvider.GetUser(username, false);
+                var user = new Users();
+                if (userId != null)
+                {
+                    user.Id = Convert.ToInt32(userId.ProviderUserKey.ToString());
+                }
                 var userInfoObject = new UserInfo()
                 {
                     FirstName = firstName,
                     LastName = lastName,
                     Position = position,
-                    ProjectLeader = projectLeader
+                    ProjectLeader = projectLeader,
+                    IdMembership = user
                 };
                 _userInfoRepository.InsertUser(userInfoObject);
             }
             return Json(new { data = status.ToString() });
+        }
+
+        /// <summary>
+        /// Uploads the file.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult UploadFile()
+        {
+            for (var x = 1; x < Request.Files.Count + 1; x++)
+            {
+                var file = Request.Files[x - 1];
+
+                if (file != null && file.ContentLength != 0)
+                {
+                    
+                }
+            }
+            return Json(new { success = true });
         }
     }
 }

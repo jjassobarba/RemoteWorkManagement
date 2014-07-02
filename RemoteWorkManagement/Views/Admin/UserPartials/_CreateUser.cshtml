@@ -1,4 +1,4 @@
-﻿<div ng-controller="UsersCtrl">
+﻿<div ng-controller="UsersCtrl" ng-cloak>
     <form ng-submit="registerUser()">
         <fieldset>
             <div class="col-md-4">
@@ -8,6 +8,7 @@
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="First Name"
+                               ng-model="firstName"
                                name="firstname"
                                required
                                data-bv-notempty-message="First name required" />
@@ -17,6 +18,7 @@
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="Last Name"
+                               ng-model="lastName"
                                name="lastname"
                                required
                                data-bv-notempty-message="Last name required" />
@@ -38,6 +40,7 @@
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="Position"
+                               ng-model="position"
                                name="position" />
                         <i class="icon-edit"></i>
                     </span>
@@ -48,6 +51,7 @@
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="Project Leader Name"
+                               ng-model="projectLeader"
                                name="plName"
                                required
                                data-bv-notempty-message="Project Leader required" />
@@ -62,34 +66,10 @@
                             <label class=" control-label bolder blue">
                                 Days to work in remote
                             </label>
-                            <div class="checkbox">
+                            <div class="checkbox" ng-repeat="day in daysOfTheWeek">
                                 <label>
-                                    <input name="cbMonday" type="checkbox" class="ace" value="Monday"/>
-                                    <span class="lbl">Monday</span>
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="cbTuesday" type="checkbox" class="ace" value="Tuesday"/>
-                                    <span class="lbl">Tuesday</span>
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="cbWednesday" type="checkbox" class="ace" value="Wednesday"/>
-                                    <span class="lbl">Wednesday</span>
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="cbThursday" type="checkbox" class="ace" value="Thursday"/>
-                                    <span class="lbl">Thursday</span>
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="cbFriday" type="checkbox" class="ace" value="Friday"/>
-                                    <span class="lbl">Friday</span>
+                                    <input ng-model="selectedDay" name="cbMonday" type="checkbox" class="ace" ng-change="addDay(selectedDay,$index)" />
+                                    <span class="lbl">{{day}}</span>
                                 </label>
                             </div>
                         </div>
@@ -97,41 +77,18 @@
                     <div class="offset2">
                         <div class="control-group">
                             <label class="control-label bolder blue">Flextime Schedule</label>
-                            <div class="radio">
+                            <div class="radio" ng-repeat="flexTime in flexTimeSchedule">
                                 <label>
-                                    <input name="flextime" type="radio" class="ace" value="flex1" />
-                                    <span class="lbl">08:00 - 17:00</span>
-                                </label>
-                            </div><div class="radio">
-                                <label>
-                                    <input name="flextime" type="radio" class="ace" value="flex2" />
-                                    <span class="lbl">08:30 - 17:30</span>
+                                    <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedFlex" value="{{flexTime}}"/>
+                                    <span class="lbl">{{flexTime}}</span>
                                 </label>
                             </div>
-                            <div class="radio">
-                                <label>
-                                    <input name="flextime" type="radio" class="ace" value="flex3" />
-                                    <span class="lbl">09:00 - 18:00</span>
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input name="flextime" type="radio" class="ace" value="flex4" />
-                                    <span class="lbl">09:30 - 18:30</span>
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input name="flextime" type="radio" class="ace" id="rbOther" value="flexOther" />
-                                    <span class="lbl">Other</span>
-                                </label>
-                                <div id="otherInputText" style="display: none">
-                                    <span class="input-icon input-icon-right input-xlarge">
-                                        <input type="text" class="form-control input-xlarge" placeholder="Please specify"
-                                               name="otherTime" />
-                                        <i class="icon-edit"></i>
-                                    </span>
-                                </div>
+                            <div id="otherInputText" ng-show="selectedFlex == 'Other'">
+                                <span class="input-icon input-icon-right input-xlarge">
+                                    <input type="text" class="form-control input-xlarge" placeholder="Please specify"
+                                           name="otherTime" />
+                                    <i class="icon-edit"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -146,8 +103,8 @@
                 <label class="control-label bolder blue">
                     Upload Picture
                 </label>
-                <input type="file" id="uploadImageButton" />
-                <input type="file" id="uploadImageArea" />
+                <input type="file" id="uploadImageButton" ng-file-select="onFileSelect($files)" />
+                <input type="file" id="uploadImageArea" ng-file-select="onFileSelect($files)" />
             </div>
         </fieldset>
     </form>

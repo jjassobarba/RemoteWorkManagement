@@ -1,3 +1,3 @@
 ﻿(function() {
-    angular.module('RemoteManagement', []);
+    angular.module('RemoteManagement', ['angularFileUpload']);
 })();

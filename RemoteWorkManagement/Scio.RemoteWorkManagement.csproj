@@ -257,6 +257,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\angular\angular-file-upload-html5-shim.js" />
+    <Content Include="Scripts\angular\angular-file-upload-html5-shim.min.js" />
+    <Content Include="Scripts\angular\angular-file-upload-shim.js" />
+    <Content Include="Scripts\angular\angular-file-upload-shim.min.js" />
+    <Content Include="Scripts\angular\angular-file-upload.js" />
+    <Content Include="Scripts\angular\angular-file-upload.min.js" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-animate.min.js" />
     <Content Include="Scripts\angular\angular-cookies.js" />
@@ -304,6 +310,8 @@
     <None Include="Scripts\jquery\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\angular\FileAPI.flash.swf" />
+    <Content Include="Scripts\angular\FileAPI.min.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
     <Content Include="Scripts\i18n\angular-locale_af.js" />
@@ -574,6 +582,10 @@
     <Content Include="Scripts\respond\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond\respond.min.js" />
     <Content Include="Scripts\scripts\main.js" />
+    <Content Include="Scripts\sugar\sugar-es6-patch.js" />
+    <Content Include="Scripts\sugar\sugar-es6-patch.min.js" />
+    <Content Include="Scripts\sugar\sugar.js" />
+    <Content Include="Scripts\sugar\sugar.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

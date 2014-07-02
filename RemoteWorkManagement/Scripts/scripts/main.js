@@ -37,16 +37,6 @@
         //
     });
 
-    $("input[type='radio']").change(function () {
-
-        if ($(this).val() == "flexOther") {
-            $("#otherInputText").show();
-        } else {
-            $("#otherInputText").hide();
-        }
-
-    });
-
     $("#selectColaborator").chosen();
     $("#editColaborator").chosen();
     
