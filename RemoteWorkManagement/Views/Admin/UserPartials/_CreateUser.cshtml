@@ -45,6 +45,13 @@
                         <i class="icon-edit"></i>
                     </span>
                 </label>
+                <label class="block clearfix">
+                    <span>
+                        <select chosen ng-model="selectedRol" class="form-control input-xlarge" id="role-select" data-placeholder="Choose a role" ng-options="rol.value for rol in roles" disable-search="true">
+                            <option></option>
+                        </select>
+                    </span>
+                </label>
                 <label class="control-label bolder blue">
                     Project Leader
                 </label>
@@ -79,7 +86,7 @@
                             <label class="control-label bolder blue">Flextime Schedule</label>
                             <div class="radio" ng-repeat="flexTime in flexTimeSchedule">
                                 <label>
-                                    <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedFlex" value="{{flexTime}}"/>
+                                    <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedFlex" value="{{flexTime}}" />
                                     <span class="lbl">{{flexTime}}</span>
                                 </label>
                             </div>
@@ -103,10 +110,9 @@
                 <label class="control-label bolder blue">
                     Upload Picture
                 </label>
-                <input type="file" id="uploadImageButton" ng-file-select="onFileSelect($files)" />
-                <input type="file" id="uploadImageArea" ng-file-select="onFileSelect($files)" />
+                <input type="file" id="uploadImageButton" ng-file-select="registerUser($files)" />
+                <input type="file" id="uploadImageArea" ng-file-select="registerUser($files)" />
             </div>
         </fieldset>
     </form>
 </div>
-

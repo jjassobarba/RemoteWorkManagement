@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using Scio.RemoteManagementModels.Entities;
@@ -9,6 +10,7 @@ namespace RemoteWorkManagement.Controllers
     public class HomeController : Controller
     {
         private readonly MembershipProvider _membershipProvider;
+        private readonly RoleProvider _roleProvider;
         private readonly IUserInfoRepository _userInfoRepository;
 
         /// <summary>
@@ -16,10 +18,12 @@ namespace RemoteWorkManagement.Controllers
         /// </summary>
         /// <param name="membershipProvider">The membership provider.</param>
         /// <param name="userInfoRepository">The user information repository.</param>
-        public HomeController(MembershipProvider membershipProvider, IUserInfoRepository userInfoRepository)
+        /// <param name="roleProvider">The role provider.</param>
+        public HomeController(MembershipProvider membershipProvider, IUserInfoRepository userInfoRepository, RoleProvider roleProvider)
         {
             _membershipProvider = membershipProvider;
             _userInfoRepository = userInfoRepository;
+            _roleProvider = roleProvider;
         }
 
         /// <summary>
@@ -53,12 +57,15 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="lastName">The last name.</param>
         /// <param name="position">The position.</param>
         /// <param name="projectLeader">The project leader.</param>
+        /// <param name="remoteDays">The remote days.</param>
+        /// <param name="flexTime">The flex time.</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string projectLeader)
+        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string projectLeader, string[] remoteDays, string flexTime)
         {
             MembershipCreateStatus status;
             var password = Membership.GeneratePassword(8, 3);
+            var remoteDaysString = remoteDays.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
             _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true, new Guid(), out status);
             if (status == MembershipCreateStatus.Success)
             {
@@ -74,12 +81,26 @@ namespace RemoteWorkManagement.Controllers
                     LastName = lastName,
                     Position = position,
                     ProjectLeader = projectLeader,
-                    IdMembership = user
+                    IdMembership = user,
+                    RemoteDays = remoteDaysString,
+                    FlexTime = flexTime
                 };
                 _userInfoRepository.InsertUser(userInfoObject);
             }
             return Json(new { data = status.ToString() });
         }
+
+        /// <summary>
+        /// Gets all roles.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetAllRoles()
+        {
+            var roles = _roleProvider.GetAllRoles();
+            return Json(new {roles = roles}, JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// Uploads the file.

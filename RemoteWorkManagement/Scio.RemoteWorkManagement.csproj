@@ -286,9 +286,13 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\Controllers\HomeController.js" />
     <Content Include="Scripts\app\Controllers\UsersCtrl.js" />
+    <Content Include="Scripts\app\Directives\chosen-spinner.css" />
+    <Content Include="Scripts\app\Directives\chosen.js" />
+    <Content Include="Scripts\app\Directives\spinner.gif" />
     <Content Include="Scripts\app\Services\UsersService.js" />
     <Content Include="Scripts\bootstrap\ace-elements.min.js" />
     <Content Include="Scripts\bootstrap\ace-extra.min.js" />
+    <Content Include="Scripts\bootstrap\ace.min.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular\angular-touch.min.js.map" />
     <Content Include="Scripts\angular\angular-sanitize.min.js.map" />
@@ -558,6 +562,7 @@
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\jquery\bootstrap-tag.min.js" />
+    <Content Include="Scripts\jquery\chosen.jquery.js" />
     <Content Include="Scripts\jquery\chosen.jquery.min.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery\jquery-1.9.0.js" />

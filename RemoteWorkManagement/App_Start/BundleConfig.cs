@@ -40,11 +40,12 @@ namespace RemoteWorkManagement
                       "~/Scripts/bootstrap/bootstrap-tag.min.js",
                       "~/Scripts/bootstrap/ace-extra.min.js",
                       "~/Scripts/bootstrap/ace-elements.min.js",
+                      "~/Scripts/bootstrap/ace.min.js",
                       "~/Scripts/respond/respond.js"));            
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

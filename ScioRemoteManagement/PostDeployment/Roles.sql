@@ -11,6 +11,6 @@ Post-Deployment Script Template
 */
 PRINT 'Inserting Roles Catalog'
 
-INSERT INTO Roles SELECT 'Admin','RemoteManagement' WHERE NOT EXISTS (SELECT 1 FROM Roles WHERE Id = 1)
-INSERT INTO Roles SELECT 'TeamLeader','RemoteManagement' WHERE NOT EXISTS (SELECT 2 FROM Roles WHERE Id = 2)
-INSERT INTO Roles SELECT 'TeamMember','RemoteManagement' WHERE NOT EXISTS (SELECT 3 FROM Roles WHERE Id = 3)
+INSERT INTO Roles SELECT 'Admin','RemoteWorkManagement' WHERE NOT EXISTS (SELECT 1 FROM Roles WHERE Id = 1)
+INSERT INTO Roles SELECT 'TeamLeader','RemoteWorkManagement' WHERE NOT EXISTS (SELECT 2 FROM Roles WHERE Id = 2)
+INSERT INTO Roles SELECT 'TeamMember','RemoteWorkManagement' WHERE NOT EXISTS (SELECT 3 FROM Roles WHERE Id = 3)

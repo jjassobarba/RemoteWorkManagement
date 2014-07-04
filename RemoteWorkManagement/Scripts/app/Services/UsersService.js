@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').service('userService', function userService($http, $q) {
+    angular.module('RemoteManagement').service('userService',['$http','$q',function userService($http, $q) {
 
         //Return Public API
         return ({
@@ -21,7 +21,7 @@
             return (request.then(handleSuccess, handleError));
         }
 
-        function registerUser(username, firstName, lastName, position, projectLeader) {
+        function registerUser(username, firstName, lastName, position, projectLeader, remoteDays, flexTime) {
             var request = $http({
                 method: 'post',
                 url: '/Home/CreateUser',
@@ -30,7 +30,9 @@
                     firstName: firstName,
                     lastName: lastName,
                     position: position,
-                    projectLeader: projectLeader
+                    projectLeader: projectLeader,
+                    remoteDays: remoteDays,
+                    flexTime: flexTime
                 }
             });
             return (request.then(handleSuccess, handleError));
@@ -62,5 +64,5 @@
         }
 
         //----------------------------------------
-    });
+    }]);
 })();

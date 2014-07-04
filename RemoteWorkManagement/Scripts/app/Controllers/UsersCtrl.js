@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('UsersCtrl', function ($scope, userService, $upload) {
+    angular.module('RemoteManagement').controller('UsersCtrl', ['$scope', 'userService', '$upload', '$http', function ($scope, userService, $upload, $http) {
         //---------------------Variables Declaration------------------------
         $scope.daysOfTheWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         $scope.flexTimeSchedule = ['08:00 - 17:00', '08:30 - 17:30', '09:00 - 18:00', '09:30 - 18:30', 'Other'];
@@ -10,25 +10,52 @@
         $scope.projectLeader = "";
         $scope.selectedDays = [];
         $scope.selectedFlex = "";
+        $scope.roles = [];
         //--------------------------------
 
         //---------------Public Functions-----------------------------
         //GET
-
+        $scope.getRoles = function() {
+            $http.get('/Home/GetAllRoles').then(function(result) {
+                $scope.roles = [];
+                result.data.roles.each(function(f) {
+                    var rol = {};
+                    rol.value = f;
+                    $scope.roles.push(rol);
+                });
+            });
+        };
+        $scope.getRoles();
         //POST
-        $scope.registerUser = function () {
+        $scope.registerUser = function ($files) {
             userService.registerUser(
                 $scope.email,
                 $scope.firstName,
                 $scope.lastName,
                 $scope.position,
-                $scope.projectLeader).then(console.log("Ok"));
+                $scope.projectLeader,
+                $scope.selectedDays,
+                $scope.selectedFlex).then(
+                    $files.each(function (n) {
+                        if (n.type == "image/png" || n.type == "image/jpg" || n.type == "image/gif" || n.type == "image/jpeg") {
+                            $scope.upload = $upload.upload({
+                                url: '/Home/UploadFile',
+                                method: 'POST',
+                                file: n
+                            }).success(function (data, status, headers, config) {
+
+                            }).error(function (data, status, headers, config) {
+
+                            });
+                        }
+                    })
+                );
         };
         //DELETE
         //------------------------------------------------------------
         //--------------------Methods---------------------------------
         //Adds a the selected day to the array
-        $scope.addDay = function(selectedDay, index) {
+        $scope.addDay = function (selectedDay, index) {
             if (selectedDay) {
                 $scope.selectedDays.push($scope.daysOfTheWeek[index]);
             } else {
@@ -48,14 +75,14 @@
                         method: 'POST',
                         file: n
                     }).success(function (data, status, headers, config) {
-                        
+
                     }).error(function (data, status, headers, config) {
-                        
+
                     });
                 }
             });
         };
         //-------------------------------------------------------------
 
-    });
+    }]);
 })();
