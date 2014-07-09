@@ -1,20 +1,19 @@
 ﻿<div>
-    <fieldset>
-        <div class="row">
-            <div class="col-md-4"></div>
+    <form>
+        <fieldset>
+            @*<div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <label for="editColaborator" class="block clearfix">Select a colaborator</label>
+                        <select id="editColaborator" class="width-30 chosen-select" data-placeholder="Choose a Colaborator...">
+                            <option value="">&nbsp;</option>
+                            <option value="asesina">Helena Mata Morros</option>
+                            <option value="angelito">Angel Jasso</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>*@
             <div class="col-md-4">
-                <label for="editColaborator" class="block clearfix">Select a colaborator</label>
-                <select id="editColaborator" class="width-30 chosen-select" data-placeholder="Choose a Colaborator...">
-                    <option value="">&nbsp;</option>
-                    <option value="asesina">Helena Mata Morros</option>
-                    <option value="angelito">Angel Jasso</option>
-                </select>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <br />
                 <label class="control-label bolder blue">
                     General Information
                 </label>
@@ -52,6 +51,13 @@
                         <i class="icon-edit"></i>
                     </span>
                 </label>
+                <label class="block clearfix">
+                    <span>
+                        <select chosen ng-model="selectedRol" class="form-control input-xlarge" id="editrole-select" data-placeholder="Choose a role" ng-options="rol.value for rol in roles" disable-search="true">
+                            <option></option>
+                        </select>
+                    </span>
+                </label>
                 <label class="control-label bolder blue">
                     Project Leader
                 </label>
@@ -67,6 +73,6 @@
             </div>
             <div class="col-md-4"></div>
             <div class="col-md-4"></div>
-        </div>
-    </fieldset>
+        </fieldset>
+    </form>
 </div>

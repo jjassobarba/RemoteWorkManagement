@@ -50,17 +50,19 @@
                         </a>
                     </li>
                 </ul>
-                <div id="createUser">
-                    @Html.Partial("UserPartials/_CreateUser")
-                </div>
-                <div id="editUser">
-                    @Html.Partial("UserPartials/_EditUser")
-                </div>
-                <div id="reports">
-                    @Html.Partial("UserPartials/_UserReports")
-                </div>
-                <div id="usersList">
-                    @Html.Partial("UserPartials/_UserReports")
+                <div ng-controller="UsersCtrl" ng-cloak>
+                    <div id="createUser">
+                        @Html.Partial("UserPartials/_CreateUser")
+                    </div>
+                    <div id="editUser">
+                        @Html.Partial("UserPartials/_EditUser")
+                    </div>
+                    <div id="reports">
+                        @Html.Partial("UserPartials/_UserReports")
+                    </div>
+                    <div id="usersList">
+                        @Html.Partial("UserPartials/_UserReports")
+                    </div>
                 </div>
             </div>
         </div>

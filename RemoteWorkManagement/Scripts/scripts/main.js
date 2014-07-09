@@ -36,9 +36,6 @@
         //onchange:''
         //
     });
-
-    $("#selectColaborator").chosen();
-    $("#editColaborator").chosen();
     
     $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
         _title: function (title) {

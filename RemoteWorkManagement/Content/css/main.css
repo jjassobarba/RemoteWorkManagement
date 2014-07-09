@@ -5,3 +5,7 @@
 .optionButtonAlign {
     margin-left: 175px;
 }
+
+.chosen-container {
+    width: 270px !important;
+}
