@@ -11,14 +11,15 @@
         $scope.selectedDays = [];
         $scope.selectedFlex = "";
         $scope.roles = [];
+        $scope.users = [];
         //--------------------------------
 
         //---------------Public Functions-----------------------------
         //GET
-        $scope.getRoles = function() {
-            $http.get('/Home/GetAllRoles').then(function(result) {
+        $scope.getRoles = function () {
+            $http.get('/Home/GetAllRoles').then(function (result) {
                 $scope.roles = [];
-                result.data.roles.each(function(f) {
+                result.data.roles.each(function (f) {
                     var rol = {};
                     rol.value = f;
                     $scope.roles.push(rol);
@@ -26,6 +27,20 @@
             });
         };
         $scope.getRoles();
+
+        $scope.getUsers = function () {
+            $http.get('/Home/GetAllUsers').then(function (result) {
+                $scope.users = [];
+                result.data.users.each(function (d) {
+                    var user = {};
+                    user.id = d.Id;
+                    user.name = d.Name;
+                    $scope.users.push(user);
+                });
+            });
+        };
+        $scope.getUsers();
+        
         //POST
         $scope.registerUser = function ($files) {
             userService.registerUser(
@@ -43,13 +58,24 @@
                                 method: 'POST',
                                 file: n
                             }).success(function (data, status, headers, config) {
-
+                                $scope.getUsers();
                             }).error(function (data, status, headers, config) {
 
                             });
                         }
                     })
                 );
+        };
+
+        $scope.getUser = function () {
+            $http.post('/Home/GetUser', {
+                params:
+                    {
+                        userId: $scope.selectedUser
+                    }
+            }).then(function (result) {
+
+            });
         };
         //DELETE
         //------------------------------------------------------------

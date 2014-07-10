@@ -1,18 +1,20 @@
 ﻿<div>
-    <form>
+    <form ng-submit="updateUser()">
         <fieldset>
-            @*<div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <label for="editColaborator" class="block clearfix">Select a colaborator</label>
-                        <select id="editColaborator" class="width-30 chosen-select" data-placeholder="Choose a Colaborator...">
-                            <option value="">&nbsp;</option>
-                            <option value="asesina">Helena Mata Morros</option>
-                            <option value="angelito">Angel Jasso</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4"></div>
-                </div>*@
+            <div class="im-centered">
+                <div class="row">
+                    <label class="block clearfix">
+                        <span>
+                            <select chosen ng-model="selectedUser" class="form-control input-xlarge" id="user-select" 
+                                    data-placeholder="Choose a Colaborator..." 
+                                    ng-options="user.id as user.name for user in users"
+                                    ng-change="getUser()">
+                                <option></option>
+                            </select>
+                        </span>
+                    </label>
+                </div>
+            </div>
             <div class="col-md-4">
                 <label class="control-label bolder blue">
                     General Information
@@ -39,6 +41,7 @@
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="email" class="form-control input-xlarge" placeholder="Email"
                                name="username"
+                               ng-disabled="true"
                                required
                                data-bv-emailaddress-message="Invalid email address" />
                         <i class="icon-envelope"></i>
@@ -71,7 +74,46 @@
                     </span>
                 </label>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="pull-left">
+                        <div class=" control-group ">
+                            <label class=" control-label bolder blue">
+                                Days to work in remote
+                            </label>
+                            <div class="checkbox" ng-repeat="day in daysOfTheWeek">
+                                <label>
+                                    <input ng-model="selectedDay" name="cbMonday" type="checkbox" class="ace" ng-change="addDay(selectedDay,$index)" />
+                                    <span class="lbl">{{day}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offset2">
+                        <div class="control-group">
+                            <label class="control-label bolder blue">Flextime Schedule</label>
+                            <div class="radio" ng-repeat="flexTime in flexTimeSchedule">
+                                <label>
+                                    <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedFlex" value="{{flexTime}}" />
+                                    <span class="lbl">{{flexTime}}</span>
+                                </label>
+                            </div>
+                            <div id="otherInputText" ng-show="selectedFlex == 'Other'">
+                                <span class="input-icon input-icon-right input-xlarge">
+                                    <input type="text" class="form-control input-xlarge" placeholder="Please specify"
+                                           name="otherTime" />
+                                    <i class="icon-edit"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin-top: 20px">
+                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-4"></div>
         </fieldset>
     </form>

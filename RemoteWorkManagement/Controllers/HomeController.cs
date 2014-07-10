@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using RemoteWorkManagement.DTO;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
 
@@ -101,6 +103,26 @@ namespace RemoteWorkManagement.Controllers
             return Json(new {roles = roles}, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Gets all users.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetAllUsers()
+        {
+            var users = _userInfoRepository.GetUsers();
+            var userInfoList = users.Select(userInfo => new UserInfoDTO()
+            {
+                Id = userInfo.IdUserInfo, Name = userInfo.FirstName + " " + userInfo.LastName
+            }).ToList();
+            return Json(new {users = userInfoList}, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetUser(string userId)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Uploads the file.

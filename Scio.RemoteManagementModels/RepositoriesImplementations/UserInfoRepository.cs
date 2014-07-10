@@ -19,9 +19,15 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
             _session = session;
         }
 
+        /// <summary>
+        /// Gets the users.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<UserInfo> GetUsers()
         {
-            throw new NotImplementedException();
+            var query = _session.CreateQuery("from UserInfo users");
+            var users = query.List<UserInfo>();
+            return users;
         }
 
         public UserInfo GetUser(Guid idUser)
