@@ -30,9 +30,15 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
             return users;
         }
 
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <param name="idUser">The identifier user.</param>
+        /// <returns></returns>
         public UserInfo GetUser(Guid idUser)
         {
-            throw new NotImplementedException();
+            var user = _session.Get<UserInfo>(idUser);
+            return user;
         }
 
         /// <summary>

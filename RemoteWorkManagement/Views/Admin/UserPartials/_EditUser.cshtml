@@ -23,6 +23,7 @@
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="First Name"
                                name="firstname"
+                               ng-model="editFirstName"
                                required
                                data-bv-notempty-message="First name required" />
                         <i class="icon-edit"></i>
@@ -32,6 +33,7 @@
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="Last Name"
                                name="lastname"
+                               ng-model="editLastName"
                                required
                                data-bv-notempty-message="Last name required" />
                         <i class="icon-edit"></i>
@@ -41,6 +43,7 @@
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="email" class="form-control input-xlarge" placeholder="Email"
                                name="username"
+                               ng-model="editEmail"
                                ng-disabled="true"
                                required
                                data-bv-emailaddress-message="Invalid email address" />
@@ -50,7 +53,8 @@
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="Position"
-                               name="position" />
+                               name="position" 
+                               ng-model="editPosition"/>
                         <i class="icon-edit"></i>
                     </span>
                 </label>
@@ -68,6 +72,7 @@
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="Project Leader Name"
                                name="plName"
+                               ng-model="editProjectLeader"
                                required
                                data-bv-notempty-message="Project Leader required" />
                         <i class="icon-edit"></i>
@@ -83,7 +88,7 @@
                             </label>
                             <div class="checkbox" ng-repeat="day in daysOfTheWeek">
                                 <label>
-                                    <input ng-model="selectedDay" name="cbMonday" type="checkbox" class="ace" ng-change="addDay(selectedDay,$index)" />
+                                    <input checklist-model="editSelections.days" name="cbOptions" type="checkbox" class="ace" checklist-value="day" />
                                     <span class="lbl">{{day}}</span>
                                 </label>
                             </div>
@@ -101,6 +106,7 @@
                             <div id="otherInputText" ng-show="selectedFlex == 'Other'">
                                 <span class="input-icon input-icon-right input-xlarge">
                                     <input type="text" class="form-control input-xlarge" placeholder="Please specify"
+                                           ng-model="edithOtherFlexTime"
                                            name="otherTime" />
                                     <i class="icon-edit"></i>
                                 </span>

@@ -100,7 +100,7 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult GetAllRoles()
         {
             var roles = _roleProvider.GetAllRoles();
-            return Json(new {roles = roles}, JsonRequestBehavior.AllowGet);
+            return Json(new { roles = roles }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -113,15 +113,22 @@ namespace RemoteWorkManagement.Controllers
             var users = _userInfoRepository.GetUsers();
             var userInfoList = users.Select(userInfo => new UserInfoDTO()
             {
-                Id = userInfo.IdUserInfo, Name = userInfo.FirstName + " " + userInfo.LastName
+                Id = userInfo.IdUserInfo,
+                Name = userInfo.FirstName + " " + userInfo.LastName
             }).ToList();
-            return Json(new {users = userInfoList}, JsonRequestBehavior.AllowGet);
+            return Json(new { users = userInfoList }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         [HttpPost]
-        public JsonResult GetUser(string userId)
+        public JsonResult GetUser(Guid userId)
         {
-            return null;
+            var user = _userInfoRepository.GetUser(userId);
+            return Json(new { userInfo = user });
         }
 
         /// <summary>
@@ -137,7 +144,7 @@ namespace RemoteWorkManagement.Controllers
 
                 if (file != null && file.ContentLength != 0)
                 {
-                    
+
                 }
             }
             return Json(new { success = true });

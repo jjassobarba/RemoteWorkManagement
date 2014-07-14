@@ -12,6 +12,8 @@
         $scope.selectedFlex = "";
         $scope.roles = [];
         $scope.users = [];
+        $scope.editSelections = {};
+
         //--------------------------------
 
         //---------------Public Functions-----------------------------
@@ -40,7 +42,7 @@
             });
         };
         $scope.getUsers();
-        
+
         //POST
         $scope.registerUser = function ($files) {
             userService.registerUser(
@@ -68,14 +70,26 @@
         };
 
         $scope.getUser = function () {
-            $http.post('/Home/GetUser', {
-                params:
-                    {
-                        userId: $scope.selectedUser
+            $http.post('/Home/GetUser',
+                { userId: $scope.selectedUser })
+                .then(function (result) {
+                    var userInfoData = result.data.userInfo;
+                    if (userInfoData.RemoteDays != undefined) {
+                        $scope.editSelections = {};
+                        var remoteDaysArray = userInfoData.RemoteDays.split(",");
+                        remoteDaysArray.remove(function (d) {
+                            return d == "";
+                        });
+                        $scope.editSelections.days = remoteDaysArray;
                     }
-            }).then(function (result) {
-
-            });
+                    $scope.editFirstName = userInfoData.FirstName;
+                    $scope.editLastName = userInfoData.LastName;
+                    $scope.editEmail = userInfoData.IdMembership.Email;
+                    $scope.editPosition = userInfoData.Position;
+                    $scope.editProjectLeader = userInfoData.ProjectLeader;
+                    $scope.selectedFlex = userInfoData.FlexTime;
+                    $scope.editOtherFlexTime = userInfoData.OtherFlexTime;
+                });
         };
         //DELETE
         //------------------------------------------------------------

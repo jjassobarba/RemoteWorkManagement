@@ -13,5 +13,6 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual string RemoteDays { get; set; }
         public virtual string FlexTime { get; set; }
         public virtual byte[] Picture { get; set; }
+        public virtual string OtherFlexTime { get; set; }
     }
 }
