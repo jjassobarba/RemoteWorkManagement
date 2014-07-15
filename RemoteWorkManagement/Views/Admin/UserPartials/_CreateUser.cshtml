@@ -1,5 +1,13 @@
-﻿<div>
-    <form ng-submit="registerUser()">
+﻿<div class="alert alert-info fade in flash" id="successAlert" style="display: none">
+    <button type="button" class="close">
+        <i class="icon-remove"></i>
+    </button>
+    <strong>Heads up!</strong>
+    Everyting has been save :)
+    <br />
+</div>
+<div>
+    <form ng-submit="registerUser()" name="addUserForm">
         <fieldset>
             <div class="col-md-4">
                 <label class="control-label bolder blue">
@@ -47,7 +55,11 @@
                 </label>
                 <label class="block clearfix">
                     <span>
-                        <select chosen ng-model="selectedRol" class="form-control input-xlarge" id="role-select" data-placeholder="Choose a role" ng-options="rol.value for rol in roles" disable-search="true">
+                        <select chosen ng-model="selectedRol" class="form-control input-xlarge"
+                                id="role-select"
+                                data-placeholder="Choose a role"
+                                ng-options="rol.value as rol.name for rol in roles"
+                                disable-search="true">
                             <option></option>
                         </select>
                     </span>

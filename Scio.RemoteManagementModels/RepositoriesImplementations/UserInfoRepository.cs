@@ -57,11 +57,26 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
             return id;
         }
 
+        /// <summary>
+        /// Updates the user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         public bool UpdateUser(UserInfo user)
         {
-            throw new NotImplementedException();
+            using (var transaction = _session.BeginTransaction())
+            {
+                _session.SaveOrUpdate(user);
+                transaction.Commit();
+            }
         }
 
+        /// <summary>
+        /// Deletes the user.
+        /// </summary>
+        /// <param name="idUser">The identifier user.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public bool DeleteUser(Guid idUser)
         {
             throw new NotImplementedException();

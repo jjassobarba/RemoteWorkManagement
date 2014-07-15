@@ -1,12 +1,20 @@
-﻿<div>
-    <form ng-submit="updateUser()">
+﻿<div class="alert alert-info fade in flash" id="successAlert" style="display: none">
+    <button type="button" class="close">
+        <i class="icon-remove"></i>
+    </button>
+    <strong>Yipi Yay yei!</strong>
+    Everyting has been Updated :D
+    <br />
+</div>
+<div>
+    <form ng-submit="updateUser()" name="editUserForm">
         <fieldset>
             <div class="im-centered">
                 <div class="row">
                     <label class="block clearfix">
                         <span>
-                            <select chosen ng-model="selectedUser" class="form-control input-xlarge" id="user-select" 
-                                    data-placeholder="Choose a Colaborator..." 
+                            <select chosen ng-model="selectedUser" class="form-control input-xlarge" id="user-select"
+                                    data-placeholder="Choose a Colaborator..."
                                     ng-options="user.id as user.name for user in users"
                                     ng-change="getUser()">
                                 <option></option>
@@ -53,14 +61,18 @@
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
                         <input type="text" class="form-control input-xlarge" placeholder="Position"
-                               name="position" 
-                               ng-model="editPosition"/>
+                               name="position"
+                               ng-model="editPosition" />
                         <i class="icon-edit"></i>
                     </span>
                 </label>
                 <label class="block clearfix">
                     <span>
-                        <select chosen ng-model="selectedRol" class="form-control input-xlarge" id="editrole-select" data-placeholder="Choose a role" ng-options="rol.value for rol in roles" disable-search="true">
+                        <select chosen ng-model="editRol" class="form-control input-xlarge"
+                                id="editrole-select"
+                                data-placeholder="Choose a role"
+                                ng-options="rol.value as rol.name for rol in roles"
+                                disable-search="true">
                             <option></option>
                         </select>
                     </span>
@@ -99,11 +111,11 @@
                             <label class="control-label bolder blue">Flextime Schedule</label>
                             <div class="radio" ng-repeat="flexTime in flexTimeSchedule">
                                 <label>
-                                    <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedFlex" value="{{flexTime}}" />
+                                    <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedEditFlex" value="{{flexTime}}" />
                                     <span class="lbl">{{flexTime}}</span>
                                 </label>
                             </div>
-                            <div id="otherInputText" ng-show="selectedFlex == 'Other'">
+                            <div id="otherInputText" ng-show="selectedEditFlex == 'Other'">
                                 <span class="input-icon input-icon-right input-xlarge">
                                     <input type="text" class="form-control input-xlarge" placeholder="Please specify"
                                            ng-model="edithOtherFlexTime"

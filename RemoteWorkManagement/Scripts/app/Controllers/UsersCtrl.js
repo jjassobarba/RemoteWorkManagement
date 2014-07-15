@@ -10,9 +10,11 @@
         $scope.projectLeader = "";
         $scope.selectedDays = [];
         $scope.selectedFlex = "";
+        $scope.selectedEditFlex = "";
         $scope.roles = [];
         $scope.users = [];
         $scope.editSelections = {};
+        $scope.editRol = {};
 
         //--------------------------------
 
@@ -24,6 +26,7 @@
                 result.data.roles.each(function (f) {
                     var rol = {};
                     rol.value = f;
+                    rol.name = f;
                     $scope.roles.push(rol);
                 });
             });
@@ -39,6 +42,9 @@
                     user.name = d.Name;
                     $scope.users.push(user);
                 });
+                $scope.users = $scope.users.sortBy(function(n) {
+                    return n.name;
+                });
             });
         };
         $scope.getUsers();
@@ -50,23 +56,32 @@
                 $scope.firstName,
                 $scope.lastName,
                 $scope.position,
+                $scope.selectedRol,
                 $scope.projectLeader,
                 $scope.selectedDays,
-                $scope.selectedFlex).then(
-                    $files.each(function (n) {
-                        if (n.type == "image/png" || n.type == "image/jpg" || n.type == "image/gif" || n.type == "image/jpeg") {
-                            $scope.upload = $upload.upload({
-                                url: '/Home/UploadFile',
-                                method: 'POST',
-                                file: n
-                            }).success(function (data, status, headers, config) {
-                                $scope.getUsers();
-                            }).error(function (data, status, headers, config) {
+                $scope.selectedFlex).then(function (data) {
+                    if ($files != undefined) {
+                        $files.each(function (n) {
+                            if (n.type == "image/png" || n.type == "image/jpg" || n.type == "image/gif" || n.type == "image/jpeg") {
+                                $scope.upload = $upload.upload({
+                                    url: '/Home/UploadFile',
+                                    method: 'POST',
+                                    file: n
+                                }).success(function (data, status, headers, config) {
+                                    $scope.showAlert();
+                                    $scope.resetForm();
+                                    $scope.getUsers();
+                                }).error(function (data, status, headers, config) {
 
-                            });
-                        }
-                    })
-                );
+                                });
+                            }
+                        });
+                    } else {
+                        $scope.showAlert();
+                        $scope.resetForm();
+                        $scope.getUsers();
+                    }
+                });
         };
 
         $scope.getUser = function () {
@@ -82,17 +97,20 @@
                         });
                         $scope.editSelections.days = remoteDaysArray;
                     }
+                    
                     $scope.editFirstName = userInfoData.FirstName;
                     $scope.editLastName = userInfoData.LastName;
                     $scope.editEmail = userInfoData.IdMembership.Email;
+                    $scope.editRol =  userInfoData.Rol.RolName;
                     $scope.editPosition = userInfoData.Position;
                     $scope.editProjectLeader = userInfoData.ProjectLeader;
-                    $scope.selectedFlex = userInfoData.FlexTime;
+                    $scope.selectedEditFlex = userInfoData.FlexTime;
                     $scope.editOtherFlexTime = userInfoData.OtherFlexTime;
                 });
         };
         //DELETE
         //------------------------------------------------------------
+
         //--------------------Methods---------------------------------
         //Adds a the selected day to the array
         $scope.addDay = function (selectedDay, index) {
@@ -121,6 +139,43 @@
                     });
                 }
             });
+        };
+
+        //Show the alert
+        $scope.showAlert = function() {
+            window.setTimeout(function() {
+                $('.flash').fadeTo(0, 500).slideDown(500, function() {
+                    $(this).show();
+                });
+                $scope.hideAlert();
+            }, 1000);
+        };
+        
+        //Hides the alert
+        $scope.hideAlert = function () {
+            window.setTimeout(function () {
+                $('.flash').fadeTo(500, 0).slideUp(500, function () {
+                    $(this).hide();
+                });
+            }, 3000);
+        };
+    
+        //Reset form
+        $scope.resetForm = function() {
+            $scope.firstName = "";
+            $scope.lastName = "";
+            $scope.email = "";
+            $scope.position = "";
+            $scope.projectLeader = "";
+            $scope.selectedDays = [];
+            $scope.selectedFlex = "";
+            $scope.selectedEditFlex = "";
+            $scope.users = [];
+            $scope.editSelections = {};
+            $scope.editRol = {};
+            $scope.selectDay = "";
+            $scope.selectedRol = "";
+            $scope.addUserForm.$setPristine();
         };
         //-------------------------------------------------------------
 

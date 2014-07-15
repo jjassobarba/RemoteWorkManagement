@@ -21,7 +21,7 @@
             return (request.then(handleSuccess, handleError));
         }
 
-        function registerUser(username, firstName, lastName, position, projectLeader, remoteDays, flexTime) {
+        function registerUser(username, firstName, lastName, position, rol, projectLeader, remoteDays, flexTime) {
             var request = $http({
                 method: 'post',
                 url: '/Home/CreateUser',
@@ -30,6 +30,7 @@
                     firstName: firstName,
                     lastName: lastName,
                     position: position,
+                    rol: rol,
                     projectLeader: projectLeader,
                     remoteDays: remoteDays,
                     flexTime: flexTime

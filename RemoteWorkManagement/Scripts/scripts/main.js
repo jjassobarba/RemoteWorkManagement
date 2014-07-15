@@ -36,7 +36,11 @@
         //onchange:''
         //
     });
-    
+
+    $('.alert .close').on('click', function (e) {
+        $(this).parent().hide();
+    });
+
     $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
         _title: function (title) {
             var $title = this.options.title || '&nbsp;';
@@ -72,6 +76,4 @@
             ]
         });
     });
-    
-
 });
