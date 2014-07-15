@@ -64,11 +64,20 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         /// <returns></returns>
         public bool UpdateUser(UserInfo user)
         {
-            using (var transaction = _session.BeginTransaction())
+            try
             {
-                _session.SaveOrUpdate(user);
-                transaction.Commit();
+                using (var transaction = _session.BeginTransaction())
+                {
+                    _session.SaveOrUpdate(user);
+                    transaction.Commit();
+                }
+                return true;
             }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
         }
 
         /// <summary>
