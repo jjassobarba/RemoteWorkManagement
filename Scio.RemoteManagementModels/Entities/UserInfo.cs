@@ -14,5 +14,6 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual string FlexTime { get; set; }
         public virtual byte[] Picture { get; set; }
         public virtual string OtherFlexTime { get; set; }
+        public virtual bool ReceiveNotifications { get; set; }
     }
 }
