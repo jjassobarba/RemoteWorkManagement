@@ -15,6 +15,7 @@
         $scope.users = [];
         $scope.editSelections = {};
         $scope.editRol = {};
+        $scope.usersFullList = [];
 
         //--------------------------------
 
@@ -49,6 +50,14 @@
         };
         $scope.getUsers();
 
+        $scope.getAllUsersInfo = function() {
+            userService.getAllUsersInfo().then(function(result) {
+                $scope.usersFullList = [];
+                $scope.usersFullList = result.usersInfo;
+            });
+        };
+        $scope.getAllUsersInfo();
+
         //POST
         $scope.registerUser = function ($files) {
             userService.registerUser(
@@ -71,6 +80,7 @@
                                     $scope.showAlert();
                                     $scope.resetForm();
                                     $scope.getUsers();
+                                    $scope.getAllUsersInfo();
                                 }).error(function (data, status, headers, config) {
 
                                 });
@@ -80,6 +90,7 @@
                         $scope.showAlert();
                         $scope.resetForm();
                         $scope.getUsers();
+                        $scope.getAllUsersInfo();
                     }
                 });
         };

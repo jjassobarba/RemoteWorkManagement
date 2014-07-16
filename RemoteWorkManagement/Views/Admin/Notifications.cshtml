@@ -2,7 +2,7 @@
     ViewBag.Title = "Notifications";
     Layout = "~/Views/Shared/_InnerLayout.cshtml";
 }
-<div ng-controller="UsersCtrl">
+<div ng-controller="NotificationsCtrl" ng-cloak>
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
             try { ace.settings.check('breadcrumbs', 'fixed'); } catch (e) { }
@@ -26,22 +26,23 @@
             </h1>
         </div>
         <form>
-            <fieldset>
-                <div class="container">
+        <fieldset>
+            <div class="container">
+                <label>
+                    <span>
+                        <select chosen ng-model="selectedUser" class="form-control input-xlarge" id="user-select"
+                                data-placeholder="Choose a Colaborator..."
+                                ng-options="user.id as user.name for user in users"
+                                ng-change="getUser()">
+                            <option></option>
+                        </select>
+                    </span>
+                </label>
+                <div ng-show="showInfo">
                     <div class="row">
-                        <label>
-                            <span>
-                                <select chosen ng-model="selectedUser" class="form-control input-xlarge" id="user-select"
-                                        data-placeholder="Choose a Colaborator..."
-                                        ng-options="user.id as user.name for user in users"
-                                        ng-change="getUser()">
-                                    <option></option>
-                                </select>
-                            </span>
-                        </label>
                         <div class="col-md-4 pull-right">
                             <label>
-                                <input name="sendNotifications" class="ace ace-switch ace-switch-3" type="checkbox" />
+                                <input name="sendNotifications" class="ace ace-switch ace-switch-3" type="checkbox" ng-model="emailNotifications" />
                                 <span class="lbl">Send Email Notifications</span>
                             </label>
                         </div>
@@ -70,8 +71,8 @@
                                 </div>
                                 <div class="col-xs-2 col-sm-9">
                                     <h4 class="blue">
-                                        <span class="middle"> Jhon Doe</span>
-
+                                        <span class="middle">{{fullName}}</span>
+                                        @*Needs to be change dynamic according the selected user status*@
                                         <span class="label label-purple arrowed-in-right">
                                             <i class="icon-circle smaller-80 align-middle"></i>
                                             online
@@ -80,25 +81,25 @@
                                     <div class="profile-info-row">
                                         <div class="profile-info-name">Email</div>
                                         <div class="profile-info-value">
-                                            <span>jhondoe@sciodev.com</span>
+                                            <span>{{email}}</span>
                                         </div>
                                     </div>
                                     <div class="profile-info-row">
                                         <div class="profile-info-name">Position</div>
                                         <div class="profile-info-value">
-                                            <span>Application Developer</span>
+                                            <span>{{position}}</span>
                                         </div>
                                     </div>
                                     <div class="profile-info-row">
                                         <div class="profile-info-name">Flextime</div>
                                         <div class="profile-info-value">
-                                            <span>9:00 - 18:00</span>
+                                            <span>{{flexTime}}</span>
                                         </div>
                                     </div>
                                     <div class="profile-info-row">
                                         <div class="profile-info-name">Remote Work</div>
                                         <div class="profile-info-value">
-                                            <span>Monday, Tuesday, Friday</span>
+                                            <span>{{remoteDays}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -155,6 +156,7 @@
                         <div class="col-md-4"></div>
                     </div>
                 </div>
+            </div>
                 <div id="email-dialog" class="hide">
                     <p>
                         Please type any aditional email address

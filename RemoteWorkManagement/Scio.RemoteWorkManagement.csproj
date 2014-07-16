@@ -287,6 +287,7 @@
     <Content Include="Scripts\angular\checklist-model.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\Controllers\HomeController.js" />
+    <Content Include="Scripts\app\Controllers\NotificationsCtrl.js" />
     <Content Include="Scripts\app\Controllers\UsersCtrl.js" />
     <Content Include="Scripts\app\Directives\chosen-spinner.css" />
     <Content Include="Scripts\app\Directives\chosen.js" />

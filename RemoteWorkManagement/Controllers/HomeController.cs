@@ -140,6 +140,7 @@ namespace RemoteWorkManagement.Controllers
                 Picture = user.Picture,
                 Position = user.Position,
                 ProjectLeader = user.ProjectLeader,
+                ReceiveNotifications = user.ReceiveNotifications,
                 RemoteDays = user.RemoteDays,
                 IdMembership = new
                 {
@@ -152,6 +153,38 @@ namespace RemoteWorkManagement.Controllers
                 }
             };
             return Json(new { userInfo = userMapped });
+        }
+
+        /// <summary>
+        /// Gets all users information.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetAllUsersInfo()
+        {
+            var users = _userInfoRepository.GetUsers();
+            var usersInfoList = users.Select(user => new
+            {
+                IdUserInfo = user.IdUserInfo, 
+                FirstName = user.FirstName, 
+                LastName = user.LastName, 
+                FlexTime = user.FlexTime, 
+                OtherFlexTime = user.OtherFlexTime, 
+                Picture = user.Picture, 
+                Position = user.Position, 
+                ProjectLeader = user.ProjectLeader, 
+                ReceiveNotifications = user.ReceiveNotifications, 
+                RemoteDays = user.RemoteDays, 
+                IdMembership = new
+                {
+                    IdMembership = user.IdMembership.Id, Email = user.IdMembership.Username
+                },
+                Rol = new
+                {
+                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
+                }
+            }).Cast<object>().ToList();
+            return Json(new { usersInfo = usersInfoList }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

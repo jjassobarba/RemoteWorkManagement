@@ -4,7 +4,10 @@
         //Return Public API
         return ({
             loginUser: loginUser,
-            registerUser: registerUser
+            registerUser: registerUser,
+            getUser: getUser,
+            getAllUsers: getAllUsers,
+            getAllUsersInfo: getAllUsersInfo
         });
 
         //------Public Methods------
@@ -39,6 +42,32 @@
             return (request.then(handleSuccess, handleError));
         }
 
+        function getUser(idUser) {
+            var request = $http({
+                method: 'post',
+                url:'/Home/GetUser',
+                params: {
+                    userId: idUser
+                }
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getAllUsers() {
+            var request = $http({
+                method: 'get',
+                url:'/Home/GetAllUsers'
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getAllUsersInfo() {
+            var request = $http({
+                method: 'get',
+                url:'/Home/GetAllUsersInfo'
+            });
+            return (request.then(handleSuccess, handleError));
+        }
         //--------------------------
 
 
