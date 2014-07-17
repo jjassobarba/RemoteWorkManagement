@@ -2,14 +2,14 @@
     <div id="userList" class="tab-pane">
         <div class="profile-users clearfix">
             <div ng-repeat="user in usersFullList">
-                <div class="itemdiv memberdiv">
+                <div class="itemdiv memberdiv" popup>
                     <div class="inline position-relative">
                         <div class="user">
                             <a href="#">
-                                @*TODO:This needs to be change for the profile picture of the user*@
                                 <img src="~/Content/avatar/profile-default.png" alt="Test Image" />
                             </a>
                         </div>
+
                         <div class="body">
                             <div class="name">
                                 <a href="#">
@@ -18,13 +18,13 @@
                                 </a>
                             </div>
                         </div>
+
                         <div class="popover">
                             <div class="arrow"></div>
                             <div class="popover-content">
                                 <div class="bolder">
                                     {{user.Position}}
                                 </div>
-                                @*TODO: Change for the flextime that the user have*@
                                 <div class="time">
                                     <i class="icon-time middle bigger-120 orange"></i>
                                     <span class="green">8:30 - 17:00</span>
