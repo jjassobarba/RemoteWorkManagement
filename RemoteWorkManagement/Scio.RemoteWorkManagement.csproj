@@ -164,6 +164,7 @@
     <Compile Include="App_Start\WindsorContainerConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="DTO\UserInfoDTO.cs" />
     <Compile Include="Global.asax.cs">
@@ -628,6 +629,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Notifications\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
