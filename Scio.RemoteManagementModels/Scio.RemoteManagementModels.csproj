@@ -61,10 +61,12 @@
   <ItemGroup>
     <Compile Include="Configuration\PersistenceConfigurator.cs" />
     <Compile Include="Configuration\RepositoriesInstaller.cs" />
+    <Compile Include="Entities\Notifications.cs" />
     <Compile Include="Entities\Profiles.cs" />
     <Compile Include="Entities\Roles.cs" />
     <Compile Include="Entities\UserInfo.cs" />
     <Compile Include="Entities\Users.cs" />
+    <Compile Include="Mappings\NotificationsMap.cs" />
     <Compile Include="Mappings\ProfilesMap.cs" />
     <Compile Include="Mappings\RolesMap.cs" />
     <Compile Include="Mappings\UserInfoMap.cs" />

@@ -68,11 +68,15 @@
     <Build Include="dbo\Tables\UsersInRoles.sql" />
     <None Include="Scripts\ScriptsIgnoredOnImport.sql" />
     <Build Include="dbo\Tables\UserInfo.sql" />
+    <Build Include="dbo\Tables\Notifications.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scio.RemoteManagementDB.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment\Roles.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Scio.RemoteManagementDB.refactorlog" />
   </ItemGroup>
 </Project>
