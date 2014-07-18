@@ -17,7 +17,8 @@ namespace Scio.RemoteManagementModels.Configuration
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-                Component.For<IUserInfoRepository>().ImplementedBy<UserInfoRepository>().LifestylePerWebRequest());
+                Component.For<IUserInfoRepository>().ImplementedBy<UserInfoRepository>().LifestylePerWebRequest(),
+                Component.For<INotificationsRepository>().ImplementedBy<NotificationsRepository>().LifestylePerWebRequest());
         }
     }
 }

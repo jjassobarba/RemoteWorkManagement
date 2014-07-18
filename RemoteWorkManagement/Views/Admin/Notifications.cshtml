@@ -25,138 +25,140 @@
                 </small>
             </h1>
         </div>
-        <form>
-        <fieldset>
-            <div class="container">
-                <label>
-                    <span>
-                        <select chosen ng-model="selectedUser" class="form-control input-xlarge" id="user-select"
-                                data-placeholder="Choose a Colaborator..."
-                                ng-options="user.id as user.name for user in users"
-                                ng-change="getUser()">
-                            <option></option>
-                        </select>
-                    </span>
-                </label>
-                <div ng-show="showInfo">
-                    <div class="row">
-                        <div class="col-md-4 pull-right">
-                            <label>
-                                <input name="sendNotifications" class="ace ace-switch ace-switch-3" type="checkbox" ng-model="emailNotifications" />
-                                <span class="lbl">Send Email Notifications</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="alert alert-info fade in flash" id="successAlert" style="display: none">
-                        <button type="button" class="close">
-                            <i class="icon-remove"></i>
-                        </button>
-                        <strong>Yipi Yay yei!</strong>
-                        Everyting has been Updated :D
-                        <br />
-                    </div>
-                    <div class="row vertical-spacer">
-                        <div class="col-xs-8">
-                            <div id="userProfile" class="user-profile">
-                                <div class="col-xs-12 col-sm-3 center">
-                                    <span class="profile-picture">
-                                        <img class="editable img-responsive" id="profilePicture" src="~/Content/avatar/profile-default.png" alt="Profile Picture" />
-                                    </span>
-
-                                    <div class="space space-4"></div>
-                                    <a href="#" class="btn btn-sm btn-block btn-primary">
-                                        <i class="icon-envelope-alt bigger-110"></i>
-                                        <span class="bigger-110">Send a message</span>
-                                    </a>
-                                </div>
-                                <div class="col-xs-2 col-sm-9">
-                                    <h4 class="blue">
-                                        <span class="middle">{{fullName}}</span>
-                                        @*Needs to be change dynamic according the selected user status*@
-                                        <span class="label label-purple arrowed-in-right">
-                                            <i class="icon-circle smaller-80 align-middle"></i>
-                                            online
-                                        </span>
-                                    </h4>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name">Email</div>
-                                        <div class="profile-info-value">
-                                            <span>{{email}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name">Position</div>
-                                        <div class="profile-info-value">
-                                            <span>{{position}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name">Flextime</div>
-                                        <div class="profile-info-value">
-                                            <span>{{flexTime}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name">Remote Work</div>
-                                        <div class="profile-info-value">
-                                            <span>{{remoteDays}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class=" control-group ">
-                                <label class=" control-label bolder blue">
-                                    Notify to
+        <form ng-submit="insertNotification()" name="insertNotifForm">
+            <fieldset>
+                <div class="container">
+                    <label>
+                        <span>
+                            <select chosen ng-model="selectedUser" class="form-control input-xlarge" id="user-select"
+                                    data-placeholder="Choose a Colaborator..."
+                                    ng-options="user.id as user.name for user in users"
+                                    ng-change="getUser()">
+                                <option></option>
+                            </select>
+                        </span>
+                    </label>
+                    <div ng-show="showInfo">
+                        <div class="row">
+                            <div class="col-md-4 pull-right">
+                                <label>
+                                    <input name="sendNotifications" class="ace ace-switch ace-switch-3" type="checkbox" ng-model="emailNotifications" />
+                                    <span class="lbl">Send Email Notifications</span>
                                 </label>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="cbProjectLeader" type="checkbox" class="ace" ng-model="selectedValue" />
-                                        <span class="lbl">Project Leader</span>
-                                    </label>
-                                    <label ng-show="selectedValue" class="clearfix">
-                                        <span class="input-icon input-icon-right input-large">
-                                            <input type="email" class="form-control input-large" placeholder="Email"
-                                                   name="plEmail"
-                                                   required
-                                                   data-bv-emailaddress-message="Invalid email address" />
-                                            <i class="icon-envelope"></i>
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="cbTeam" type="checkbox" class="ace" ng-model="selectedTeamValue" />
-                                        <span class="lbl">Team</span>
-                                    </label>
-                                    <label ng-show="selectedTeamValue" class="clearfix">
-                                        <span class="input-icon input-icon-right input-large">
-                                            <input type="email" class="form-control input-large" placeholder="Email"
-                                                   name="tEmail"
-                                                   required
-                                                   data-bv-emailaddress-message="Invalid email address" />
-                                            <i class="icon-envelope"></i>
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="optionButtonAlign">
-                                <button class="btn btn-minier btn-purple" id="addEmailButton">Options</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                            <div>
-                                <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                        <div class="alert alert-info fade in flash" id="successAlert" style="display: none">
+                            <button type="button" class="close">
+                                <i class="icon-remove"></i>
+                            </button>
+                            <strong>Yipi Yay yei!</strong>
+                            Everyting has been Updated :D
+                            <br />
+                        </div>
+                        <div class="row vertical-spacer">
+                            <div class="col-xs-8">
+                                <div id="userProfile" class="user-profile">
+                                    <div class="col-xs-12 col-sm-3 center">
+                                        <span class="profile-picture">
+                                            <img class="editable img-responsive" id="profilePicture" src="~/Content/avatar/profile-default.png" alt="Profile Picture" />
+                                        </span>
+
+                                        <div class="space space-4"></div>
+                                        <a href="#" class="btn btn-sm btn-block btn-primary">
+                                            <i class="icon-envelope-alt bigger-110"></i>
+                                            <span class="bigger-110">Send a message</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-9">
+                                        <h4 class="blue">
+                                            <span class="middle">{{fullName}}</span>
+                                            @*Needs to be change dynamic according the selected user status*@
+                                            <span class="label label-purple arrowed-in-right">
+                                                <i class="icon-circle smaller-80 align-middle"></i>
+                                                online
+                                            </span>
+                                        </h4>
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name">Email</div>
+                                            <div class="profile-info-value">
+                                                <span>{{email}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name">Position</div>
+                                            <div class="profile-info-value">
+                                                <span>{{position}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name">Flextime</div>
+                                            <div class="profile-info-value">
+                                                <span>{{flexTime}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name">Remote Work</div>
+                                            <div class="profile-info-value">
+                                                <span>{{remoteDays}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class=" control-group ">
+                                    <label class=" control-label bolder blue">
+                                        Notify to
+                                    </label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="cbProjectLeader" type="checkbox" class="ace" ng-model="selectedValue" />
+                                            <span class="lbl">Project Leader</span>
+                                        </label>
+                                        <label ng-show="selectedValue" class="clearfix">
+                                            <span class="input-icon input-icon-right input-large">
+                                                <input type="email" class="form-control input-large" placeholder="Email"
+                                                       ng-model="projectLeaderEmail"
+                                                       name="plEmail"
+                                                       required
+                                                       data-bv-emailaddress-message="Invalid email address" />
+                                                <i class="icon-envelope"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="cbTeam" type="checkbox" class="ace" ng-model="selectedTeamValue" />
+                                            <span class="lbl">Team</span>
+                                        </label>
+                                        <label ng-show="selectedTeamValue" class="clearfix">
+                                            <span class="input-icon input-icon-right input-large">
+                                                <input type="email" class="form-control input-large" placeholder="Email"
+                                                       name="tEmail"
+                                                       ng-model="teamEmail"
+                                                       required
+                                                       data-bv-emailaddress-message="Invalid email address" />
+                                                <i class="icon-envelope"></i>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="optionButtonAlign">
+                                    <button class="btn btn-minier btn-purple" id="addEmailButton">Options</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4"></div>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <div>
+                                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
                 <div id="email-dialog" class="hide">
                     <p>
                         Please type any aditional email address
@@ -164,16 +166,13 @@
                     <span class="input-icon input-icon-right input-large">
                         <input type="email" class="form-control input-large" placeholder="Email"
                                name="extraEmail"
-                               required
-                               data-bv-emailaddress-message="Invalid email address" />
                         <i class="icon-envelope"></i>
                     </span>
                     <button type="button" class="btn btn-xs btn-info add-button-top">Add</button>
                     <div class="hr hr-12 hr-double"></div>
                     <p>
-                        Selected email address:
+                        Email address:
                     </p>
-                    <select class="form-control" id="form-field-select" multiple="multiple"></select>
                 </div>
             </fieldset>
         </form>

@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('NotificationsCtrl', ['$scope', 'userService', function ($scope, userService) {
+    angular.module('RemoteManagement').controller('NotificationsCtrl', ['$scope', 'userService', '$http', function ($scope, userService, $http) {
         //---------------------------Variables Declaration---------------------
         $scope.users = [];
         $scope.showInfo = false;
@@ -31,10 +31,39 @@
                 $scope.flexTime = response.userInfo.FlexTime;
                 $scope.remoteDays = response.userInfo.RemoteDays;
                 $scope.emailNotifications = response.userInfo.ReceiveNotifications;
+                $scope.getNotificationForUser();
                 $scope.showInfo = true;
             });
         };
 
+
+        $scope.getNotificationForUser = function () {
+            $http.post('/Notifications/GetNotificationForUser',
+                { userId: $scope.selectedUser }).then(function (response) {
+                    console.log(response.data);
+                });
+        };
         //---------------------------------------------------------------------
+
+        //POST
+        $scope.insertNotification = function () {
+            $http.post('/Notifications/InsertNotification',
+            {
+                userId: $scope.selectedUser,
+                projectLeaderMail: $scope.projectLeaderEmail,
+                teamMail: $scope.teamEmail,
+                otherEmails: ""
+            }).then(function (response) {
+                if (response.data.success)
+                    $scope.resetForm();
+            });
+        };
+        //----------------------------------------------------------------------
+
+        //------------------------------Public Functions------------------------
+        $scope.resetForm = function () {
+
+            $scope.insertNotifForm.$setPristine();
+        };
     }]);
 })();
