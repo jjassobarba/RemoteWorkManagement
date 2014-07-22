@@ -37,10 +37,12 @@
         //
     });
 
+    //Close the alerts if the user clicks in the 'x'
     $('.alert .close').on('click', function (e) {
         $(this).parent().hide();
     });
 
+    //Header in widgets
     $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
         _title: function (title) {
             var $title = this.options.title || '&nbsp;';
@@ -50,6 +52,7 @@
         }
     }));
 
+    //Modal to add emails to notify
     $("#addEmailButton").on('click', function (e) {
         e.preventDefault();
 
@@ -75,5 +78,24 @@
                 }
             ]
         });
+    });
+
+    //Add popup to the profiles in the userList
+    $("#userList .memberdiv").on('mouseenter', function () {
+        var $this = $(this);
+        var $parent = $this.closest('.tab-pane');
+
+        var off1 = $parent.offset();
+        var w1 = $parent.width();
+
+        var off2 = $this.offset();
+        var w2 = $this.width();
+
+        var place = 'left';
+        if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) place = 'right';
+
+        $this.find('.popover').removeClass('right left').addClass(place);
+    }).on('click', function () {
+        return false;
     });
 });

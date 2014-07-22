@@ -1,5 +1,5 @@
 ﻿.vertical-spacer {
-    margin-top: 20px;
+    margin-top: 90px;
 }
 
 .optionButtonAlign {
@@ -12,4 +12,8 @@
 
 .im-centered {
      margin: auto; max-width: 300px;
+}
+
+#email-dialog .add-button-top {
+    margin-top: -28px;
 }

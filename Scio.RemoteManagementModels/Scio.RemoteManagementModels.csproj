@@ -61,10 +61,12 @@
   <ItemGroup>
     <Compile Include="Configuration\PersistenceConfigurator.cs" />
     <Compile Include="Configuration\RepositoriesInstaller.cs" />
+    <Compile Include="Entities\Notifications.cs" />
     <Compile Include="Entities\Profiles.cs" />
     <Compile Include="Entities\Roles.cs" />
     <Compile Include="Entities\UserInfo.cs" />
     <Compile Include="Entities\Users.cs" />
+    <Compile Include="Mappings\NotificationsMap.cs" />
     <Compile Include="Mappings\ProfilesMap.cs" />
     <Compile Include="Mappings\RolesMap.cs" />
     <Compile Include="Mappings\UserInfoMap.cs" />
@@ -72,7 +74,9 @@
     <Compile Include="Membership\NHMembershipProvider.cs" />
     <Compile Include="Profile\NHProfileProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoriesContracts\INotificationsRepository.cs" />
     <Compile Include="RepositoriesContracts\IUserInfoRepository.cs" />
+    <Compile Include="RepositoriesImplementations\NotificationsRepository.cs" />
     <Compile Include="RepositoriesImplementations\UserInfoRepository.cs" />
     <Compile Include="Role\NHRoleProvider.cs" />
     <Compile Include="SessionHelper.cs" />

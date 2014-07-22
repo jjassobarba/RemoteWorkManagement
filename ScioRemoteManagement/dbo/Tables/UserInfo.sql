@@ -10,5 +10,6 @@
     [FlexTime] VARCHAR(50) NULL, 
     [Picture] VARBINARY(MAX) NULL, 
     [OtherFlexTime] VARCHAR(200) NULL, 
+    [ReceiveNotifications] BIT NULL, 
     CONSTRAINT [FK_UserInfo_Users] FOREIGN KEY ([IdMembership]) REFERENCES [Users]([Id])
 )

@@ -5,6 +5,9 @@ namespace Scio.RemoteManagementModels.Mappings
 {
     public class UserInfoMap : ClassMap<UserInfo>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserInfoMap"/> class.
+        /// </summary>
         public UserInfoMap()
         {
             Id(x => x.IdUserInfo).GeneratedBy.GuidComb();
@@ -16,6 +19,7 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.FlexTime);
             Map(x => x.Picture);
             Map(x => x.OtherFlexTime);
+            Map(x => x.ReceiveNotifications);
             References(x => x.IdMembership).Column("IdMembership").LazyLoad();
         }
     }
