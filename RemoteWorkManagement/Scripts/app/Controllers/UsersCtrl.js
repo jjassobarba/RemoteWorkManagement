@@ -122,7 +122,7 @@
                   $scope.resetForm();
                   $scope.getUsers();
               } else {
-                  console.log("paso un error");
+                  console.log("Error");
               }
           });
         };
