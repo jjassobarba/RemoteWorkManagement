@@ -17,6 +17,8 @@
         $scope.editRol = {};
         $scope.usersFullList = [];
 
+        $scope.showInfo = "False";
+
         //--------------------------------
 
         //---------------Public Functions-----------------------------
@@ -96,7 +98,6 @@
         };
 
         //POST .-Update
-
         $scope.updateUser = function () {
           var request = $http({
                     method: 'post',
@@ -150,6 +151,7 @@
                     $scope.editProjectLeader = userInfoData.ProjectLeader;
                     $scope.selectedEditFlex = userInfoData.FlexTime;
                     $scope.editOtherFlexTime = userInfoData.OtherFlexTime;
+                    $scope.showInfo = "True";
                 });
             
         };

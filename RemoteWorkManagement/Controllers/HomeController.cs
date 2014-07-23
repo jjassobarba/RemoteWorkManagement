@@ -95,7 +95,19 @@ namespace RemoteWorkManagement.Controllers
             return Json(new { data = status.ToString() });
         }
 
-
+        /// <summary>
+        /// Updates the user.
+        /// </summary>
+        /// <param name="idUserInfo">The Id of UserInfo Table</param>
+        /// <param name="username">The username.</param>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="position">The position (Team member, leader, etc...)</param>
+        /// <param name="rol">The rol.</param>
+        /// <param name="projectLeader">The project leader.</param>
+        /// <param name="remoteDays">The remote days.</param>
+        /// <param name="flexTime">The flex time.</param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult UpdateUser(string idUserInfo, string username, string firstName, string lastName, string position, string rol,
             string projectLeader, string[] remoteDays, string flexTime)
