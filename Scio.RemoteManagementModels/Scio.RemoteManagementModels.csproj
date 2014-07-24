@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="Configuration\PersistenceConfigurator.cs" />
     <Compile Include="Configuration\RepositoriesInstaller.cs" />
+    <Compile Include="Entities\CheckInOut.cs" />
+    <Compile Include="Entities\Messages.cs" />
     <Compile Include="Entities\Notifications.cs" />
     <Compile Include="Entities\Profiles.cs" />
     <Compile Include="Entities\Roles.cs" />
