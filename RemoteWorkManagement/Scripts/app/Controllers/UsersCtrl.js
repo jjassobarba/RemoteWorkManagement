@@ -13,9 +13,11 @@
         $scope.selectedEditFlex = "";
         $scope.roles = [];
         $scope.users = [];
-        $scope.editSelections = {};
+        $scope.editSelections = [];
         $scope.editRol = {};
         $scope.usersFullList = [];
+
+        $scope.showInfo = "False";
 
         //--------------------------------
 
@@ -95,20 +97,52 @@
                 });
         };
 
+        //POST .-Update
+        $scope.updateUser = function () {
+          var request = $http({
+                    method: 'post',
+                    url: '/Home/UpdateUser',
+                    params: {
+                        idUserInfo: $scope.selectedUser,
+                        username: $scope.editEmail,
+                        firstName: $scope.editFirstName,
+                        lastName: $scope.editLastName,
+                        position: $scope.editPosition,
+                        rol: $scope.editRol,
+                        projectLeader: $scope.editProjectLeader,
+                        remoteDays: $scope.editSelections.days,
+                        flexTime: $scope.selectedEditFlex
+                    }
+          }).then(function (result) {
+              var rpt = result.data.data;
+              
+              console.log(result.data.data);
+              console.log(rpt);
+              if (rpt == "True") {
+                  $scope.showAlert();
+                  $scope.resetForm();
+                  $scope.getUsers();
+              } else {
+                  console.log("Error");
+              }
+          });
+        };
+
+
         $scope.getUser = function () {
             $http.post('/Home/GetUser',
                 { userId: $scope.selectedUser })
                 .then(function (result) {
                     var userInfoData = result.data.userInfo;
                     if (userInfoData.RemoteDays != undefined) {
-                        $scope.editSelections = {};
+                        $scope.editSelections = [];
                         var remoteDaysArray = userInfoData.RemoteDays.split(",");
                         remoteDaysArray.remove(function (d) {
                             return d == "";
                         });
                         $scope.editSelections.days = remoteDaysArray;
                     }
-                    
+                   
                     $scope.editFirstName = userInfoData.FirstName;
                     $scope.editLastName = userInfoData.LastName;
                     $scope.editEmail = userInfoData.IdMembership.Email;
@@ -117,7 +151,9 @@
                     $scope.editProjectLeader = userInfoData.ProjectLeader;
                     $scope.selectedEditFlex = userInfoData.FlexTime;
                     $scope.editOtherFlexTime = userInfoData.OtherFlexTime;
+                    $scope.showInfo = "True";
                 });
+            
         };
         //DELETE
         //------------------------------------------------------------
@@ -170,7 +206,8 @@
                 });
             }, 3000);
         };
-    
+        
+        
         //Reset form
         $scope.resetForm = function() {
             $scope.firstName = "";

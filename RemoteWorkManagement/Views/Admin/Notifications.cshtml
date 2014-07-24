@@ -15,7 +15,7 @@
             <li class="active">Notifications</li>
         </ul>
     </div>
-    <div class="page-content">
+    <div class="page-content" ng-controller="UsersCtrl" ng-cloak>
         <div class="page-header">
             <h1>
                 Notifications
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="col-xs-2 col-sm-9">
                                         <h4 class="blue">
-                                            <span class="middle">{{fullName}}</span>
+                                            <span class="middle">{{editFirstName}}</span>
                                             @*Needs to be change dynamic according the selected user status*@
                                             <span class="label label-purple arrowed-in-right">
                                                 <i class="icon-circle smaller-80 align-middle"></i>
@@ -81,25 +81,25 @@
                                         <div class="profile-info-row">
                                             <div class="profile-info-name">Email</div>
                                             <div class="profile-info-value">
-                                                <span>{{email}}</span>
+                                                <span>{{editEmail}}</span>
                                             </div>
                                         </div>
                                         <div class="profile-info-row">
                                             <div class="profile-info-name">Position</div>
                                             <div class="profile-info-value">
-                                                <span>{{position}}</span>
+                                                <span>{{editPosition}}</span>
                                             </div>
                                         </div>
                                         <div class="profile-info-row">
                                             <div class="profile-info-name">Flextime</div>
                                             <div class="profile-info-value">
-                                                <span>{{flexTime}}</span>
+                                                <span>{{selectedEditFlex}}</span>
                                             </div>
                                         </div>
                                         <div class="profile-info-row">
                                             <div class="profile-info-name">Remote Work</div>
                                             <div class="profile-info-value">
-                                                <span>{{remoteDays}}</span>
+                                                <span ng-repeat="day in editSelections.days">{{day}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@
                     </p>
                     <span class="input-icon input-icon-right input-large">
                         <input type="email" class="form-control input-large" placeholder="Email"
-                               name="extraEmail"
+                               name="extraEmail">
                         <i class="icon-envelope"></i>
                     </span>
                     <button type="button" class="btn btn-xs btn-info add-button-top">Add</button>

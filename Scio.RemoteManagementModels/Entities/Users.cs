@@ -46,6 +46,7 @@ namespace Scio.RemoteManagementModels.Entities
             this.FailedPasswordAttemptWindowStart = Utils.Utils.MinDate();
             this.LastLoginDate = Utils.Utils.MinDate();
         }
+
         public virtual void AddRole(Roles role)
         {
             role.UsersInRole.Add(this);

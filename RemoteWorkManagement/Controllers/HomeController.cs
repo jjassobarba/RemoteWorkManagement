@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using NHibernate.Engine;
 using RemoteWorkManagement.DTO;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
@@ -90,6 +91,57 @@ namespace RemoteWorkManagement.Controllers
                     FlexTime = flexTime
                 };
                 _userInfoRepository.InsertUser(userInfoObject);
+            }
+            return Json(new { data = status.ToString() });
+        }
+
+        /// <summary>
+        /// Updates the user.
+        /// </summary>
+        /// <param name="idUserInfo">The Id of UserInfo Table</param>
+        /// <param name="username">The username.</param>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="position">The position (Team member, leader, etc...)</param>
+        /// <param name="rol">The rol.</param>
+        /// <param name="projectLeader">The project leader.</param>
+        /// <param name="remoteDays">The remote days.</param>
+        /// <param name="flexTime">The flex time.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult UpdateUser(string idUserInfo, string username, string firstName, string lastName, string position, string rol,
+            string projectLeader, string[] remoteDays, string flexTime)
+        {
+            bool status;
+            var remoteDaysString = remoteDays.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
+            var userId = _membershipProvider.GetUser(username, false);
+            var user = new Users();
+            if (userId != null)
+            {
+                user.Id = Convert.ToInt32(userId.ProviderUserKey.ToString());
+            }
+            Guid gIdUserInfo = new Guid(idUserInfo);
+
+
+            var userInfoObject = new UserInfo()
+            {
+                IdUserInfo = gIdUserInfo,
+                IdMembership = user,
+                FirstName = firstName,
+                LastName = lastName,
+                Position = position,
+                ProjectLeader = projectLeader,
+                RemoteDays = remoteDaysString,
+                FlexTime = flexTime
+            };
+
+            status = _userInfoRepository.UpdateUser(userInfoObject);
+            var userRole = _roleProvider.GetRolesForUser(username);
+            var actualRole = userRole.FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(actualRole))
+            {
+                _roleProvider.RemoveUsersFromRoles(new[] { username }, new[] { actualRole });
+                _roleProvider.AddUsersToRoles(new[] { username }, new[] { rol });
             }
             return Json(new { data = status.ToString() });
         }
