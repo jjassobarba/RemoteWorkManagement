@@ -45,15 +45,15 @@
                     user.name = d.Name;
                     $scope.users.push(user);
                 });
-                $scope.users = $scope.users.sortBy(function(n) {
+                $scope.users = $scope.users.sortBy(function (n) {
                     return n.name;
                 });
             });
         };
         $scope.getUsers();
 
-        $scope.getAllUsersInfo = function() {
-            userService.getAllUsersInfo().then(function(result) {
+        $scope.getAllUsersInfo = function () {
+            userService.getAllUsersInfo().then(function (result) {
                 $scope.usersFullList = [];
                 $scope.usersFullList = result.usersInfo;
             });
@@ -79,7 +79,7 @@
                                     method: 'POST',
                                     file: n
                                 }).success(function (data, status, headers, config) {
-                                    $scope.showAlert();
+                                    $scope.showAlert("notification-shape");
                                     $scope.resetForm();
                                     $scope.getUsers();
                                     $scope.getAllUsersInfo();
@@ -89,7 +89,7 @@
                             }
                         });
                     } else {
-                        $scope.showAlert();
+                        $scope.showAlert("notification-shape");
                         $scope.resetForm();
                         $scope.getUsers();
                         $scope.getAllUsersInfo();
@@ -99,33 +99,33 @@
 
         //POST .-Update
         $scope.updateUser = function () {
-          var request = $http({
-                    method: 'post',
-                    url: '/Home/UpdateUser',
-                    params: {
-                        idUserInfo: $scope.selectedUser,
-                        username: $scope.editEmail,
-                        firstName: $scope.editFirstName,
-                        lastName: $scope.editLastName,
-                        position: $scope.editPosition,
-                        rol: $scope.editRol,
-                        projectLeader: $scope.editProjectLeader,
-                        remoteDays: $scope.editSelections.days,
-                        flexTime: $scope.selectedEditFlex
-                    }
-          }).then(function (result) {
-              var rpt = result.data.data;
-              
-              console.log(result.data.data);
-              console.log(rpt);
-              if (rpt == "True") {
-                  $scope.showAlert();
-                  $scope.resetForm();
-                  $scope.getUsers();
-              } else {
-                  console.log("Error");
-              }
-          });
+            var request = $http({
+                method: 'post',
+                url: '/Home/UpdateUser',
+                params: {
+                    idUserInfo: $scope.selectedUser,
+                    username: $scope.editEmail,
+                    firstName: $scope.editFirstName,
+                    lastName: $scope.editLastName,
+                    position: $scope.editPosition,
+                    rol: $scope.editRol,
+                    projectLeader: $scope.editProjectLeader,
+                    remoteDays: $scope.editSelections.days,
+                    flexTime: $scope.selectedEditFlex
+                }
+            }).then(function (result) {
+                var rpt = result.data.data;
+
+                console.log(result.data.data);
+                console.log(rpt);
+                if (rpt == "True") {
+                    $scope.showAlert("update-notification");
+                    $scope.resetForm();
+                    $scope.getUsers();
+                } else {
+                    console.log("Error");
+                }
+            });
         };
 
 
@@ -142,18 +142,18 @@
                         });
                         $scope.editSelections.days = remoteDaysArray;
                     }
-                   
+
                     $scope.editFirstName = userInfoData.FirstName;
                     $scope.editLastName = userInfoData.LastName;
                     $scope.editEmail = userInfoData.IdMembership.Email;
-                    $scope.editRol =  userInfoData.Rol.RolName;
+                    $scope.editRol = userInfoData.Rol.RolName;
                     $scope.editPosition = userInfoData.Position;
                     $scope.editProjectLeader = userInfoData.ProjectLeader;
                     $scope.selectedEditFlex = userInfoData.FlexTime;
                     $scope.editOtherFlexTime = userInfoData.OtherFlexTime;
                     $scope.showInfo = "True";
                 });
-            
+
         };
         //DELETE
         //------------------------------------------------------------
@@ -189,15 +189,46 @@
         };
 
         //Show the alert
-        $scope.showAlert = function() {
-            window.setTimeout(function() {
-                $('.flash').fadeTo(0, 500).slideDown(500, function() {
-                    $(this).show();
+        $scope.showAlert = function (elementId) {
+            var svgshape = document.getElementById(elementId),
+                s = Snap(svgshape.querySelector('svg')),
+                path = s.select('path'),
+                pathConfig = {
+                    from: path.attr('d'),
+                    to: svgshape.getAttribute('data-path-to')
+                };
+
+            window.setTimeout(function () {
+
+                path.animate({ 'path': pathConfig.to }, 300, mina.easeinout);
+
+                // create the notification
+                var notification = new NotificationFx({
+                    wrapper: svgshape,
+                    message: '<p><span class="icon icon-bulb"></span>Hey! Everything has been saved :D </p>',
+                    layout: 'other',
+                    effect: 'cornerexpand',
+                    type: 'notice', // notice, warning or error
+                    onClose: function () {
+                        setTimeout(function () {
+                            path.animate({ 'path': pathConfig.from }, 300, mina.easeinout);
+                        }, 200);
+                    }
                 });
-                $scope.hideAlert();
-            }, 1000);
+
+                // show the notification
+                notification.show();
+
+            }, 500);
+
+            //window.setTimeout(function() {
+            //    $('.flash').fadeTo(0, 500).slideDown(500, function() {
+            //        $(this).show();
+            //    });
+            //    $scope.hideAlert();
+            //}, 1000);
         };
-        
+
         //Hides the alert
         $scope.hideAlert = function () {
             window.setTimeout(function () {
@@ -206,10 +237,10 @@
                 });
             }, 3000);
         };
-        
-        
+
+
         //Reset form
-        $scope.resetForm = function() {
+        $scope.resetForm = function () {
             $scope.firstName = "";
             $scope.lastName = "";
             $scope.email = "";

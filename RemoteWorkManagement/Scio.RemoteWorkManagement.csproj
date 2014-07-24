@@ -255,6 +255,14 @@
     <Content Include="Content\images\sort_both.png" />
     <Content Include="Content\images\sort_desc.png" />
     <Content Include="Content\images\sort_desc_disabled.png" />
+    <Content Include="Content\notificationscss\component.css" />
+    <Content Include="Content\notificationscss\demo.css" />
+    <Content Include="Content\notificationscss\normalize.css" />
+    <Content Include="Content\notificationscss\ns-default.css" />
+    <Content Include="Content\notificationscss\ns-style-attached.css" />
+    <Content Include="Content\notificationscss\ns-style-bar.css" />
+    <Content Include="Content\notificationscss\ns-style-growl.css" />
+    <Content Include="Content\notificationscss\ns-style-other.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -589,6 +597,11 @@
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery\select2.min.js" />
     <Content Include="Scripts\jquery\typeahead-bs2.min.js" />
+    <Content Include="Scripts\notifications\classie.js" />
+    <Content Include="Scripts\notifications\modernizr.custom.js" />
+    <Content Include="Scripts\notifications\notificationFx.js" />
+    <Content Include="Scripts\notifications\progressButton.js" />
+    <Content Include="Scripts\notifications\snap.svg-min.js" />
     <Content Include="Scripts\respond\respond.js" />
     <Content Include="Scripts\respond\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond\respond.matchmedia.addListener.min.js" />
