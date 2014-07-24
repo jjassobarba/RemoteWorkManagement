@@ -205,7 +205,7 @@
                 // create the notification
                 var notification = new NotificationFx({
                     wrapper: svgshape,
-                    message: '<p><span class="icon icon-bulb"></span>Hey! Everything has been saved :D </p>',
+                    message: '<p><span class="icon icon-exclamation-sign big"></span>Hey! Everything has been saved :D </p>',
                     layout: 'other',
                     effect: 'cornerexpand',
                     type: 'notice', // notice, warning or error
@@ -220,24 +220,7 @@
                 notification.show();
 
             }, 500);
-
-            //window.setTimeout(function() {
-            //    $('.flash').fadeTo(0, 500).slideDown(500, function() {
-            //        $(this).show();
-            //    });
-            //    $scope.hideAlert();
-            //}, 1000);
         };
-
-        //Hides the alert
-        $scope.hideAlert = function () {
-            window.setTimeout(function () {
-                $('.flash').fadeTo(500, 0).slideUp(500, function () {
-                    $(this).hide();
-                });
-            }, 3000);
-        };
-
 
         //Reset form
         $scope.resetForm = function () {
