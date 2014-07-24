@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using NHibernate.Mapping;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
 
@@ -29,8 +32,14 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult GetNotificationForUser(Guid userId)
         {
-            var notifications = _notificationsRepository.GetNotificationsForUser(userId);
-            return Json(new {notifications = notifications});
+            var notifications = _notificationsRepository.GetNotificationsForUser(userId).ToList();
+            var notifList = notifications.Select(notification => new
+            {
+                ProjectLeader = notification.ProjectLeaderMail, 
+                TeamLeader = notification.TeamMail, 
+                Others = notification.OtherMails
+            }).Cast<object>().ToList();
+            return Json(new {notifications = notifList});
         }
 
         /// <summary>

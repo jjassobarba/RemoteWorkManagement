@@ -115,9 +115,6 @@
                 }
             }).then(function (result) {
                 var rpt = result.data.data;
-
-                console.log(result.data.data);
-                console.log(rpt);
                 if (rpt == "True") {
                     $scope.showAlert("update-notification");
                     $scope.resetForm();
@@ -142,7 +139,6 @@
                         });
                         $scope.editSelections.days = remoteDaysArray;
                     }
-
                     $scope.editFirstName = userInfoData.FirstName;
                     $scope.editLastName = userInfoData.LastName;
                     $scope.editEmail = userInfoData.IdMembership.Email;
@@ -205,7 +201,7 @@
                 // create the notification
                 var notification = new NotificationFx({
                     wrapper: svgshape,
-                    message: '<p><span class="icon icon-exclamation-sign big"></span>Hey! Everything has been saved :D </p>',
+                    message: '<p><span class="icon icon-exclamation-sign big"></span>The changes has been saved</p>',
                     layout: 'other',
                     effect: 'cornerexpand',
                     type: 'notice', // notice, warning or error

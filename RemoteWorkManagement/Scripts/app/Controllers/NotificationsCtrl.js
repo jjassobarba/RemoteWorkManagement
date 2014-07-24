@@ -3,6 +3,7 @@
         //---------------------------Variables Declaration---------------------
         $scope.users = [];
         $scope.showInfo = false;
+        $scope.remoteDaysArray = [];
 
         //---------------------------------------------------------------------
 
@@ -30,6 +31,14 @@
                 $scope.position = response.userInfo.Position;
                 $scope.flexTime = response.userInfo.FlexTime;
                 $scope.remoteDays = response.userInfo.RemoteDays;
+                if ($scope.remoteDays != undefined) {
+                    $scope.editSelections = [];
+                    var remoteDaysArray = $scope.remoteDays.split(",");
+                    remoteDaysArray.remove(function (d) {
+                        return d == "";
+                    });
+                    $scope.remoteDaysArray = remoteDaysArray;
+                }
                 $scope.emailNotifications = response.userInfo.ReceiveNotifications;
                 $scope.getNotificationForUser();
                 $scope.showInfo = true;
@@ -40,7 +49,17 @@
         $scope.getNotificationForUser = function () {
             $http.post('/Notifications/GetNotificationForUser',
                 { userId: $scope.selectedUser }).then(function (response) {
-                    console.log(response.data);
+                    $scope.projectLeaderEmail = "";
+                    $scope.teamEmail = "";
+                    $scope.selectedValue = false;
+                    $scope.selectedTeamValue = false;
+                    if (response.data.notifications.length > 0) {
+                        var userNotification = response.data.notifications[0];
+                        $scope.projectLeaderEmail = userNotification.ProjectLeader;
+                        $scope.teamEmail = userNotification.TeamLeader;
+                        $scope.selectedValue = true;
+                        $scope.selectedTeamValue = true;
+                    }
                 });
         };
         //---------------------------------------------------------------------
@@ -55,14 +74,47 @@
                 otherEmails: ""
             }).then(function (response) {
                 if (response.data.success)
+                    $scope.showAlert("notification-shape");
                     $scope.resetForm();
             });
         };
         //----------------------------------------------------------------------
 
         //------------------------------Public Functions------------------------
-        $scope.resetForm = function () {
+        $scope.showAlert = function (elementId) {
+            var svgshape = document.getElementById(elementId),
+                s = Snap(svgshape.querySelector('svg')),
+                path = s.select('path'),
+                pathConfig = {
+                    from: path.attr('d'),
+                    to: svgshape.getAttribute('data-path-to')
+                };
 
+            window.setTimeout(function () {
+
+                path.animate({ 'path': pathConfig.to }, 300, mina.easeinout);
+
+                // create the notification
+                var notification = new NotificationFx({
+                    wrapper: svgshape,
+                    message: '<p><span class="icon icon-exclamation-sign big"></span>The changes has been saved</p>',
+                    layout: 'other',
+                    effect: 'cornerexpand',
+                    type: 'notice', // notice, warning or error
+                    onClose: function () {
+                        setTimeout(function () {
+                            path.animate({ 'path': pathConfig.from }, 300, mina.easeinout);
+                        }, 200);
+                    }
+                });
+
+                // show the notification
+                notification.show();
+
+            }, 500);
+        };
+
+        $scope.resetForm = function () {
             $scope.insertNotifForm.$setPristine();
         };
     }]);

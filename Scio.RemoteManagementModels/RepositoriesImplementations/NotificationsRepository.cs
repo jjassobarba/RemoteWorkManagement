@@ -31,7 +31,7 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         /// <returns></returns>
         public IEnumerable<Notifications> GetNotificationsForUser(Guid userInfoId)
         {
-            var notificationsQuery = (_session.Query<Notifications>().Where(notification => userInfoId.Equals(userInfoId))).ToList();
+            var notificationsQuery = (_session.Query<Notifications>().Where(notification => notification.IdUserInfo.IdUserInfo.Equals(userInfoId))).ToList();
             return notificationsQuery;
         }
 
