@@ -14,7 +14,7 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.OtherMails);
             Map(x => x.ProjectLeaderMail);
             Map(x => x.TeamMail);
-            References(x => x.IdUserInfo).Column("IdUserInfo").LazyLoad();
+            References(x => x.IdUserInfo).Column("IdUserInfo").Cascade.All().LazyLoad();
         }
     }
 }
