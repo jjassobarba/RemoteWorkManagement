@@ -4,5 +4,6 @@
     [IdUserInfo] UNIQUEIDENTIFIER NOT NULL, 
     [IdTo] UNIQUEIDENTIFIER NOT NULL, 
     [Message] VARCHAR(500) NOT NULL, 
+    [IsRead] BIT NULL DEFAULT 0, 
     CONSTRAINT [FK_Messages_UserInfo] FOREIGN KEY ([IdUserInfo]) REFERENCES [UserInfo]([IdUserInfo])
 )

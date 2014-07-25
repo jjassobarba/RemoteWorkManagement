@@ -326,6 +326,7 @@
     <Content Include="Content\bootstrap\font\FontAwesome.otf" />
     <Content Include="Content\bootstrap\font\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
     <Content Include="Content\bootstrap\font\DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff" />
+    <None Include="Properties\PublishProfiles\ProductionProfile.pubxml" />
     <None Include="Scripts\jquery\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -607,12 +608,10 @@
     <Content Include="Scripts\respond\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond\respond.min.js" />
     <Content Include="Scripts\scripts\main.js" />
-    <Content Include="Scripts\scripts\toastr.min.js" />
     <Content Include="Scripts\sugar\sugar-es6-patch.js" />
     <Content Include="Scripts\sugar\sugar-es6-patch.min.js" />
     <Content Include="Scripts\sugar\sugar.js" />
     <Content Include="Scripts\sugar\sugar.min.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

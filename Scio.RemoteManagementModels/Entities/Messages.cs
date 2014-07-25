@@ -8,5 +8,6 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual UserInfo IdUserInfo { get; set; }
         public virtual Guid IdTo { get; set; }
         public virtual string Message { get; set; }
+        public virtual bool IsRead { get; set; }
     }
 }

@@ -68,6 +68,8 @@
     <Compile Include="Entities\Roles.cs" />
     <Compile Include="Entities\UserInfo.cs" />
     <Compile Include="Entities\Users.cs" />
+    <Compile Include="Mappings\CheckinoutMap.cs" />
+    <Compile Include="Mappings\MessagesMap.cs" />
     <Compile Include="Mappings\NotificationsMap.cs" />
     <Compile Include="Mappings\ProfilesMap.cs" />
     <Compile Include="Mappings\RolesMap.cs" />

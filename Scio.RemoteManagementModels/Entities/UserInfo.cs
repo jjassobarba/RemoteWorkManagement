@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Scio.RemoteManagementModels.Entities
 {
@@ -15,5 +16,8 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual byte[] Picture { get; set; }
         public virtual string OtherFlexTime { get; set; }
         public virtual bool ReceiveNotifications { get; set; }
+        public virtual IList<Notifications> Notifications { get; set; }
+        public virtual IList<Messages> Messages { get; set; }
+        public virtual IList<CheckInOut> CheckInOut { get; set; }
     }
 }
