@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="90ea3004-9869-455e-877d-49bde02c9bbd" ChangeDateTime="07/17/2014 15:35:23">
+    <Property Name="ElementName" Value="[dbo].[Notifications].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Notifications]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdNotification" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="75656c26-6b39-41a8-a5b7-56a936735b6f" ChangeDateTime="07/24/2014 21:38:18">
+    <Property Name="ElementName" Value="[dbo].[CheckInOut].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CheckInOut]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdCheck" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="687f486c-c676-47f3-b55c-84aec8ce3ce5" ChangeDateTime="07/24/2014 21:39:06">
+    <Property Name="ElementName" Value="[dbo].[CheckInOut].[ChecInDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CheckInOut]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CheckInDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="27396183-bec1-468f-94ce-70b5693bb18e" ChangeDateTime="07/24/2014 22:21:51">
+    <Property Name="ElementName" Value="[dbo].[Messages].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Messages]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdMessage" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="12e3d1f2-6178-4740-930a-6bda24e7746a" ChangeDateTime="07/24/2014 22:22:41">
+    <Property Name="ElementName" Value="[dbo].[Messages].[Messager]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Messages]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Message" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1bb9d7a0-8331-4e3d-afa8-b24e2b09bbf1" ChangeDateTime="07/24/2014 22:23:55">
+    <Property Name="ElementName" Value="[dbo].[Messages].[IdFrom]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Messages]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdUserInfo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0992e754-e3a9-41ff-bcf6-a682f2db7321" ChangeDateTime="07/24/2014 22:24:11">
+    <Property Name="ElementName" Value="[dbo].[Messages].[IdTo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Messages]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserNameTo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6e42aba4-1b1e-4e73-b813-459f3702581a" ChangeDateTime="07/24/2014 22:24:17">
+    <Property Name="ElementName" Value="[dbo].[Messages].[UserNameTo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Messages]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UsernameTo" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="612f84bb-4965-421e-bb42-2ed7b63abacf" ChangeDateTime="07/24/2014 22:24:50">
+    <Property Name="ElementName" Value="[dbo].[Messages].[UsernameTo]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Messages]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IdTo" />
+  </Operation>
+</Operations>
