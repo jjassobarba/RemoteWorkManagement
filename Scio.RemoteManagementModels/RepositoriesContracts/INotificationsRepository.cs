@@ -9,7 +9,7 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         /// <summary>
         /// Gets the notifications for user.
         /// </summary>
-        /// <param name="user">The user.</param>
+        /// <param name="userInfoId">The user information identifier.</param>
         /// <returns></returns>
         IEnumerable<Notifications> GetNotificationsForUser(Guid userInfoId);
 

@@ -17,7 +17,8 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual string OtherFlexTime { get; set; }
         public virtual bool ReceiveNotifications { get; set; }
         public virtual IList<Notifications> Notifications { get; set; }
-        public virtual IList<Messages> Messages { get; set; }
+        public virtual IList<Inbox> Inbox { get; set; }
+        public virtual IList<Outbox> Outbox { get; set; }
         public virtual IList<CheckInOut> CheckInOut { get; set; }
     }
 }

@@ -11,7 +11,10 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.IdTo);
             Map(x => x.Message);
             Map(x => x.IsRead);
-            References(x => x.IdUserInfo).Column("IdUserInfo").Cascade.All().LazyLoad();
+            Map(x => x.Subject);
+            Map(x => x.Date);
+            HasMany(x => x.Inbox).Table("Inbox").Cascade.All().LazyLoad();
+            HasMany(x => x.Outbox).Table("Outbox").Cascade.All().LazyLoad();
         }
     }
 }

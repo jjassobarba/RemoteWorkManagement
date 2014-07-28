@@ -18,6 +18,9 @@ namespace Scio.RemoteManagementModels.Configuration
         {
             container.Register(
                 Component.For<IUserInfoRepository>().ImplementedBy<UserInfoRepository>().LifestylePerWebRequest(),
+                Component.For<IMessagesRepository>().ImplementedBy<MessagesRepository>().LifestylePerWebRequest(),
+                Component.For<IInboxRepository>().ImplementedBy<InboxRepository>().LifestylePerWebRequest(),
+                Component.For<IOutboxRepository>().ImplementedBy<OutboxRepository>().LifestylePerWebRequest(),
                 Component.For<INotificationsRepository>().ImplementedBy<NotificationsRepository>().LifestylePerWebRequest());
         }
     }

@@ -42,10 +42,10 @@ namespace RemoteWorkManagement
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap/bootstrap.min.js",
                       "~/Scripts/bootstrap/bootstrap-tag.min.js",
+                      "~/Scripts/bootstrap/bootstrap.wysiwyg.min.js",
                       "~/Scripts/bootstrap/ace-extra.min.js",
                       "~/Scripts/bootstrap/ace-elements.min.js",
                       "~/Scripts/bootstrap/ace.min.js",
-                      "~/Scripts/bootstrap/bootstrap.wysiwyg.min.js",
                       "~/Scripts/respond/respond.js"));            
 
             // Set EnableOptimizations to false for debugging. For more information,

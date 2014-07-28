@@ -52,54 +52,6 @@
                             <span class="bigger-110">Sent</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a data-toggle="tab" href="#draft" data-target="draft">
-                            <i class="green icon-pencil bigger-130"></i>
-                            <span class="bigger-110">Draft</span>
-                        </a>
-                    </li>
-
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="pink icon-tags bigger-130"></i>
-
-                            <span class="bigger-110">
-                                Tags
-                                <i class="icon-caret-down"></i>
-                            </span>
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-light-blue dropdown-125">
-                            <li>
-                                <a data-toggle="tab" href="#tag-1" data-target="tag-1">
-                                    <span class="mail-tag badge badge-pink"></span>
-                                    <span class="pink">Tag#1</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a data-toggle="tab" href="#tag-family" data-target="tag-family">
-                                    <span class="mail-tag badge badge-success"></span>
-                                    <span class="green">Family</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a data-toggle="tab" href="#tag-friends" data-target="tag-friends">
-                                    <span class="mail-tag badge badge-info"></span>
-                                    <span class="blue">Friends</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a data-toggle="tab" href="#tag-work" data-target="tag-work">
-                                    <span class="mail-tag badge badge-grey"></span>
-                                    <span class="grey">Work</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li><!-- /.dropdown -->
                 </ul>
 
                 <div class="tab-content no-border no-padding">
@@ -775,28 +727,11 @@
                 </label>
 
                 <div class="col-sm-9">
-                    <div class="wysiwyg-editor"></div>
+                    <div class="wysiwyg-editor" contenteditable="true"></div>
                 </div>
             </div>
 
             <div class="hr hr-18 dotted"></div>
-
-            <div class="form-group no-margin-bottom">
-                <label class="col-sm-3 control-label no-padding-right">Attachments:</label>
-
-                <div class="col-sm-9">
-                    <div id="form-attachments">
-                        <input type="file" name="attachment[]" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="align-right">
-                <button id="id-add-attachment" type="button" class="btn btn-sm btn-danger">
-                    <i class="icon-paper-clip bigger-140"></i>
-                    Add Attachment
-                </button>
-            </div>
 
             <div class="space"></div>
         </div>
@@ -864,79 +799,6 @@
         </div>
 
         <div class="hr hr-double"></div>
-
-        <div class="message-attachment clearfix">
-            <div class="attachment-title">
-                <span class="blue bolder bigger-110">Attachments</span>
-                &nbsp;
-                <span class="grey">(2 files, 4.5 MB)</span>
-
-                <div class="inline position-relative">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                        &nbsp;
-                        <i class="icon-caret-down bigger-125 middle"></i>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-lighter">
-                        <li>
-                            <a href="#">Download all as zip</a>
-                        </li>
-
-                        <li>
-                            <a href="#">Display in slideshow</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            &nbsp;
-            <ul class="attachment-list pull-left list-unstyled">
-                <li>
-                    <a href="#" class="attached-file inline">
-                        <i class="icon-file-alt bigger-110 middle"></i>
-                        <span class="attached-name middle">Document1.pdf</span>
-                    </a>
-
-                    <div class="action-buttons inline">
-                        <a href="#">
-                            <i class="icon-download-alt bigger-125 blue"></i>
-                        </a>
-
-                        <a href="#">
-                            <i class="icon-trash bigger-125 red"></i>
-                        </a>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#" class="attached-file inline">
-                        <i class="icon-film bigger-110 middle"></i>
-                        <span class="attached-name middle">Sample.mp4</span>
-                    </a>
-
-                    <div class="action-buttons inline">
-                        <a href="#">
-                            <i class="icon-download-alt bigger-125 blue"></i>
-                        </a>
-
-                        <a href="#">
-                            <i class="icon-trash bigger-125 red"></i>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-
-            <div class="attachment-images pull-right">
-                <div class="vspace-sm-4"></div>
-
-                <div>
-                    <img width="36" alt="image 4" src="assets/images/gallery/thumb-4.jpg" />
-                    <img width="36" alt="image 3" src="assets/images/gallery/thumb-3.jpg" />
-                    <img width="36" alt="image 2" src="assets/images/gallery/thumb-2.jpg" />
-                    <img width="36" alt="image 1" src="assets/images/gallery/thumb-1.jpg" />
-                </div>
-            </div>
-        </div>
     </div><!-- /.message-content -->
 
 </div>

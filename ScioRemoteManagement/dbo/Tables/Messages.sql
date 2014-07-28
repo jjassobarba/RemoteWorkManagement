@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[Messages]
 (
-	[IdMessage] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [IdUserInfo] UNIQUEIDENTIFIER NOT NULL, 
+	[IdMessage] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,     
     [IdTo] UNIQUEIDENTIFIER NOT NULL, 
     [Message] VARCHAR(500) NOT NULL, 
     [IsRead] BIT NULL DEFAULT 0, 
-    CONSTRAINT [FK_Messages_UserInfo] FOREIGN KEY ([IdUserInfo]) REFERENCES [UserInfo]([IdUserInfo])
+    [Subject] VARCHAR(200) NULL, 
+    [Date] DATETIME NOT NULL,     
 )

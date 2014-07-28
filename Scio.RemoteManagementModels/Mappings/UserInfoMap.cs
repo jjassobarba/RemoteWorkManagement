@@ -22,7 +22,8 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.ReceiveNotifications);
             References(x => x.IdMembership).Column("IdMembership").LazyLoad();
             HasMany(x => x.Notifications).Table("Notifications").Cascade.All().LazyLoad();
-            HasMany(x => x.Messages).Table("Messages").Cascade.All().LazyLoad();
+            HasMany(x => x.Inbox).Table("Inbox").Cascade.All().LazyLoad();
+            HasMany(x => x.Outbox).Table("Outbox").Cascade.All().LazyLoad();
             HasMany(x => x.CheckInOut).Table("CheckInOut").Cascade.All().LazyLoad();
         }
     }
