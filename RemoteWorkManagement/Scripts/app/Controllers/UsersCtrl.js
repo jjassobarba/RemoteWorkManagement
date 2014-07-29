@@ -126,6 +126,35 @@
         };
 
 
+        //POST -Register ver2
+        $scope.saveUpload = function (modelInstance) {
+            var files = document.getElementById('uploadImageButton').files[0];
+           $scope.upload = $upload.upload({
+                url: '/Home/CreateUser',
+                method: 'POST',
+                data: {
+                    username: $scope.email,
+                    firstName: $scope.firstName,
+                    lastName: $scope.lastName,
+                    position: $scope.position,
+                    rol: $scope.selectedRol,
+                    projectLeader: $scope.projectLeader,
+                    remoteDays: $scope.selectedDays.days,
+                    flexTime: $scope.selectedFlex
+                },
+                file: files
+            }).success(function (data, status, headers, config) {
+                $scope.showAlert("notification-shape");
+                $scope.resetForm();
+                $scope.getUsers();
+                $scope.getAllUsersInfo();
+            }).error(function (data, status, headers, config) {
+
+            });
+        };
+        
+
+
         $scope.getUser = function () {
             $http.post('/Home/GetUser',
                 { userId: $scope.selectedUser })

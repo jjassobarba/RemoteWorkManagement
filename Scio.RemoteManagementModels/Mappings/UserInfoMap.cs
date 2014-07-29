@@ -17,7 +17,7 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.ProjectLeader);
             Map(x => x.RemoteDays);
             Map(x => x.FlexTime);
-            Map(x => x.Picture);
+            Map(x => x.Picture).Length(100000);
             Map(x => x.OtherFlexTime);
             Map(x => x.ReceiveNotifications);
             References(x => x.IdMembership).Column("IdMembership").LazyLoad();

@@ -67,9 +67,25 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult CreateUser(string username, string firstName, string lastName, string position, string rol, string projectLeader, string[] remoteDays, string flexTime)
         {
+            byte[] byteFile = null;
+            for (var x = 1; x < Request.Files.Count + 1; x++)
+            {
+                var file = Request.Files[x - 1];
+                if (file != null && file.ContentLength != 0)
+                {
+                    int ContentLength = file.ContentLength;
+                    byteFile = new byte[ContentLength];
+                    file.InputStream.Read(byteFile, 0, ContentLength);
+                }
+            }
             MembershipCreateStatus status;
             var password = Membership.GeneratePassword(8, 3);
             var remoteDaysString = remoteDays.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
+            remoteDaysString = remoteDaysString.Replace('"', ' ');
+            remoteDaysString = remoteDaysString.Replace('[', ' ');
+            remoteDaysString = remoteDaysString.Replace(']', ' ');
+            remoteDaysString = remoteDaysString.Replace(" ", String.Empty);
+            
             _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true, new Guid(), out status);
             if (status == MembershipCreateStatus.Success)
             {
@@ -88,7 +104,8 @@ namespace RemoteWorkManagement.Controllers
                     ProjectLeader = projectLeader,
                     IdMembership = user,
                     RemoteDays = remoteDaysString,
-                    FlexTime = flexTime
+                    FlexTime = flexTime,
+                    Picture = byteFile
                 };
                 _userInfoRepository.InsertUser(userInfoObject);
             }
@@ -182,6 +199,7 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult GetUser(Guid userId)
         {
             var user = _userInfoRepository.GetUser(userId);
+            string Base64String = Convert.ToBase64String(user.Picture);
             var userMapped = new
             {
                 IdUserInfo = user.IdUserInfo,
@@ -189,7 +207,7 @@ namespace RemoteWorkManagement.Controllers
                 LastName = user.LastName,
                 FlexTime = user.FlexTime,
                 OtherFlexTime = user.OtherFlexTime,
-                Picture = user.Picture,
+                Picture = Base64String,
                 Position = user.Position,
                 ProjectLeader = user.ProjectLeader,
                 ReceiveNotifications = user.ReceiveNotifications,

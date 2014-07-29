@@ -4,7 +4,7 @@
     </svg>
 </div>
 <div>
-    <form ng-submit="registerUser()" name="addUserForm">
+    <form ng-submit="saveUpload(modelInstance)" name="addUserForm">
         <fieldset>
             <div class="col-md-4">
                 <label class="control-label bolder blue">
@@ -84,7 +84,7 @@
                             </label>
                             <div class="checkbox" ng-repeat="day in daysOfTheWeek">
                                 <label>
-                                    <input ng-model="selectedDay" name="cbMonday" type="checkbox" class="ace" ng-change="addDay(selectedDay,$index)" />
+                                    <input checklist-model="selectedDays.days" name="cbOptions" type="checkbox" class="ace" checklist-value="day" />
                                     <span class="lbl">{{day}}</span>
                                 </label>
                             </div>
@@ -122,7 +122,7 @@
                 <label class="control-label bolder blue">
                     Upload Picture
                 </label>
-                <input type="file" id="uploadImageButton" ng-file-select="registerUser($files)" />
+                <input type="file" id="uploadImageButton" name="uploadImageButton" ng-model="modelInstance.img" />
                 <input type="file" id="uploadImageArea" ng-file-select="registerUser($files)" />
             </div>
         </fieldset>
