@@ -28,11 +28,21 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="membershipProvider">The membership provider.</param>
         /// <param name="userInfoRepository">The user information repository.</param>
         /// <param name="roleProvider">The role provider.</param>
-        public HomeController(MembershipProvider membershipProvider, IUserInfoRepository userInfoRepository, RoleProvider roleProvider)
+        /// <param name="notificationsRepository"></param>
+        /// <param name="inboxRepository"></param>
+        /// <param name="outboxRepository"></param>
+        /// <param name="checkInOutRepository"></param>
+        public HomeController(MembershipProvider membershipProvider, IUserInfoRepository userInfoRepository, RoleProvider roleProvider,
+            INotificationsRepository notificationsRepository, IInboxRepository inboxRepository, IOutboxRepository outboxRepository,
+            ICheckInOutRepository checkInOutRepository)
         {
             _membershipProvider = membershipProvider;
             _userInfoRepository = userInfoRepository;
             _roleProvider = roleProvider;
+            _notificationsRepository = notificationsRepository;
+            _inboxRepository = inboxRepository;
+            _outboxRepository = outboxRepository;
+            _checkInOutRepository = checkInOutRepository;
         }
 
         /// <summary>
@@ -144,6 +154,10 @@ namespace RemoteWorkManagement.Controllers
             }
             Guid gIdUserInfo = new Guid(idUserInfo);
             var userInfoOldObject= _userInfoRepository.GetUser(gIdUserInfo);
+            var nottt = _notificationsRepository.GetNotificationsForUser(gIdUserInfo).ToList();
+            var innnb = _inboxRepository.GetInboxForUser(gIdUserInfo).ToList();
+            var ouut = _outboxRepository.GetOutBoxForUser(gIdUserInfo).ToList();
+            var chekkIO = _checkInOutRepository.GetForChekInOutUser(gIdUserInfo).ToList();
             
             var userInfoObject = new UserInfo()
             {
@@ -155,7 +169,11 @@ namespace RemoteWorkManagement.Controllers
                 ProjectLeader = projectLeader,
                 RemoteDays = remoteDaysString,
                 FlexTime = flexTime,
-                Picture = userInfoOldObject.Picture
+                Picture = userInfoOldObject.Picture,
+                Notifications = nottt,
+                Inbox = innnb,
+                Outbox = ouut,
+                CheckInOut = chekkIO
             };
 
             status = _userInfoRepository.UpdateUser(userInfoObject);
