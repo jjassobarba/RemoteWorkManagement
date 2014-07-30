@@ -82,11 +82,13 @@
     <Compile Include="Membership\NHMembershipProvider.cs" />
     <Compile Include="Profile\NHProfileProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoriesContracts\ICheckInOutRepository.cs" />
     <Compile Include="RepositoriesContracts\IInboxRepository.cs" />
     <Compile Include="RepositoriesContracts\IMessagesRepository.cs" />
     <Compile Include="RepositoriesContracts\INotificationsRepository.cs" />
     <Compile Include="RepositoriesContracts\IOutboxRepository.cs" />
     <Compile Include="RepositoriesContracts\IUserInfoRepository.cs" />
+    <Compile Include="RepositoriesImplementations\CheckInOutRepository.cs" />
     <Compile Include="RepositoriesImplementations\InboxRepository.cs" />
     <Compile Include="RepositoriesImplementations\MessagesRepository.cs" />
     <Compile Include="RepositoriesImplementations\NotificationsRepository.cs" />

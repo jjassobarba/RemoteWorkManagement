@@ -269,6 +269,7 @@
             $scope.editRol = {};
             $scope.selectDay = "";
             $scope.selectedRol = "";
+            $scope.modelInstance.img = "";
             $scope.addUserForm.$setPristine();
         };
         //-------------------------------------------------------------

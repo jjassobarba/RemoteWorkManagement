@@ -16,6 +16,11 @@ namespace RemoteWorkManagement.Controllers
         private readonly MembershipProvider _membershipProvider;
         private readonly RoleProvider _roleProvider;
         private readonly IUserInfoRepository _userInfoRepository;
+        private readonly INotificationsRepository _notificationsRepository;
+        private readonly IInboxRepository _inboxRepository;
+        private readonly IOutboxRepository _outboxRepository;
+        private readonly ICheckInOutRepository _checkInOutRepository;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeController" /> class.
@@ -138,8 +143,8 @@ namespace RemoteWorkManagement.Controllers
                 user.Id = Convert.ToInt32(userId.ProviderUserKey.ToString());
             }
             Guid gIdUserInfo = new Guid(idUserInfo);
-
-
+            var userInfoOldObject= _userInfoRepository.GetUser(gIdUserInfo);
+            
             var userInfoObject = new UserInfo()
             {
                 IdUserInfo = gIdUserInfo,
@@ -149,7 +154,8 @@ namespace RemoteWorkManagement.Controllers
                 Position = position,
                 ProjectLeader = projectLeader,
                 RemoteDays = remoteDaysString,
-                FlexTime = flexTime
+                FlexTime = flexTime,
+                Picture = userInfoOldObject.Picture
             };
 
             status = _userInfoRepository.UpdateUser(userInfoObject);
