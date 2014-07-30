@@ -12,13 +12,13 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         /// </summary>
         /// <param name="userInfoId">The user information identifier.</param>
         /// <returns></returns>
-        IEnumerable<Notifications> GetForChekInOutUser(Guid userInfoId);
+        IEnumerable<CheckInOut> GetForChekInOutUser(Guid userInfoId);
 
         /// <summary>
         /// Inserts the notification.
         /// </summary>
         /// <param name="notification">The notification.</param>
         /// <returns></returns>
-        Guid InsertChekInOut(Notifications notification);
+        Guid InsertChekInOut(CheckInOut checkInOut);
     }
 }

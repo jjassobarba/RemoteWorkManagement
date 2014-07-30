@@ -8,7 +8,7 @@ using Scio.RemoteManagementModels.RepositoriesContracts;
 
 namespace Scio.RemoteManagementModels.RepositoriesImplementations
 {
-    class CheckInOutRepository
+    public class CheckInOutRepository : ICheckInOutRepository
     {
         /// <summary>
         /// The _session
@@ -29,10 +29,10 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         /// </summary>
         /// <param name="userInfoId"></param>
         /// <returns></returns>
-        public IEnumerable<Notifications> GetForChekInOutUser(Guid userInfoId)
+        public IEnumerable<CheckInOut> GetForChekInOutUser(Guid userInfoId)
         {
-            var notificationsQuery = (_session.Query<Notifications>().Where(x => x.IdUserInfo.IdUserInfo.Equals(userInfoId))).ToList();
-            return notificationsQuery;
+            var chekInOutQuery = (_session.Query<CheckInOut>().Where(x => x.IdUserInfo.IdUserInfo.Equals(userInfoId))).ToList();
+            return chekInOutQuery;
         }
 
         /// <summary>
@@ -50,5 +50,6 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
             }
             return id;
         }
+        
     }
 }
