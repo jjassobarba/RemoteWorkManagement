@@ -39,7 +39,6 @@ namespace RemoteWorkManagement.Controllers
             return View();
         }
 
-
         /// <summary>
         /// Authorizes the specified username.
         /// </summary>

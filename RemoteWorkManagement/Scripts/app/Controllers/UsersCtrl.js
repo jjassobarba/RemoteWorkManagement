@@ -79,7 +79,7 @@
                                     method: 'POST',
                                     file: n
                                 }).success(function (data, status, headers, config) {
-                                    $scope.showAlert("notification-shape");
+                                    $scope.showAlert("notification-shape", "notice");
                                     $scope.resetForm();
                                     $scope.getUsers();
                                     $scope.getAllUsersInfo();
@@ -89,7 +89,7 @@
                             }
                         });
                     } else {
-                        $scope.showAlert("notification-shape");
+                        $scope.showAlert("notification-shape", "notice");
                         $scope.resetForm();
                         $scope.getUsers();
                         $scope.getAllUsersInfo();
@@ -116,11 +116,14 @@
             }).then(function (result) {
                 var rpt = result.data.data;
                 if (rpt == "True") {
-                    $scope.showAlert("update-notification");
+                    $scope.showAlert("update-notification", "notice");
                     $scope.resetForm();
                     $scope.getUsers();
                 } else {
-                    console.log("Error");
+                    $scope.showAlert("update-notification", "error");
+                    $scope.resetForm();
+                    $scope.getUsers();
+                    $scope.getAllUsersInfo();
                 }
             });
         };
@@ -144,17 +147,18 @@
                 },
                 file: files
             }).success(function (data, status, headers, config) {
-                $scope.showAlert("notification-shape");
+                $scope.showAlert("notification-shape", "notice");
                 $scope.resetForm();
                 $scope.getUsers();
                 $scope.getAllUsersInfo();
             }).error(function (data, status, headers, config) {
-
+                $scope.showAlert("notification-shape", "error");
+                $scope.resetForm();
+                $scope.getUsers();
+                $scope.getAllUsersInfo();
             });
         };
         
-
-
         $scope.getUser = function () {
             $http.post('/Home/GetUser',
                 { userId: $scope.selectedUser })
@@ -214,7 +218,8 @@
         };
 
         //Show the alert
-        $scope.showAlert = function (elementId) {
+        $scope.showAlert = function (elementId, typeMessage1) {
+           $scope.typeMessage = typeMessage1;
             var svgshape = document.getElementById(elementId),
                 s = Snap(svgshape.querySelector('svg')),
                 path = s.select('path'),
@@ -226,14 +231,16 @@
             window.setTimeout(function () {
 
                 path.animate({ 'path': pathConfig.to }, 300, mina.easeinout);
-
+                
                 // create the notification
+                $scope.messageLegend = ($scope.typeMessage == "error") ? '<p><span class="icon icon-exclamation-sign big"></span>An error has been occurred</p>' : '<p><span class="icon icon-exclamation-sign big"></span>The changes has been saved</p>';
+                console.log("will enter with  " + $scope.typeMessage);
                 var notification = new NotificationFx({
                     wrapper: svgshape,
-                    message: '<p><span class="icon icon-exclamation-sign big"></span>The changes has been saved</p>',
+                    message: $scope.messageLegend,
                     layout: 'other',
                     effect: 'cornerexpand',
-                    type: 'notice', // notice, warning or error
+                    type: $scope.typeMessage, // notice, warning or error
                     onClose: function () {
                         setTimeout(function () {
                             path.animate({ 'path': pathConfig.from }, 300, mina.easeinout);
