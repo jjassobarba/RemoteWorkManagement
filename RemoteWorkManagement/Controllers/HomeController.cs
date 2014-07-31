@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Security;
 using Castle.Core.Internal;
@@ -124,7 +126,21 @@ namespace RemoteWorkManagement.Controllers
                 };
                 _userInfoRepository.InsertUser(userInfoObject);
             }
+            bool rpt = MailSender(username, password);
+
             return Json(new { data = status.ToString() });
+        }
+
+
+        public bool MailSender(string mailto, string password)
+        {
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("jdavidromo@gmail.com", "*@dm1n2o11");
+            MailMessage mail = new MailMessage("jdavidromo@gmail.com", mailto, "Please do not reply to this message", "Your Password: " + password);
+            smtp.Send(mail);
+            return true;
         }
 
         /// <summary>
@@ -154,11 +170,15 @@ namespace RemoteWorkManagement.Controllers
             }
             Guid gIdUserInfo = new Guid(idUserInfo);
             var userInfoOldObject= _userInfoRepository.GetUser(gIdUserInfo);
-            var nottt = _notificationsRepository.GetNotificationsForUser(gIdUserInfo).ToList();
-            var innnb = _inboxRepository.GetInboxForUser(gIdUserInfo).ToList();
-            var ouut = _outboxRepository.GetOutBoxForUser(gIdUserInfo).ToList();
-            var chekkIO = _checkInOutRepository.GetForChekInOutUser(gIdUserInfo).ToList();
-            
+            //var dummyNotifications = _notificationsRepository.GetNotificationsForUser(gIdUserInfo).ToList();
+            //var dummyInbox = _inboxRepository.GetInboxForUser(gIdUserInfo).ToList();
+            //var dummyOutBox = _outboxRepository.GetOutBoxForUser(gIdUserInfo).ToList();
+            //var dummyChekkIO = _checkInOutRepository.GetForChekInOutUser(gIdUserInfo).ToList();
+            IList<Notifications> notificationsList = new List<Notifications>();
+            IList<Inbox> inboxList = new List<Inbox>();
+            IList<Outbox> outboxList = new List<Outbox>();
+            IList<CheckInOut> checkInOutList = new List<CheckInOut>();
+
             var userInfoObject = new UserInfo()
             {
                 IdUserInfo = gIdUserInfo,
@@ -170,10 +190,10 @@ namespace RemoteWorkManagement.Controllers
                 RemoteDays = remoteDaysString,
                 FlexTime = flexTime,
                 Picture = userInfoOldObject.Picture,
-                Notifications = nottt,
-                Inbox = innnb,
-                Outbox = ouut,
-                CheckInOut = chekkIO
+                Notifications = notificationsList,
+                Inbox = inboxList,
+                Outbox = outboxList,
+                CheckInOut = checkInOutList
             };
 
             status = _userInfoRepository.UpdateUser(userInfoObject);
@@ -277,6 +297,7 @@ namespace RemoteWorkManagement.Controllers
                     RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
                 }
             }).Cast<object>().ToList();
+
             return Json(new { usersInfo = usersInfoList }, JsonRequestBehavior.AllowGet);
         }
 
