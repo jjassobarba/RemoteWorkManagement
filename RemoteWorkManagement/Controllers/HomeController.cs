@@ -137,8 +137,8 @@ namespace RemoteWorkManagement.Controllers
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("jdavidromo@gmail.com", "*@dm1n2o11");
-            MailMessage mail = new MailMessage("jdavidromo@gmail.com", mailto, "Please do not reply to this message", "Your Password: " + password);
+            smtp.Credentials = new NetworkCredential("sciorewoma@gmail.com", "*@dm1n2o14*");
+            MailMessage mail = new MailMessage("sciorewoma@gmail.com", mailto, "Please do not reply to this message", "Your Password: " + password);
             smtp.Send(mail);
             return true;
         }
