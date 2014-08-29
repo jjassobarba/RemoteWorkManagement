@@ -31,6 +31,7 @@
                 $scope.position = response.userInfo.Position;
                 $scope.flexTime = response.userInfo.FlexTime;
                 $scope.remoteDays = response.userInfo.RemoteDays;
+                $scope.picture = response.userInfo.Picture;
                 if ($scope.remoteDays != undefined) {
                     $scope.editSelections = [];
                     var remoteDaysArray = $scope.remoteDays.split(",");

@@ -6,7 +6,7 @@
                     <div class="inline position-relative">
                         <div class="user">
                             <a href="#">
-                                <img src="~/Content/avatar/profile-default.png" alt="Test Image" />
+                                <img ng-src="data:image/JPEG;base64,{{user.Picture}}" alt="Test Image" />
                             </a>
                         </div>
 
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="time">
                                     <i class="icon-time middle bigger-120 orange"></i>
-                                    <span class="green">8:30 - 17:00</span>
+                                    <span class="green">{{ user.FlexTime}}</span>
                                 </div>
                                 <div class="hr dotted hr-8"></div>
                                 <div class="tools action-buttons">

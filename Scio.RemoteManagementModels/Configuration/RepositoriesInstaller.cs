@@ -17,6 +17,7 @@ namespace Scio.RemoteManagementModels.Configuration
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
+                Component.For<ICheckInOutRepository>().ImplementedBy<CheckInOutRepository>().LifestylePerWebRequest(),
                 Component.For<IUserInfoRepository>().ImplementedBy<UserInfoRepository>().LifestylePerWebRequest(),
                 Component.For<IMessagesRepository>().ImplementedBy<MessagesRepository>().LifestylePerWebRequest(),
                 Component.For<IInboxRepository>().ImplementedBy<InboxRepository>().LifestylePerWebRequest(),
