@@ -64,5 +64,11 @@ namespace RemoteWorkManagement.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public JsonResult RecoverPassword(string mail)
+        {
+            return Json(new { mail = mail }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
