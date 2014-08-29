@@ -52,6 +52,9 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -162,6 +165,7 @@
     <Compile Include="App_Start\Plumbing\PersistenceFacility.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WindsorContainerConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
@@ -298,6 +302,7 @@
     <Content Include="Scripts\angular\angular.min.js" />
     <Content Include="Scripts\angular\checklist-model.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\Controllers\AccountCtrl.js" />
     <Content Include="Scripts\app\Controllers\HomeController.js" />
     <Content Include="Scripts\app\Controllers\NotificationsCtrl.js" />
     <Content Include="Scripts\app\Controllers\UsersCtrl.js" />
@@ -648,6 +653,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Notifications\" />
   </ItemGroup>
   <ItemGroup>
