@@ -104,7 +104,7 @@ namespace RemoteWorkManagement.Controllers
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential("sciorewoma@gmail.com", "*@dm1n2o14*");
-                MailMessage mail = new MailMessage("sciorewoma@gmail.com", mailto, "Please do not reply to this message", "Your temporary password is:: " + password);
+                MailMessage mail = new MailMessage("sciorewoma@gmail.com", mailto, "Please do not reply to this message", "Your temporary password is: " + password);
                 smtp.Send(mail);
                 return true;
             }

@@ -18,7 +18,7 @@
     <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body class="login-layout" >
+<body class="login-layout" ng-app="RemoteManagement" ng-controller="AccountCtrl">
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -41,10 +41,10 @@
     <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript" src="~/Scripts/app/Controllers/AccountCtrl.js"></script>
     @RenderSection("scripts", required: false)
-    
-   
-   
-  
+
+
+
+
     <script type="text/javascript">
         function show_box(id) {
             console.log(id);
