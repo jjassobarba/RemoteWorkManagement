@@ -2,6 +2,7 @@
 
 namespace RemoteWorkManagement.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         // GET: Profile

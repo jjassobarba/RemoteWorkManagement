@@ -2,6 +2,7 @@
 
 namespace RemoteWorkManagement.Controllers
 {
+    
     public class AdminController : Controller
     {
         // GET: Admin
