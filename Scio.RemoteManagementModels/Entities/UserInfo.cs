@@ -20,5 +20,6 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual IList<Inbox> Inbox { get; set; }
         public virtual IList<Outbox> Outbox { get; set; }
         public virtual IList<CheckInOut> CheckInOut { get; set; }
+        public virtual bool IsTemporalPassword { get; set; }
     }
 }

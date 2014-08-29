@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NHibernate;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
@@ -38,6 +39,18 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         public UserInfo GetUser(Guid idUser)
         {
             var user = _session.Get<UserInfo>(idUser);
+            return user;
+        }
+
+        /// <summary>
+        /// Gets the user by membership identifier.
+        /// </summary>
+        /// <param name="membershipId">The membership identifier.</param>
+        /// <returns></returns>
+        public UserInfo GetUserByMembershipId(int membershipId)
+        {
+            var query = _session.QueryOver<UserInfo>().Where(p => p.IdMembership.Id == membershipId);
+            var user = query.List<UserInfo>().FirstOrDefault();
             return user;
         }
 

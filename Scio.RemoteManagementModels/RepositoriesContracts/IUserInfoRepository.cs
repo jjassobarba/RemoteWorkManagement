@@ -20,6 +20,13 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         UserInfo GetUser(Guid idUser);
 
         /// <summary>
+        /// Gets the user by membership identifier.
+        /// </summary>
+        /// <param name="membershipId">The membership identifier.</param>
+        /// <returns></returns>
+        UserInfo GetUserByMembershipId(int membershipId);
+
+        /// <summary>
         /// Inserts the user.
         /// </summary>
         /// <param name="user">The user.</param>

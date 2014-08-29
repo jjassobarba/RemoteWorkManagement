@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using RemoteWorkManagement.Models;
+using Scio.RemoteManagementModels.RepositoriesContracts;
+using Scio.RemoteManagementModels.RepositoriesImplementations;
 using System.Net.Mail;
 using System.Net;
 using System;
@@ -12,14 +15,17 @@ namespace RemoteWorkManagement.Controllers
     {
 
         private readonly MembershipProvider _membershipProvider;
+        private readonly IUserInfoRepository _userInfoRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// Initializes a new instance of the <see cref="AccountController" /> class.
         /// </summary>
         /// <param name="membershipProvider">The membership provider.</param>
-        public AccountController(MembershipProvider membershipProvider)
+        /// <param name="userInfoRepository">The user information repository.</param>
+        public AccountController(MembershipProvider membershipProvider, IUserInfoRepository userInfoRepository)
         {
             _membershipProvider = membershipProvider;
+            _userInfoRepository = userInfoRepository;
         }
 
         // GET: Account
@@ -65,6 +71,18 @@ namespace RemoteWorkManagement.Controllers
 
 
         /// <summary>
+        /// Logins the specified return URL.
+        /// </summary>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="mail"></param>
@@ -88,6 +106,19 @@ namespace RemoteWorkManagement.Controllers
             var user = User.Identity.Name;
             var success = _membershipProvider.ChangePassword(user, oldPassword, newPassword);
             return Json(new { success = success });
+        }
+
+        /// <summary>
+        /// Determines whether [is new pass].
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult IsNewPass()
+        {
+            var user = User.Identity.Name;
+            var userMembership = _membershipProvider.GetUser(user, false);
+            var userInfo = _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(userMembership.ProviderUserKey.ToString()));
+            return Json(new { isTemporal = userInfo.IsTemporalPassword });
         }
 
         /// <summary>

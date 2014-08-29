@@ -82,7 +82,7 @@
 
     //handling tabs and loading/displaying relevant messages and forms
     //not needed if using the alternative view, as described in docs
-    var prevTab = 'inbox'
+    var prevTab = 'inbox';
     $('#inbox-tabs a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         var currentTab = $(e.target).data('target');
         if (currentTab == 'write') {
@@ -293,7 +293,8 @@
         }, 300 + parseInt(Math.random() * 300));
     };
 
-
+    $('#modal-wizard .modal-header').ace_wizard();
+    $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
 
 
     var form_initialized = false;

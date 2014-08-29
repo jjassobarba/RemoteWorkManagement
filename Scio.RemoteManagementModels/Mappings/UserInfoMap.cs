@@ -20,6 +20,7 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.Picture).Length(100000);
             Map(x => x.OtherFlexTime);
             Map(x => x.ReceiveNotifications);
+            Map(x => x.IsTemporalPassword);
             References(x => x.IdMembership).Column("IdMembership").LazyLoad();
             HasMany(x => x.Notifications).Table("Notifications").Cascade.All().LazyLoad();
             HasMany(x => x.Inbox).Table("Inbox").Cascade.All().LazyLoad();
