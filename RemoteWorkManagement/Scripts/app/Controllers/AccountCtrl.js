@@ -1,18 +1,24 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('AccountCtrl', ['$scope', 'userService', '$http', function ($scope, userService, $http) {
+    angular.module('RemoteManagement').controller('AccountCtrl', ['$scope', 'userService', '$http', function ($scope, userSerice, $http) {
+        $scope.loginBox = true;
+        $scope.forgotBox = false;
+
+        $scope.hideForgotBox = function () {
+            $scope.loginBox = true;
+            $scope.forgotBox = false;
+        };
+
+        $scope.hideLoginBox = function () {
+            $scope.loginBox = false;
+            $scope.forgotBox = true;
+        };
+
         $scope.isNewPass = function () {
             $http.post('/Account/IsNewPass').then(function (result) {
                 console.log(result);
             });
         };
         $scope.isNewPass();
-    angular.module('RemoteManagement').controller('AccountCtrl', ['$scope', 'userService','$http', function ($scope, userSerice, $http) {
-        $scope.loginBox = true;
-        $scope.forgotBox = false;
-
-        $scope.changeBox = function () {
-
-        };
 
         $scope.RecoverPassword = function () {
             $scope.emailRecover = $scope.email;
@@ -24,8 +30,15 @@
                     mail: $scope.email
                 }
             }).then(function (result) {
-                console.log(result);
-            });            
+                if (result.data.result) {
+                    alert("An email has been sended");
+                }
+                else
+                {
+                    alert("An Error has been occured");
+                }
+                
+            });
         };
     }]);
 

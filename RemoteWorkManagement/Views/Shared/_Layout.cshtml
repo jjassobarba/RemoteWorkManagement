@@ -40,17 +40,6 @@
     <script type="text/javascript" src="~/Scripts/notifications/progressButton.js"></script>
     <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript" src="~/Scripts/app/Controllers/AccountCtrl.js"></script>
-    @RenderSection("scripts", required: false)
-
-
-
-
-    <script type="text/javascript">
-        function show_box(id) {
-            console.log(id);
-            $('.widget-box.visible').removeClass('visible');
-            $('#' + id).addClass('visible');
-        }
-    </script>
+    @RenderSection("scripts", required: false)        
 </body>
 </html>
