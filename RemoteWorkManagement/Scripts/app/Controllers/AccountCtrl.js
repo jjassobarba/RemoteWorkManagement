@@ -8,7 +8,7 @@
                 method: 'post',
                 url: '/Account/RecoverPassword/',
                 params: {
-                    email: $scope.email
+                    mail: $scope.email
                 }
             }).then(function (result) {
                 console.log(result);

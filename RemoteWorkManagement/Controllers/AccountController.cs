@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using RemoteWorkManagement.Models;
+using System.Net.Mail;
+using System.Net;
+using System;
 
 namespace RemoteWorkManagement.Controllers
 {
@@ -60,10 +63,18 @@ namespace RemoteWorkManagement.Controllers
             return View(model);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult RecoverPassword(string mail)
         {
-            return Json(new { mail = mail }, JsonRequestBehavior.AllowGet);
+            string newPassword = _membershipProvider.ResetPassword(mail,string.Empty);
+            bool result=MailSender(mail, newPassword);            
+            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
         }
 
         /// Changes the password.
@@ -77,8 +88,33 @@ namespace RemoteWorkManagement.Controllers
             var user = User.Identity.Name;
             var success = _membershipProvider.ChangePassword(user, oldPassword, newPassword);
             return Json(new { success = success });
-        }    
-        
+        }
+
+        /// <summary>
+        /// Mails the sender.
+        /// </summary>
+        /// <param name="mailto">The mailto.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        public bool MailSender(string mailto, string password)
+        {
+            try
+            {
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("sciorewoma@gmail.com", "*@dm1n2o14*");
+                MailMessage mail = new MailMessage("sciorewoma@gmail.com", mailto, "Please do not reply to this message", "Your temporary password is:: " + password);
+                smtp.Send(mail);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+           
+           
+        }
         
     }
 }
