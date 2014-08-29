@@ -68,7 +68,7 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
             {
                 using (var transaction = _session.BeginTransaction())
                 {
-                    _session.SaveOrUpdate(user);
+                    _session.Update(user);
                     transaction.Commit();
                 }
                 return true;

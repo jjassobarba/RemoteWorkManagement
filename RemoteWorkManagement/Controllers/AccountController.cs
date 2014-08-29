@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using RemoteWorkManagement.Models;
@@ -62,6 +58,20 @@ namespace RemoteWorkManagement.Controllers
                 ModelState.AddModelError("", "Invalid usernarme or password");
             }
             return View(model);
+        }
+
+        /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <param name="newPassword">The new password.</param>
+        /// <param name="oldPassword">The old password.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ChangePassword(string newPassword, string oldPassword)
+        {
+            var user = User.Identity.Name;
+            var success = _membershipProvider.ChangePassword(user, oldPassword, newPassword);
+            return Json(new { success = success });
         }
 
     }

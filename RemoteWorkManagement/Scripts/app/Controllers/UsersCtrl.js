@@ -114,8 +114,7 @@
                     flexTime: $scope.selectedEditFlex
                 }
             }).then(function (result) {
-                var rpt = result.data.data;
-                if (rpt == "True") {
+                if (result.data.data) {
                     $scope.showAlert("update-notification", "notice");
                     $scope.resetForm();
                     $scope.getUsers();

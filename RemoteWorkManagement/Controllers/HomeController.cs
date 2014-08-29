@@ -104,7 +104,7 @@ namespace RemoteWorkManagement.Controllers
             remoteDaysString = remoteDaysString.Replace('[', ' ');
             remoteDaysString = remoteDaysString.Replace(']', ' ');
             remoteDaysString = remoteDaysString.Replace(" ", String.Empty);
-            
+
             _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true, new Guid(), out status);
             if (status == MembershipCreateStatus.Success)
             {
@@ -168,7 +168,6 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult UpdateUser(string idUserInfo, string username, string firstName, string lastName, string position, string rol,
             string projectLeader, string[] remoteDays, string flexTime)
         {
-            bool status;
             var remoteDaysString = remoteDays.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
             var userId = _membershipProvider.GetUser(username, false);
             var user = new Users();
@@ -176,35 +175,16 @@ namespace RemoteWorkManagement.Controllers
             {
                 user.Id = Convert.ToInt32(userId.ProviderUserKey.ToString());
             }
-            Guid gIdUserInfo = new Guid(idUserInfo);
-            var userInfoOldObject= _userInfoRepository.GetUser(gIdUserInfo);
-            //var dummyNotifications = _notificationsRepository.GetNotificationsForUser(gIdUserInfo).ToList();
-            //var dummyInbox = _inboxRepository.GetInboxForUser(gIdUserInfo).ToList();
-            //var dummyOutBox = _outboxRepository.GetOutBoxForUser(gIdUserInfo).ToList();
-            //var dummyChekkIO = _checkInOutRepository.GetForChekInOutUser(gIdUserInfo).ToList();
-            IList<Notifications> notificationsList = new List<Notifications>();
-            IList<Inbox> inboxList = new List<Inbox>();
-            IList<Outbox> outboxList = new List<Outbox>();
-            IList<CheckInOut> checkInOutList = new List<CheckInOut>();
-
-            var userInfoObject = new UserInfo()
-            {
-                IdUserInfo = gIdUserInfo,
-                IdMembership = user,
-                FirstName = firstName,
-                LastName = lastName,
-                Position = position,
-                ProjectLeader = projectLeader,
-                RemoteDays = remoteDaysString,
-                FlexTime = flexTime,
-                Picture = userInfoOldObject.Picture,
-                Notifications = notificationsList,
-                Inbox = inboxList,
-                Outbox = outboxList,
-                CheckInOut = checkInOutList
-            };
-
-            status = _userInfoRepository.UpdateUser(userInfoObject);
+            var gIdUserInfo = new Guid(idUserInfo);
+            var userInfoOldObject = _userInfoRepository.GetUser(gIdUserInfo);
+            userInfoOldObject.FirstName = firstName;
+            userInfoOldObject.LastName = lastName;
+            userInfoOldObject.Position = position;
+            userInfoOldObject.ProjectLeader = projectLeader;
+            userInfoOldObject.RemoteDays = remoteDaysString;
+            userInfoOldObject.FlexTime = flexTime;
+            var status = _userInfoRepository.UpdateUser(userInfoOldObject);
+            
             var userRole = _roleProvider.GetRolesForUser(username);
             var actualRole = userRole.FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(actualRole))
@@ -212,7 +192,7 @@ namespace RemoteWorkManagement.Controllers
                 _roleProvider.RemoveUsersFromRoles(new[] { username }, new[] { actualRole });
                 _roleProvider.AddUsersToRoles(new[] { username }, new[] { rol });
             }
-            return Json(new { data = status.ToString() });
+            return Json(new { data = status });
         }
 
         /// <summary>
@@ -286,19 +266,20 @@ namespace RemoteWorkManagement.Controllers
             var users = _userInfoRepository.GetUsers();
             var usersInfoList = users.Select(user => new
             {
-                IdUserInfo = user.IdUserInfo, 
-                FirstName = user.FirstName, 
-                LastName = user.LastName, 
-                FlexTime = user.FlexTime, 
+                IdUserInfo = user.IdUserInfo,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                FlexTime = user.FlexTime,
                 OtherFlexTime = user.OtherFlexTime,
-                Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture), 
-                Position = user.Position, 
-                ProjectLeader = user.ProjectLeader, 
-                ReceiveNotifications = user.ReceiveNotifications, 
-                RemoteDays = user.RemoteDays, 
+                Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
+                Position = user.Position,
+                ProjectLeader = user.ProjectLeader,
+                ReceiveNotifications = user.ReceiveNotifications,
+                RemoteDays = user.RemoteDays,
                 IdMembership = new
                 {
-                    IdMembership = user.IdMembership.Id, Email = user.IdMembership.Username
+                    IdMembership = user.IdMembership.Id,
+                    Email = user.IdMembership.Username
                 },
                 Rol = new
                 {
