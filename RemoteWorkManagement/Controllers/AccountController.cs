@@ -5,6 +5,9 @@ using System.Web.Security;
 using RemoteWorkManagement.Models;
 using Scio.RemoteManagementModels.RepositoriesContracts;
 using Scio.RemoteManagementModels.RepositoriesImplementations;
+using System.Net.Mail;
+using System.Net;
+using System;
 
 namespace RemoteWorkManagement.Controllers
 {
@@ -66,6 +69,7 @@ namespace RemoteWorkManagement.Controllers
             return View(model);
         }
 
+
         /// <summary>
         /// Logins the specified return URL.
         /// </summary>
@@ -79,6 +83,18 @@ namespace RemoteWorkManagement.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult RecoverPassword(string mail)
+        {
+            string newPassword = _membershipProvider.ResetPassword(mail,string.Empty);
+            bool result=MailSender(mail, newPassword);            
+            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
+        }
+
         /// Changes the password.
         /// </summary>
         /// <param name="newPassword">The new password.</param>
@@ -105,5 +121,31 @@ namespace RemoteWorkManagement.Controllers
             return Json(new { isTemporal = userInfo.IsTemporalPassword });
         }
 
+        /// <summary>
+        /// Mails the sender.
+        /// </summary>
+        /// <param name="mailto">The mailto.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        public bool MailSender(string mailto, string password)
+        {
+            try
+            {
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("sciorewoma@gmail.com", "*@dm1n2o14*");
+                MailMessage mail = new MailMessage("sciorewoma@gmail.com", mailto, "Please do not reply to this message", "Your temporary password is:: " + password);
+                smtp.Send(mail);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+           
+           
+        }
+        
     }
 }

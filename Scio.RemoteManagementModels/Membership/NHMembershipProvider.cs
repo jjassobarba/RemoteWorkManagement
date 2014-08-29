@@ -140,8 +140,8 @@ namespace Scio.RemoteManagementModels.Membership
             _applicationName = GetConfigValue(config["applicationName"], System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath);
             _maxInvalidPasswordAttempts = Convert.ToInt32(GetConfigValue(config["maxInvalidPasswordAttempts"], "5"));
             _passwordAttemptWindow = Convert.ToInt32(GetConfigValue(config["passwordAttemptWindow"], "10"));
-            _minRequiredNonAlphanumericCharacters = Convert.ToInt32(GetConfigValue(config["minRequiredNonAlphanumericCharacters"], "1"));
-            _minRequiredPasswordLength = Convert.ToInt32(GetConfigValue(config["minRequiredPasswordLength"], "7"));
+            _minRequiredNonAlphanumericCharacters = Convert.ToInt32(GetConfigValue(config["minRequiredNonAlphanumericCharacters"], "3"));
+            _minRequiredPasswordLength = Convert.ToInt32(GetConfigValue(config["minRequiredPasswordLength"], "8"));
             _passwordStrengthRegularExpression = Convert.ToString(GetConfigValue(config["passwordStrengthRegularExpression"], ""));
             _enablePasswordReset = Convert.ToBoolean(GetConfigValue(config["enablePasswordReset"], "true"));
             _enablePasswordRetrieval = Convert.ToBoolean(GetConfigValue(config["enablePasswordRetrieval"], "true"));
@@ -397,12 +397,12 @@ namespace Scio.RemoteManagementModels.Membership
 
             if (!EnablePasswordReset)
                 throw new NotSupportedException("Password reset is not enabled.");
-
-            if (answer == null && RequiresQuestionAndAnswer)
-            {
-                UpdateFailureCount(username, "passwordAnswer");
-                throw new ProviderException("Password answer required for password reset.");
-            }
+            
+            //if (answer == null && RequiresQuestionAndAnswer)
+            //{
+            //    UpdateFailureCount(username, "passwordAnswer");
+            //    throw new ProviderException("Password answer required for password reset.");
+            //}
 
             string newPassword =
                             System.Web.Security.Membership.GeneratePassword(newPasswordLength, MinRequiredNonAlphanumericCharacters);
@@ -433,11 +433,11 @@ namespace Scio.RemoteManagementModels.Membership
                         if (usr.IsLockedOut)
                             throw new MembershipPasswordException("The supplied user is locked out.");
 
-                        if (RequiresQuestionAndAnswer && !CheckPassword(answer, passwordAnswer))
-                        {
-                            UpdateFailureCount(username, "passwordAnswer");
-                            throw new MembershipPasswordException("Incorrect password answer.");
-                        }
+                        //if (RequiresQuestionAndAnswer && !CheckPassword(answer, passwordAnswer))
+                        //{
+                        //    UpdateFailureCount(username, "passwordAnswer");
+                        //    throw new MembershipPasswordException("Incorrect password answer.");
+                        //}
 
                         usr.Password = EncodePassword(newPassword);
                         usr.LastPasswordChangedDate = System.DateTime.Now;

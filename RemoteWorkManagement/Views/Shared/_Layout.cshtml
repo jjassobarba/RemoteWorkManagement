@@ -18,11 +18,33 @@
     <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body class="login-layout">
+<body class="login-layout" >
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="~/Scripts/sugar/sugar.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular/angular-file-upload-shim.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/app.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/Controllers/UsersCtrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/Controllers/NotificationsCtrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/Services/UsersService.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/Directives/chosen.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/Directives/popup.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular/checklist-model.js"></script>
+    <script type="text/javascript" src="~/Scripts/notifications/modernizr.custom.js"></script>
+    <script type="text/javascript" src="~/Scripts/notifications/snap.svg-min.js"></script>
+    <script type="text/javascript" src="~/Scripts/notifications/classie.js"></script>
+    <script type="text/javascript" src="~/Scripts/notifications/notificationFx.js"></script>
+    <script type="text/javascript" src="~/Scripts/notifications/progressButton.js"></script>
+    <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/Controllers/AccountCtrl.js"></script>
     @RenderSection("scripts", required: false)
+    
+   
+   
+  
     <script type="text/javascript">
         function show_box(id) {
             console.log(id);
