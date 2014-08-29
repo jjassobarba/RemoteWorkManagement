@@ -6,6 +6,7 @@ using Scio.RemoteManagementModels.RepositoriesContracts;
 
 namespace RemoteWorkManagement.Controllers
 {
+    [Authorize]
     public class NotificationsController : Controller
     {
         private readonly INotificationsRepository _notificationsRepository;

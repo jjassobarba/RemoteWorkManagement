@@ -5,6 +5,7 @@ using Scio.RemoteManagementModels.RepositoriesContracts;
 
 namespace RemoteWorkManagement.Controllers
 {
+    [Authorize]
     public class MessagesController : Controller
     {
         private IMessagesRepository _messagesRepository;

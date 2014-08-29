@@ -6,13 +6,13 @@ using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Security;
 using Castle.Core.Internal;
-using NHibernate.Engine;
 using RemoteWorkManagement.DTO;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
 
 namespace RemoteWorkManagement.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly MembershipProvider _membershipProvider;
@@ -52,6 +52,7 @@ namespace RemoteWorkManagement.Controllers
         /// Indexes this instance.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
@@ -91,9 +92,9 @@ namespace RemoteWorkManagement.Controllers
                 var file = Request.Files[x - 1];
                 if (file != null && file.ContentLength != 0)
                 {
-                    int ContentLength = file.ContentLength;
-                    byteFile = new byte[ContentLength];
-                    file.InputStream.Read(byteFile, 0, ContentLength);
+                    int contentLength = file.ContentLength;
+                    byteFile = new byte[contentLength];
+                    file.InputStream.Read(byteFile, 0, contentLength);
                 }
             }
             MembershipCreateStatus status;
@@ -133,6 +134,12 @@ namespace RemoteWorkManagement.Controllers
         }
 
 
+        /// <summary>
+        /// Mails the sender.
+        /// </summary>
+        /// <param name="mailto">The mailto.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
         public bool MailSender(string mailto, string password)
         {
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);

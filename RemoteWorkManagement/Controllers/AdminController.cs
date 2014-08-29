@@ -2,7 +2,7 @@
 
 namespace RemoteWorkManagement.Controllers
 {
-    
+    [Authorize]
     public class AdminController : Controller
     {
         // GET: Admin
