@@ -11,5 +11,6 @@
     [Picture] VARBINARY(MAX) NULL, 
     [OtherFlexTime] VARCHAR(200) NULL, 
     [ReceiveNotifications] BIT NULL, 
+    [IsTemporalPassword] BIT NULL DEFAULT 1, 
     CONSTRAINT [FK_UserInfo_Users] FOREIGN KEY ([IdMembership]) REFERENCES [Users]([Id])
 )

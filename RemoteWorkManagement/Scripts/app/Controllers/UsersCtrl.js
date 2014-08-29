@@ -16,7 +16,6 @@
         $scope.editSelections = [];
         $scope.editRol = {};
         $scope.usersFullList = [];
-
         $scope.showInfo = "False";
 
         //--------------------------------
