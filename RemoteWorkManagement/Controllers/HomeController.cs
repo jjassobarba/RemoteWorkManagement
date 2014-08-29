@@ -90,9 +90,9 @@ namespace RemoteWorkManagement.Controllers
                 var file = Request.Files[x - 1];
                 if (file != null && file.ContentLength != 0)
                 {
-                    int ContentLength = file.ContentLength;
-                    byteFile = new byte[ContentLength];
-                    file.InputStream.Read(byteFile, 0, ContentLength);
+                    int contentLength = file.ContentLength;
+                    byteFile = new byte[contentLength];
+                    file.InputStream.Read(byteFile, 0, contentLength);
                 }
             }
             MembershipCreateStatus status;
@@ -132,13 +132,19 @@ namespace RemoteWorkManagement.Controllers
         }
 
 
-        public bool MailSender(string mailto, string password)
+        /// <summary>
+        /// Mails the sender.
+        /// </summary>
+        /// <param name="mailTo">The mailTo.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        public bool MailSender(string mailTo, string password)
         {
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            var smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = false;
             smtp.Credentials = new NetworkCredential("jdavidromo@gmail.com", "*@dm1n2o11");
-            MailMessage mail = new MailMessage("jdavidromo@gmail.com", mailto, "Please do not reply to this message", "Your Password: " + password);
+            var mail = new MailMessage("jdavidromo@gmail.com", mailTo, "Please do not reply to this message", "Your Password: " + password);
             smtp.Send(mail);
             return true;
         }

@@ -233,7 +233,7 @@
                 path.animate({ 'path': pathConfig.to }, 300, mina.easeinout);
                 
                 // create the notification
-                $scope.messageLegend = ($scope.typeMessage == "error") ? '<p><span class="icon icon-exclamation-sign big"></span>An error has been occurred</p>' : '<p><span class="icon icon-exclamation-sign big"></span>The changes has been saved</p>';
+                $scope.messageLegend = ($scope.typeMessage == "error") ? '<p><span class="icon icon-exclamation-sign big"></span>There was an error</p>' : '<p><span class="icon icon-exclamation-sign big"></span>The changes has been saved</p>';
                 console.log("will enter with  " + $scope.typeMessage);
                 var notification = new NotificationFx({
                     wrapper: svgshape,
