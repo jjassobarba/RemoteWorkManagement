@@ -31,11 +31,11 @@
                 }
             }).then(function (result) {
                 if (result.data.result) {
-                    alert("An email has been sended");
+                    alert("An email has been sent");
                 }
                 else
                 {
-                    alert("An Error has been occured");
+                    alert("An Error has been occurred");
                 }
                 
             });
