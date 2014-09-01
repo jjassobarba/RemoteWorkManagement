@@ -3,12 +3,10 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.WebPages;
-using Microsoft.Ajax.Utilities;
 using RemoteWorkManagement.Models;
+using RemoteWorkManagement.Helpers;
 using Scio.RemoteManagementModels.RepositoriesContracts;
 using Scio.RemoteManagementModels.RepositoriesImplementations;
-using System.Net.Mail;
-using System.Net;
 using System;
 
 namespace RemoteWorkManagement.Controllers
@@ -28,12 +26,6 @@ namespace RemoteWorkManagement.Controllers
         {
             _membershipProvider = membershipProvider;
             _userInfoRepository = userInfoRepository;
-        }
-
-        // GET: Account
-        public ActionResult Index()
-        {
-            return View();
         }
 
         /// <summary>
@@ -93,7 +85,7 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult RecoverPassword(string mail)
         {
             string newPassword = _membershipProvider.ResetPassword(mail, string.Empty);
-            bool result = MailSender(mail, newPassword);
+            bool result = Utilities.MailSender(mail, newPassword);
                 string sresult = result.ToString();
                 return Json(new { result = sresult }, JsonRequestBehavior.AllowGet);
         }
@@ -141,31 +133,7 @@ namespace RemoteWorkManagement.Controllers
             return Json(new { isTemporal = userInfo.IsTemporalPassword });
         }
 
-        /// <summary>
-        /// emails sender.
-        /// </summary>
-        /// <param name="mailto">The mailto.</param>
-        /// <param name="password">The password.</param>
-        /// <returns></returns>
-        public bool MailSender(string mailto, string password)
-        {
-            try
-            {
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("sciorewoma@gmail.com", "*@dm1n2o14*");
-                MailMessage mail = new MailMessage("sciorewoma@gmail.com", mailto, "Please do not reply to this message", "Your temporary password is: " + password);
-                smtp.Send(mail);
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-           
-           
-        }
+        
         
     }
 }
