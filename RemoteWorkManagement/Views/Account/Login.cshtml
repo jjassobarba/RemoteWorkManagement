@@ -31,16 +31,20 @@
                                             <p>
                                                 Enter your email and to receive instructions
                                             </p>
+                                            <div class="danger alert-error" ng-show="errorForgot">
+                                                Your email is not registered
+                                            </div>
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="email" class="form-control" ng-model="email" placeholder="Email" style="width: 280px" required />
+                                                        <input type="email" class="form-control" ng-model="email" 
+                                                               placeholder="Email" style="width: 280px" required ng-change="hideMsgError()" />
                                                         <i class="icon-envelope"></i>
                                                     </span>
                                                 </label>
 
                                                 <div class="clearfix">
-                                                    <button @*ng-click="RecoverPassword()"*@ class="width-35 pull-right btn btn-sm btn-danger">
+                                                    <button class="width-35 pull-right btn btn-sm btn-danger">
                                                         <i class="icon-lightbulb"></i>
                                                         Send Me!
                                                     </button>

@@ -2,6 +2,12 @@
     angular.module('RemoteManagement').controller('AccountCtrl', ['$scope', 'userService', '$http', function ($scope, userSerice, $http) {
         $scope.loginBox = true;
         $scope.forgotBox = false;
+        $scope.errorForgot = false;
+
+
+        $scope.hideMsgError = function() {
+            $scope.errorForgot = false;
+        };
 
         $scope.hideForgotBox = function () {
             $scope.loginBox = true;
@@ -21,6 +27,7 @@
         $scope.isNewPass();
 
         $scope.RecoverPassword = function () {
+            $scope.errorForgot = false;
             $scope.emailRecover = $scope.email;
             var requestVU = $http({
                 method: 'post',
@@ -48,7 +55,7 @@
                     });
                 }
                 else {
-                    alert("Your email is not registered");
+                    $scope.errorForgot = true;
                 }
             });
 
