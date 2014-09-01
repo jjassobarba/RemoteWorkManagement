@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Security;
 using Castle.Core.Internal;
 using RemoteWorkManagement.DTO;
+using RemoteWorkManagement.Helpers;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
 
@@ -128,27 +126,9 @@ namespace RemoteWorkManagement.Controllers
                 };
                 _userInfoRepository.InsertUser(userInfoObject);
             }
-            bool rpt = MailSender(username, password);
+            bool rpt = Utilities.MailSender(username, password);
 
             return Json(new { data = status.ToString() });
-        }
-
-
-        /// <summary>
-        /// Mails the sender.
-        /// </summary>
-        /// <param name="mailto">The mailto.</param>
-        /// <param name="password">The password.</param>
-        /// <returns></returns>
-        public bool MailSender(string mailto, string password)
-        {
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.EnableSsl = true;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("sciorewoma@gmail.com", "*@dm1n2o14*");
-            MailMessage mail = new MailMessage("sciorewoma@gmail.com", mailto, "Please do not reply to this message", "Your Password: " + password);
-            smtp.Send(mail);
-            return true;
         }
 
         /// <summary>

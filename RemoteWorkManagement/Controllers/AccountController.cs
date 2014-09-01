@@ -2,12 +2,10 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.WebPages;
 using RemoteWorkManagement.Models;
+using RemoteWorkManagement.Helpers;
 using Scio.RemoteManagementModels.RepositoriesContracts;
-using Scio.RemoteManagementModels.RepositoriesImplementations;
-using System.Net.Mail;
-using System.Net;
-using System;
 
 namespace RemoteWorkManagement.Controllers
 {
@@ -28,12 +26,6 @@ namespace RemoteWorkManagement.Controllers
             _userInfoRepository = userInfoRepository;
         }
 
-        // GET: Account
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         /// <summary>
         /// Logs the off.
         /// </summary>
@@ -43,7 +35,7 @@ namespace RemoteWorkManagement.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
 
         /// <summary>
@@ -91,10 +83,28 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult RecoverPassword(string mail)
         {
             string newPassword = _membershipProvider.ResetPassword(mail, string.Empty);
-            bool result = MailSender(mail, newPassword);
-            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
+            bool result = Utilities.MailSender(mail, newPassword);
+                string sresult = result.ToString();
+                return Json(new { result = sresult }, JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// Verifies if the user exists
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ValidateUser(string mail)
+        {
+            string userName = _membershipProvider.GetUserNameByEmail(mail);
+
+            if (!userName.IsEmpty())
+                return Json(new { result = "True" }, JsonRequestBehavior.AllowGet);
+            return Json(new { result = "False" }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Changes the password.
         /// </summary>
         /// <param name="newPassword">The new password.</param>
@@ -120,38 +130,14 @@ namespace RemoteWorkManagement.Controllers
             if (user != null && !string.IsNullOrWhiteSpace(user))
             {
                 var userMembership = _membershipProvider.GetUser(user, false);
-                var userInfo =
-                    _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(userMembership.ProviderUserKey.ToString()));
+                var userInfo = _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(userMembership.ProviderUserKey.ToString()));
                 success = userInfo.IsTemporalPassword;
+
             }
             return Json(new { isTemporal = success });
         }
 
-        /// <summary>
-        /// Mails the sender.
-        /// </summary>
-        /// <param name="mailto">The mailto.</param>
-        /// <param name="password">The password.</param>
-        /// <returns></returns>
-        public bool MailSender(string mailto, string password)
-        {
-            try
-            {
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("sciorewoma@gmail.com", "*@dm1n2o14*");
-                MailMessage mail = new MailMessage("sciorewoma@gmail.com", mailto, "Please do not reply to this message", "Your temporary password is: " + password);
-                smtp.Send(mail);
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-
-
-        }
-
+        
+        
     }
 }

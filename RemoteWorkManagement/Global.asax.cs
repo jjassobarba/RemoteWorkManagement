@@ -41,7 +41,7 @@ namespace RemoteWorkManagement
         /// <summary>
         /// Disposes the <see cref="T:System.Web.HttpApplication" /> instance.
         /// </summary>
-        public void Dispose()
+        public override void Dispose()
         {
             _container.Dispose();
             base.Dispose();
