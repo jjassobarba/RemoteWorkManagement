@@ -3,15 +3,21 @@
         $scope.loginBox = true;
         $scope.forgotBox = false;
         $scope.errorForgot = false;
+        $scope.msgAlert = "";
+        $scope.classMsgAlert = "";
 
 
         $scope.hideMsgError = function() {
-            $scope.errorForgot = false;
+            $scope.msgAlert = "";
+            $scope.classMsgAlert = "";
         };
 
         $scope.hideForgotBox = function () {
             $scope.loginBox = true;
             $scope.forgotBox = false;
+            $scope.msgAlert = "";
+            $scope.email = "";
+            $scope.classMsgAlert = "";
         };
 
         $scope.hideLoginBox = function () {
@@ -48,22 +54,21 @@
                     }).then(function (result) {
                         if (result.data.result) {
                             $scope.email = "";
-                            alert("An email has been sent");
+                            $scope.classMsgAlert = "alert-success";
+                            $scope.msgAlert = "An email has been sent";
                         }
 
                         if (!result.data.result) {
-                            alert("An Error has been occurred");
+                            $scope.classMsgAlert = "alert-error";
+                            $scope.msgAlert = "An Error has been occurred";
                         }
                     });
                 }
                 else {
-                    $scope.errorForgot = true;
+                    $scope.classMsgAlert = "alert-error";
+                    $scope.msgAlert = " Your email is not registered";
                 }
             });
-
-
-
-
             
         };
     }]);

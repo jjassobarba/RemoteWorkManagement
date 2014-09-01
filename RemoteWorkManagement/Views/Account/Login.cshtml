@@ -31,8 +31,8 @@
                                             <p>
                                                 Enter your email and to receive instructions
                                             </p>
-                                            <div class="danger alert-error" ng-show="errorForgot">
-                                                Your email is not registered
+                                            <div ng-class="[classMsgAlert]">
+                                                {{ msgAlert }}
                                             </div>
                                             <fieldset>
                                                 <label class="block clearfix">
