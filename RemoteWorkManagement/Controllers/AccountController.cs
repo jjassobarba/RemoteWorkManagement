@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.WebPages;
+using Microsoft.Ajax.Utilities;
 using RemoteWorkManagement.Models;
 using Scio.RemoteManagementModels.RepositoriesContracts;
 using Scio.RemoteManagementModels.RepositoriesImplementations;
@@ -90,9 +92,20 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult RecoverPassword(string mail)
         {
-            string newPassword = _membershipProvider.ResetPassword(mail,string.Empty);
-            bool result=MailSender(mail, newPassword);            
-            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
+            string newPassword = _membershipProvider.ResetPassword(mail, string.Empty);
+            bool result = MailSender(mail, newPassword);
+                string sresult = result.ToString();
+                return Json(new { result = sresult }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult ValidateUser(string mail)
+        {
+            string userName = _membershipProvider.GetUserNameByEmail(mail);
+
+            if (!userName.IsEmpty())
+                return Json(new { result = "True" }, JsonRequestBehavior.AllowGet);
+            return Json(new { result = "False" }, JsonRequestBehavior.AllowGet);
         }
 
         /// Changes the password.
@@ -122,7 +135,7 @@ namespace RemoteWorkManagement.Controllers
         }
 
         /// <summary>
-        /// Mails the sender.
+        /// emails sender.
         /// </summary>
         /// <param name="mailto">The mailto.</param>
         /// <param name="password">The password.</param>

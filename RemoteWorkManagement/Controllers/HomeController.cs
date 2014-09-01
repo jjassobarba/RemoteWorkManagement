@@ -135,7 +135,7 @@ namespace RemoteWorkManagement.Controllers
 
 
         /// <summary>
-        /// Mails the sender.
+        ///  emails sender
         /// </summary>
         /// <param name="mailto">The mailto.</param>
         /// <param name="password">The password.</param>

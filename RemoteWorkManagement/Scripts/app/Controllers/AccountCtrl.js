@@ -22,23 +22,40 @@
 
         $scope.RecoverPassword = function () {
             $scope.emailRecover = $scope.email;
-            alert($scope.emailRecover);
-            var request = $http({
+            var requestVU = $http({
                 method: 'post',
-                url: '/Account/RecoverPassword/',
+                url: '/Account/ValidateUser/',
                 params: {
                     mail: $scope.email
                 }
-            }).then(function (result) {
-                if (result.data.result) {
-                    alert("An email has been sent");
+            }).then(function (resultVU) {
+                if (resultVU.data.result == "True") {
+                    var request = $http({
+                        method: 'post',
+                        url: '/Account/RecoverPassword/',
+                        params: {
+                            mail: $scope.email
+                        }
+                    }).then(function (result) {
+                        if (result.data.result) {
+                            $scope.email = "";
+                            alert("An email has been sent");
+                        }
+
+                        if (!result.data.result) {
+                            alert("An Error has been occurred");
+                        }
+                    });
                 }
-                else
-                {
-                    alert("An Error has been occurred");
+                else {
+                    alert("Your email is not registered");
                 }
-                
             });
+
+
+
+
+            
         };
     }]);
 

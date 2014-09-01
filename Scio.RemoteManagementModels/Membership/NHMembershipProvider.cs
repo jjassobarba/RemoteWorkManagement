@@ -600,7 +600,7 @@ namespace Scio.RemoteManagementModels.Membership
                     }
                 }
             }
-            return usr == null ? string.Empty : usr.Username; ;
+            return usr == null ? string.Empty : usr.Username;
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
