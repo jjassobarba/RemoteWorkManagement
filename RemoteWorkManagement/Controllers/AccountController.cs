@@ -98,6 +98,12 @@ namespace RemoteWorkManagement.Controllers
                 return Json(new { result = sresult }, JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// Verifies if the user exists
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult ValidateUser(string mail)
         {
@@ -108,6 +114,7 @@ namespace RemoteWorkManagement.Controllers
             return Json(new { result = "False" }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
         /// Changes the password.
         /// </summary>
         /// <param name="newPassword">The new password.</param>
