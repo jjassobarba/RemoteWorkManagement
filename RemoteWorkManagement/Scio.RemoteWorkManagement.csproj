@@ -617,6 +617,7 @@
     <Content Include="Scripts\respond\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond\respond.min.js" />
+    <Content Include="Scripts\scripts\fuelux.wizard.min.js" />
     <Content Include="Scripts\scripts\main.js" />
     <Content Include="Scripts\sugar\sugar-es6-patch.js" />
     <Content Include="Scripts\sugar\sugar-es6-patch.min.js" />
@@ -637,7 +638,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Admin\Index.cshtml" />

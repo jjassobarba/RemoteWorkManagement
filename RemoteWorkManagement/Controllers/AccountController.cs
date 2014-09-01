@@ -43,7 +43,7 @@ namespace RemoteWorkManagement.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult RecoverPassword(string mail)
         {
-            string newPassword = _membershipProvider.ResetPassword(mail,string.Empty);
-            bool result=MailSender(mail, newPassword);            
+            string newPassword = _membershipProvider.ResetPassword(mail, string.Empty);
+            bool result = MailSender(mail, newPassword);
             return Json(new { result = result }, JsonRequestBehavior.AllowGet);
         }
 
@@ -115,10 +115,16 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult IsNewPass()
         {
+            var success = false;
             var user = User.Identity.Name;
-            var userMembership = _membershipProvider.GetUser(user, false);
-            var userInfo = _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(userMembership.ProviderUserKey.ToString()));
-            return Json(new { isTemporal = userInfo.IsTemporalPassword });
+            if (user != null && !string.IsNullOrWhiteSpace(user))
+            {
+                var userMembership = _membershipProvider.GetUser(user, false);
+                var userInfo =
+                    _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(userMembership.ProviderUserKey.ToString()));
+                success = userInfo.IsTemporalPassword;
+            }
+            return Json(new { isTemporal = success });
         }
 
         /// <summary>
@@ -143,9 +149,9 @@ namespace RemoteWorkManagement.Controllers
             {
                 return false;
             }
-           
-           
+
+
         }
-        
+
     }
 }

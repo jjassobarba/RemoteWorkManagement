@@ -12,7 +12,6 @@ namespace RemoteWorkManagement
                         "~/Scripts/jquery/jquery-1.10.2.min.js",
                         "~/Scripts/jquery/jquery-ui-1.10.3.full.min.js",
                         "~/Scripts/jquery/jquery-ui-1.10.3.custom.min.js",
-                        "~/Scripts/jquery/jquery-ui-1.10.3.custom.min.js",
                         "~/Scripts/jquery/chosen.jquery.min.js",
                         "~/Scripts/jquery/select2.min.js",
                         "~/Scripts/jquery/typeahead-bs2.min.js",
@@ -24,9 +23,10 @@ namespace RemoteWorkManagement
                         "~/Scripts/jquery/jquery.ui.touch-punch.min.js",
                         "~/Scripts/jquery/jquery.slimscroll.min.js",
                         "~/Scripts/jquery/jquery.maskedinput.min.js"));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/mainScripts").Include(
-                        "~/Scripts/scripts/main.js"));
+                        "~/Scripts/scripts/main.js",
+                        "~/Scripts/scripts/fuelux.wizard.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery/jquery.validate*"));
@@ -46,7 +46,7 @@ namespace RemoteWorkManagement
                       "~/Scripts/bootstrap/ace-extra.min.js",
                       "~/Scripts/bootstrap/ace-elements.min.js",
                       "~/Scripts/bootstrap/ace.min.js",
-                      "~/Scripts/respond/respond.js"));            
+                      "~/Scripts/respond/respond.js"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

@@ -13,12 +13,19 @@
             $scope.forgotBox = true;
         };
 
+        //Check if the user is new in the system
         $scope.isNewPass = function () {
             $http.post('/Account/IsNewPass').then(function (result) {
-                console.log(result);
+                if (result.data.isTemporal) {
+                    $('#modal-wizard').modal('toggle');
+                }
             });
         };
         $scope.isNewPass();
+
+        $scope.checkStep = function(obj, $event) {
+            console.log($event.target);
+        };
 
         $scope.RecoverPassword = function () {
             $scope.emailRecover = $scope.email;
@@ -33,11 +40,10 @@
                 if (result.data.result) {
                     alert("An email has been sent");
                 }
-                else
-                {
+                else {
                     alert("An Error has been occurred");
                 }
-                
+
             });
         };
     }]);
