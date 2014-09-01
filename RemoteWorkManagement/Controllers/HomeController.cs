@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using Castle.Core.Internal;
+using Newtonsoft.Json;
 using RemoteWorkManagement.DTO;
 using RemoteWorkManagement.Helpers;
 using Scio.RemoteManagementModels.Entities;
@@ -82,9 +83,10 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="flexTime">The flex time.</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string rol, string projectLeader, string[] remoteDays, string flexTime)
+        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string rol, string projectLeader, string remoteDays, string flexTime)
         {
             byte[] byteFile = null;
+            var roleList = JsonConvert.DeserializeObject<string[]>(rol);
             for (var x = 1; x < Request.Files.Count + 1; x++)
             {
                 var file = Request.Files[x - 1];
@@ -97,12 +99,9 @@ namespace RemoteWorkManagement.Controllers
             }
             MembershipCreateStatus status;
             var password = Membership.GeneratePassword(8, 3);
-            var remoteDaysString = remoteDays.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
-            remoteDaysString = remoteDaysString.Replace('"', ' ');
-            remoteDaysString = remoteDaysString.Replace('[', ' ');
-            remoteDaysString = remoteDaysString.Replace(']', ' ');
-            remoteDaysString = remoteDaysString.Replace(" ", String.Empty);
 
+            var remoteList = JsonConvert.DeserializeObject<string[]>(remoteDays);
+            var remoteDaysString = remoteList.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
             _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true, new Guid(), out status);
             if (status == MembershipCreateStatus.Success)
             {
@@ -112,13 +111,13 @@ namespace RemoteWorkManagement.Controllers
                 {
                     user.Id = Convert.ToInt32(userId.ProviderUserKey.ToString());
                 }
-                _roleProvider.AddUsersToRoles(new[] { username }, new[] { rol });
+                _roleProvider.AddUsersToRoles(new[] { username }, roleList);
                 var userInfoObject = new UserInfo()
                 {
                     FirstName = firstName,
                     LastName = lastName,
                     Position = position,
-                    ProjectLeader = projectLeader,
+                    //ProjectLeader = projectLeader,
                     IdMembership = user,
                     RemoteDays = remoteDaysString,
                     FlexTime = flexTime,
@@ -160,11 +159,11 @@ namespace RemoteWorkManagement.Controllers
             userInfoOldObject.FirstName = firstName;
             userInfoOldObject.LastName = lastName;
             userInfoOldObject.Position = position;
-            userInfoOldObject.ProjectLeader = projectLeader;
+            //userInfoOldObject.ProjectLeader = projectLeader;
             userInfoOldObject.RemoteDays = remoteDaysString;
             userInfoOldObject.FlexTime = flexTime;
             var status = _userInfoRepository.UpdateUser(userInfoOldObject);
-            
+
             var userRole = _roleProvider.GetRolesForUser(username);
             var actualRole = userRole.FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(actualRole))
@@ -220,7 +219,7 @@ namespace RemoteWorkManagement.Controllers
                 OtherFlexTime = user.OtherFlexTime,
                 Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
                 Position = user.Position,
-                ProjectLeader = user.ProjectLeader,
+                //ProjectLeader = user.ProjectLeader,
                 ReceiveNotifications = user.ReceiveNotifications,
                 RemoteDays = user.RemoteDays,
                 IdMembership = new
@@ -253,7 +252,7 @@ namespace RemoteWorkManagement.Controllers
                 OtherFlexTime = user.OtherFlexTime,
                 Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
                 Position = user.Position,
-                ProjectLeader = user.ProjectLeader,
+                //ProjectLeader = user.ProjectLeader,
                 ReceiveNotifications = user.ReceiveNotifications,
                 RemoteDays = user.RemoteDays,
                 IdMembership = new
@@ -287,6 +286,28 @@ namespace RemoteWorkManagement.Controllers
                 }
             }
             return Json(new { success = true });
+        }
+
+        /// <summary>
+        /// Gets the senseis.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetSenseis()
+        {
+            var senseis = _roleProvider.GetUsersInRole("Sensei");
+            return Json(new { senseis = senseis });
+        }
+
+        /// <summary>
+        /// Gets the project leaders.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetProjectLeaders()
+        {
+            var teamLeaders = _roleProvider.GetUsersInRole("TeamLeader");
+            return Json(new { teamLeaders = teamLeaders });
         }
     }
 }

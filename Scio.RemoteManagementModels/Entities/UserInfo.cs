@@ -10,7 +10,8 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual string Position { get; set; }
-        public virtual string ProjectLeader { get; set; }
+        public virtual int IdProjectLeader { get; set; }
+        public virtual int IdSensei { get; set; }
         public virtual string RemoteDays { get; set; }
         public virtual string FlexTime { get; set; }
         public virtual byte[] Picture { get; set; }
