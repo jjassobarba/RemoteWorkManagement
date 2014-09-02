@@ -11,6 +11,7 @@ using System.Web.Configuration;
 using System.Web.Security;
 using NHibernate;
 using Scio.RemoteManagementModels.Entities;
+using Scio.RemoteManagementModels.RepositoriesContracts;
 
 namespace Scio.RemoteManagementModels.Membership
 {
@@ -25,6 +26,7 @@ namespace Scio.RemoteManagementModels.Membership
         private string connectionString;
 
         private static ISessionFactory _sessionFactory;
+        private static IUserInfoRepository _userInfoRepository;
         private string _applicationName;
         private bool _enablePasswordReset;
         private bool _enablePasswordRetrieval;
@@ -114,6 +116,11 @@ namespace Scio.RemoteManagementModels.Membership
         private static ISessionFactory SessionFactory
         {
             get { return _sessionFactory; }
+        }
+
+        private static IUserInfoRepository userInfoRepository
+        {
+            get { return _userInfoRepository; }
         }
         #endregion
 
@@ -397,12 +404,6 @@ namespace Scio.RemoteManagementModels.Membership
 
             if (!EnablePasswordReset)
                 throw new NotSupportedException("Password reset is not enabled.");
-            
-            //if (answer == null && RequiresQuestionAndAnswer)
-            //{
-            //    UpdateFailureCount(username, "passwordAnswer");
-            //    throw new ProviderException("Password answer required for password reset.");
-            //}
 
             string newPassword =
                             System.Web.Security.Membership.GeneratePassword(newPasswordLength, MinRequiredNonAlphanumericCharacters);
@@ -432,12 +433,6 @@ namespace Scio.RemoteManagementModels.Membership
 
                         if (usr.IsLockedOut)
                             throw new MembershipPasswordException("The supplied user is locked out.");
-
-                        //if (RequiresQuestionAndAnswer && !CheckPassword(answer, passwordAnswer))
-                        //{
-                        //    UpdateFailureCount(username, "passwordAnswer");
-                        //    throw new MembershipPasswordException("Incorrect password answer.");
-                        //}
 
                         usr.Password = EncodePassword(newPassword);
                         usr.LastPasswordChangedDate = System.DateTime.Now;

@@ -83,9 +83,23 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult RecoverPassword(string mail)
         {
             string newPassword = _membershipProvider.ResetPassword(mail, string.Empty);
-            bool result = Utilities.MailSender(mail, newPassword);
+            var usr = _membershipProvider.GetUser(mail, false);
+            var userId = Convert.ToInt32(usr.ProviderUserKey);
+            var usrInfo = _userInfoRepository.GetUserByMembershipId(userId);
+            usrInfo.IsTemporalPassword = true;
+            if (_userInfoRepository.UpdateUser(usrInfo))
+            {
+                bool result = Utilities.MailSender(mail, newPassword);
                 string sresult = result.ToString();
                 return Json(new { result = sresult }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { result = "false" }, JsonRequestBehavior.AllowGet);
+            }
+
+
+           
         }
 
 

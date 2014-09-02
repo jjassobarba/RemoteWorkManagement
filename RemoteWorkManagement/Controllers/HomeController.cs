@@ -288,5 +288,12 @@ namespace RemoteWorkManagement.Controllers
             }
             return Json(new { success = true });
         }
+
+
+        public ActionResult get1()
+        {
+            var usrInfo = _userInfoRepository.GetUserByMembershipId(1);
+            return Json(new { userInfo = usrInfo }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
