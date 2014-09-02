@@ -11,7 +11,6 @@ using System.Web.Configuration;
 using System.Web.Security;
 using NHibernate;
 using Scio.RemoteManagementModels.Entities;
-using Scio.RemoteManagementModels.RepositoriesContracts;
 
 namespace Scio.RemoteManagementModels.Membership
 {
@@ -26,7 +25,6 @@ namespace Scio.RemoteManagementModels.Membership
         private string connectionString;
 
         private static ISessionFactory _sessionFactory;
-        private static IUserInfoRepository _userInfoRepository;
         private string _applicationName;
         private bool _enablePasswordReset;
         private bool _enablePasswordRetrieval;
@@ -116,11 +114,6 @@ namespace Scio.RemoteManagementModels.Membership
         private static ISessionFactory SessionFactory
         {
             get { return _sessionFactory; }
-        }
-
-        private static IUserInfoRepository userInfoRepository
-        {
-            get { return _userInfoRepository; }
         }
         #endregion
 
