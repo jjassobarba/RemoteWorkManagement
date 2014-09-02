@@ -60,6 +60,21 @@
         };
         $scope.getAllUsersInfo();
 
+        $scope.getSenseis = function() {
+            $http.post('/Home/GetSenseis').then(function(result) {
+                console.log(result.data);
+            });
+        };
+        $scope.getSenseis();
+
+        $scope.getTeamLeaders = function() {
+            $http.post('/Home/GetProjectLeaders').then(function(result) {
+                console.log(result);
+            });
+        };
+        $scope.getTeamLeaders();
+
+
         //POST
         $scope.registerUser = function ($files) {
             userService.registerUser(

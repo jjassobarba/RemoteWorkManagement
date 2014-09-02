@@ -14,7 +14,8 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Position);
-            Map(x => x.ProjectLeader);
+            Map(x => x.IdProjectLeader);
+            Map(x => x.IdSensei);
             Map(x => x.RemoteDays);
             Map(x => x.FlexTime);
             Map(x => x.Picture).Length(100000);
