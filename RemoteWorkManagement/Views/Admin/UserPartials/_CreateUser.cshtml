@@ -67,7 +67,7 @@
                 </label>
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
-                        <select chosen ng-model="selectedProjectLeader" class="form-control input-xlarge" id="plSelect" data-placeholder="Choose a project leader">
+                        <select chosen ng-model="projectLeader" class="form-control input-xlarge" id="plSelect" data-placeholder="Choose a project leader" ng-options="leader.id as leader.name for leader in projectLeaders">
                             <option></option>
                         </select>
                     </span>
@@ -79,7 +79,7 @@
                 </label>
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
-                        <select chosen ng-model="selectedSensei" class="form-control input-xlarge" id="senseiSelect" data-placeholder="Choose a sensei">
+                        <select chosen ng-model="sensei" class="form-control input-xlarge" id="senseiSelect" data-placeholder="Choose a sensei" ng-options="sensei.id as sensei.name for sensei in senseis">
                             <option></option>
                         </select>
                     </span>

@@ -18,12 +18,11 @@ INSERT INTO Roles SELECT 'Sensei','RemoteWorkManagement' WHERE NOT EXISTS (SELEC
 
 PRINT 'inserting User'
 
-insert into users(UserName,ApplicationName,Email,PassWord,Comment,PasswordQuestion,PasswordAnswer,IsApproved,
+INSERT INTO users(UserName,ApplicationName,Email,PassWord,Comment,PasswordQuestion,PasswordAnswer,IsApproved,
 LastActivityDate,LastLoginDate,LastPasswordChangedDate,CreationDate,IsOnLine,IsLockedOut,LastLockedOutDate,FailedPasswordAttemptCount,
 FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart)  
-values('jdromo@sciodev.com','RemoteWorkManagement','jdromo@sciodev.com',HashBytes('MD5', 'admin'),'','',HashBytes('MD5', 'rpta'),1,
+VALUES('jdromo@sciodev.com','RemoteWorkManagement','jdromo@sciodev.com',HashBytes('MD5', 'admin'),'','',HashBytes('MD5', 'rpta'),1,
 GETDATE(),GETDATE(),GETDATE(),GETDATE(),0,0,GETDATE(),0,
 GETDATE(),0,GETDATE());
 
-insert into UserInfo(IdUserInfo,IdMembership,FirstName,LastName,IsTemporalPassword)
-values (NEWID(),1,'AdminName','AdminLstName',0);
+INSERT INTO UserInfo(IdUserInfo,IdMembership,FirstName,LastName,IsTemporalPassword) VALUES (NEWID(),1,'AdminName','AdminLstName',0);
