@@ -5,7 +5,7 @@
         $scope.errorForgot = false;
         $scope.msgAlert = "";
         $scope.classMsgAlert = "";
-
+        $scope.stepIndex = 1;
 
         $scope.hideMsgError = function() {
             $scope.msgAlert = "";
@@ -70,8 +70,60 @@
                 }
             });
             
+        };        
+
+        $scope.nextStep = function () {   
+            console.log("forward " + $scope.stepIndex);
+            switch($scope.stepIndex) {
+                case 1:
+                    console.log("Type Old Password");
+                    var request = $http({
+                        method: 'post',
+                        url: '/Account/ValidateOldPassword',
+                        params: {
+                            password: $scope.oldPassword
+                        }
+                    }).then(function (result) {
+                        if (result.data.result) {
+                            console.log("OldPassValid");
+                        } else {
+                            console.log("OldPassNotValid");
+                            $scope.prevStep();
+                        }
+                    });
+                    break;
+                case 2:
+                    console.log("Type New Password");
+                    break;
+                case 3:
+                    console.log("Repeat Password");
+                    break;
+                case 4:
+                    console.log("Make Changes");
+                    break;                
+            }
+            $scope.stepIndex = $scope.stepIndex + 1;
         };
+
+        $scope.prevStep = function () {            
+            $scope.stepIndex = $scope.stepIndex - 1;
+            console.log("back " + $scope.stepIndex);
+            switch ($scope.stepIndex) {
+                case 1:
+                    console.log("Type Old Password");      
+                    break;
+                case 2:
+                    console.log("Type New Password");
+                    break;
+                case 3:
+                    console.log("Repeat Password");
+                    break;
+                case 4:
+                    console.log("Make Changes");
+                    break;
+            }
+        };
+
+
     }]);
-
-
 })();

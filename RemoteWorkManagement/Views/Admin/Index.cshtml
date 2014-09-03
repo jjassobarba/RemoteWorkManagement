@@ -225,7 +225,7 @@
             </div>
         </div>
     </div>
-    <div ng-controller="UsersCtrl">
+    @*<div ng-controller="UsersCtrl">
         <div id="modal-wizard" class="modal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -308,7 +308,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
+    
+    
+    <!-- wizard change password-->
     <div ng-controller="AccountCtrl" ng-cloak>
         <div id="modal-wizard" class="modal">
             <div class="modal-dialog">
@@ -374,12 +377,12 @@
                     </div>
 
                     <div class="modal-footer wizard-actions">
-                        <button class="btn btn-sm btn-prev">
+                        <button class="btn btn-sm btn-prev" ng-click="prevStep()">
                             <i class="icon-arrow-left"></i>
                             Prev
                         </button>
 
-                        <button class="btn btn-success btn-sm btn-next" data-last="Finish" ng-click="checkStep()">
+                        <button class="btn btn-success btn-sm btn-next" data-last="Finish " ng-click="nextStep()">
                             Next
                             <i class="icon-arrow-right icon-on-right"></i>
                         </button>
@@ -389,8 +392,12 @@
                             Cancel
                         </button>
                     </div>
+
+                       
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- ./wizard change password-->
 </div>
