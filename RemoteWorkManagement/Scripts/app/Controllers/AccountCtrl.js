@@ -3,9 +3,11 @@
         $scope.loginBox = true;
         $scope.forgotBox = false;
         $scope.errorForgot = false;
+        $scope.isDisabledNext = true;
         $scope.msgAlert = "";
         $scope.classMsgAlert = "";
         $scope.stepIndex = 1;
+        $scope.passMatchMsg = "";
 
         $scope.hideMsgError = function() {
             $scope.msgAlert = "";
@@ -88,7 +90,7 @@
                             console.log("OldPassValid");
                         } else {
                             console.log("OldPassNotValid");
-                            $scope.prevStep();
+                            $("#prevButton").click();
                         }
                     });
                     break;
@@ -124,6 +126,24 @@
             }
         };
 
+        $scope.validateNewPwd = function () {
+            
+        };
+                
+        $scope.validateMatchPwd = function () {
+            if($scope.newPassword != $scope.repeatPassword)
+            {
+                $scope.passMatchMsg = "Passwords don't match.";
+            }
+            
+            if ($scope.repeatPassword == "") {
+                $scope.passMatchMsg = "";
+            }
+
+            if ($scope.newPassword == $scope.repeatPassword) {
+                $scope.passMatchMsg = "";
+            }           
+        };       
 
     }]);
 })();
