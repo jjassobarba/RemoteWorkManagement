@@ -142,12 +142,13 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="position">The position (Team member, leader, etc...)</param>
         /// <param name="rol">The rol.</param>
         /// <param name="projectLeader">The project leader.</param>
+        /// <param name="sensei">The sensei.</param>
         /// <param name="remoteDays">The remote days.</param>
         /// <param name="flexTime">The flex time.</param>
         /// <returns></returns>
         [HttpPost]
         public JsonResult UpdateUser(string idUserInfo, string username, string firstName, string lastName, string position, string rol,
-            string projectLeader, string[] remoteDays, string flexTime)
+            Guid? projectLeader, Guid? sensei, string[] remoteDays, string flexTime)
         {
             var remoteDaysString = remoteDays.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
             var userId = _membershipProvider.GetUser(username, false);
@@ -161,17 +162,17 @@ namespace RemoteWorkManagement.Controllers
             userInfoOldObject.FirstName = firstName;
             userInfoOldObject.LastName = lastName;
             userInfoOldObject.Position = position;
-            //userInfoOldObject.ProjectLeader = projectLeader;
+            userInfoOldObject.IdProjectLeader = projectLeader;
+            userInfoOldObject.IdSensei = sensei;
             userInfoOldObject.RemoteDays = remoteDaysString;
             userInfoOldObject.FlexTime = flexTime;
             var status = _userInfoRepository.UpdateUser(userInfoOldObject);
-
+            var roleList = JsonConvert.DeserializeObject<string[]>(rol);
             var userRole = _roleProvider.GetRolesForUser(username);
-            var actualRole = userRole.FirstOrDefault();
-            if (!string.IsNullOrWhiteSpace(actualRole))
+            if (userRole != null && userRole.Length > 0)
             {
-                _roleProvider.RemoveUsersFromRoles(new[] { username }, new[] { actualRole });
-                _roleProvider.AddUsersToRoles(new[] { username }, new[] { rol });
+                _roleProvider.RemoveUsersFromRoles(new[] { username }, userRole);
+                _roleProvider.AddUsersToRoles(new[] { username }, roleList);
             }
             return Json(new { data = status });
         }
@@ -221,9 +222,10 @@ namespace RemoteWorkManagement.Controllers
                 OtherFlexTime = user.OtherFlexTime,
                 Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
                 Position = user.Position,
-                //ProjectLeader = user.ProjectLeader,
                 ReceiveNotifications = user.ReceiveNotifications,
                 RemoteDays = user.RemoteDays,
+                IdSensei = user.IdSensei,
+                IdProjectLeader = user.IdProjectLeader,
                 IdMembership = new
                 {
                     IdMembership = user.IdMembership.Id,
@@ -231,7 +233,7 @@ namespace RemoteWorkManagement.Controllers
                 },
                 Rol = new
                 {
-                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
+                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).ToList()
                 }
             };
             return Json(new { userInfo = userMapped });

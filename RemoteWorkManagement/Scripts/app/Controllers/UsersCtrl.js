@@ -78,47 +78,9 @@
         $scope.getTeamLeaders();
 
 
-        //POST
-        $scope.registerUser = function ($files) {
-            userService.registerUser(
-                $scope.email,
-                $scope.firstName,
-                $scope.lastName,
-                $scope.position,
-                $scope.selectedRol,
-                $scope.projectLeader,
-                $scope.sensei,
-                $scope.selectedDays,
-                $scope.selectedFlex).then(function (data) {
-                    if ($files != undefined) {
-                        $files.each(function (n) {
-                            if (n.type == "image/png" || n.type == "image/jpg" || n.type == "image/gif" || n.type == "image/jpeg") {
-                                $scope.upload = $upload.upload({
-                                    url: '/Home/UploadFile',
-                                    method: 'POST',
-                                    file: n
-                                }).success(function (data, status, headers, config) {
-                                    $scope.showAlert("notification-shape", "notice");
-                                    $scope.resetForm();
-                                    $scope.getUsers();
-                                    $scope.getAllUsersInfo();
-                                }).error(function (data, status, headers, config) {
-
-                                });
-                            }
-                        });
-                    } else {
-                        $scope.showAlert("notification-shape", "notice");
-                        $scope.resetForm();
-                        $scope.getUsers();
-                        $scope.getAllUsersInfo();
-                    }
-                });
-        };
-
         //POST .-Update
         $scope.updateUser = function () {
-            var request = $http({
+            $http({
                 method: 'post',
                 url: '/Home/UpdateUser',
                 params: {
@@ -129,6 +91,7 @@
                     position: $scope.editPosition,
                     rol: $scope.editRol,
                     projectLeader: $scope.editProjectLeader,
+                    sensei: $scope.editSensei,
                     remoteDays: $scope.editSelections.days,
                     flexTime: $scope.selectedEditFlex
                 }
@@ -199,6 +162,8 @@
                     $scope.editProjectLeader = userInfoData.ProjectLeader;
                     $scope.selectedEditFlex = userInfoData.FlexTime;
                     $scope.editOtherFlexTime = userInfoData.OtherFlexTime;
+                    $scope.editSensei = userInfoData.IdSensei;
+                    $scope.editProjectLeader = userInfoData.IdProjectLeader;
                     $scope.showInfo = "True";
                 });
 
