@@ -89,19 +89,15 @@ namespace RemoteWorkManagement.Controllers
             usrInfo.IsTemporalPassword = true;
             if (_userInfoRepository.UpdateUser(usrInfo))
             {
-                bool result = Utilities.MailSender(mail, newPassword);
-                string sresult = result.ToString();
-                return Json(new { result = sresult }, JsonRequestBehavior.AllowGet);
+                bool result = Utilities.MailSender(mail, newPassword);               
+                return Json(new {result = result}, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { result = "false" }, JsonRequestBehavior.AllowGet);
+                return Json(new {result = "false"}, JsonRequestBehavior.AllowGet);
             }
 
-
-           
         }
-
 
         /// <summary>
         /// Verifies if the user exists
@@ -146,12 +142,21 @@ namespace RemoteWorkManagement.Controllers
                 var userMembership = _membershipProvider.GetUser(user, false);
                 var userInfo = _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(userMembership.ProviderUserKey.ToString()));
                 success = userInfo.IsTemporalPassword;
-
             }
             return Json(new { isTemporal = success });
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ValidateOldPassword(string password)
+        {
+            string userName= User.Identity.Name;
+            bool isValid = _membershipProvider.ValidateUser(userName, password);
+            return Json(new { result = isValid }, JsonRequestBehavior.AllowGet);
+        }
         
     }
 }
