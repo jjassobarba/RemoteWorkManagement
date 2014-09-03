@@ -16,14 +16,9 @@ INSERT INTO Roles SELECT 'TeamLeader','RemoteWorkManagement' WHERE NOT EXISTS (S
 INSERT INTO Roles SELECT 'TeamMember','RemoteWorkManagement' WHERE NOT EXISTS (SELECT 3 FROM Roles WHERE Id = 3)
 INSERT INTO Roles SELECT 'Sensei','RemoteWorkManagement' WHERE NOT EXISTS (SELECT 4 FROM Roles WHERE Id = 4)
 
-PRINT 'inserting User'
+PRINT 'Inserting User'
 
-insert into users(UserName,ApplicationName,Email,PassWord,Comment,PasswordQuestion,PasswordAnswer,IsApproved,
-LastActivityDate,LastLoginDate,LastPasswordChangedDate,CreationDate,IsOnLine,IsLockedOut,LastLockedOutDate,FailedPasswordAttemptCount,
-FailedPasswordAttemptWindowStart,FailedPasswordAnswerAttemptCount,FailedPasswordAnswerAttemptWindowStart)  
-values('jdromo@sciodev.com','RemoteWorkManagement','jdromo@sciodev.com',HashBytes('MD5', 'admin'),'','',HashBytes('MD5', 'rpta'),1,
-GETDATE(),GETDATE(),GETDATE(),GETDATE(),0,0,GETDATE(),0,
-GETDATE(),0,GETDATE());
+INSERT INTO Users SELECT 'jdromo@sciodev.com','RemoteWorkManagement','jdromo@sciodev.com','',HashBytes('SHA1', 'admin'),'',HashBytes('SHA1', 'rpta'),1,
+GETDATE(),GETDATE(),GETDATE(),GETDATE(),0,0,GETDATE(),0,GETDATE(),0,GETDATE() WHERE NOT EXISTS (SELECT 1 FROM Users WHERE Id=1);
 
-insert into UserInfo(IdUserInfo,IdMembership,FirstName,LastName,IsTemporalPassword)
-values (NEWID(),1,'AdminName','AdminLstName',0);
+INSERT INTO UserInfo SELECT NEWID(),1,'AdminName','AdminLstName','',null,null,null,null,null,1,0,null WHERE NOT EXISTS (SELECT 1 FROM UserInfo WHERE IdMembership=1);
