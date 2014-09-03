@@ -389,7 +389,7 @@
                         </button>
 
                         <button class="btn btn-success btn-sm btn-next" data-last="Finish " ng-click="nextStep()"
-                                disabled="disabled">
+                                ng-hide="{{ isDisabledNext }}">
                             Next
                             <i class="icon-arrow-right icon-on-right"></i>
                         </button>

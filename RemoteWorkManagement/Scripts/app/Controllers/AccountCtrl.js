@@ -3,7 +3,7 @@
         $scope.loginBox = true;
         $scope.forgotBox = false;
         $scope.errorForgot = false;
-        $scope.isDisabledNext = true;
+        $scope.isDisabledNext = false;
         $scope.msgAlert = "";
         $scope.classMsgAlert = "";
         $scope.stepIndex = 1;
@@ -96,6 +96,7 @@
                     break;
                 case 2:
                     console.log("Type New Password");
+                    $scope.isDisabledNext = true;
                     break;
                 case 3:
                     console.log("Repeat Password");
@@ -134,14 +135,17 @@
             if($scope.newPassword != $scope.repeatPassword)
             {
                 $scope.passMatchMsg = "Passwords don't match.";
+                $scope.isDisabledNext = true;
             }
             
             if ($scope.repeatPassword == "") {
                 $scope.passMatchMsg = "";
+                $scope.isDisabledNext = true;
             }
 
             if ($scope.newPassword == $scope.repeatPassword) {
                 $scope.passMatchMsg = "";
+                $scope.isDisabledNext = false;
             }           
         };       
 
