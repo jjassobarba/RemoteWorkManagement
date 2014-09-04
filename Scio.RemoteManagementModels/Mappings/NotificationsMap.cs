@@ -13,7 +13,7 @@ namespace Scio.RemoteManagementModels.Mappings
             Id(x => x.IdNotification).GeneratedBy.GuidComb();
             Map(x => x.OtherMails);
             Map(x => x.ProjectLeaderMail);
-            Map(x => x.TeamMail);
+            Map(x => x.SenseiMail);
             References(x => x.IdUserInfo).Column("IdUserInfo").Cascade.All().LazyLoad();
         }
     }

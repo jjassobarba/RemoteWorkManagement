@@ -161,18 +161,15 @@
                 </div>
                 <div id="email-dialog" class="hide">
                     <p>
-                        Please type any aditional email address
+                        Type aditional email address separate by comma
                     </p>
-                    <span class="input-icon input-icon-right input-large">
-                        <input type="email" class="form-control input-large" placeholder="Email"
-                               name="extraEmail">
-                        <i class="icon-envelope"></i>
-                    </span>
-                    <button type="button" class="btn btn-xs btn-info add-button-top">Add</button>
                     <div class="hr hr-12 hr-double"></div>
                     <p>
                         Email address:
                     </p>
+                    <div>
+                        <textarea cols="25" rows="10" ng-model="otherEmails"></textarea>
+                    </div>
                 </div>
             </fieldset>
         </form>

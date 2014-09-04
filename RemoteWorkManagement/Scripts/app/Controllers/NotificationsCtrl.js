@@ -6,6 +6,7 @@
         $scope.remoteDaysArray = [];
         $scope.idProjectLeader = "";
         $scope.idSensei = "";
+        $scope.idNotification = "";
 
         //---------------------------------------------------------------------
 
@@ -47,14 +48,6 @@
                 $scope.showInfo = true;
                 $scope.idProjectLeader = response.userInfo.IdProjectLeader;
                 $scope.idSensei = response.userInfo.IdSensei;
-                if ($scope.idProjectLeader != undefined) {
-                    $scope.selectedValue = true;
-                    $scope.getProjectLeaderMail();
-                }
-                if ($scope.idSensei != undefined) {
-                    $scope.senseiCheck = true;
-                    $scope.getSenseiMail();
-                }
             });
         };
 
@@ -62,16 +55,14 @@
         $scope.getNotificationForUser = function () {
             $http.post('/Notifications/GetNotificationForUser',
                 { userId: $scope.selectedUser }).then(function (response) {
-                    $scope.projectLeaderEmail = "";
-                    $scope.teamEmail = "";
-                    $scope.selectedValue = false;
-                    $scope.selectedTeamValue = false;
                     if (response.data.notifications.length > 0) {
                         var userNotification = response.data.notifications[0];
+                        $scope.idNotification = userNotification.IdNotification;
                         $scope.projectLeaderEmail = userNotification.ProjectLeader;
-                        $scope.teamEmail = userNotification.TeamLeader;
+                        $scope.senseiEmail = userNotification.Sensei;
+                        $scope.otherEmails = userNotification.Others;
                         $scope.selectedValue = true;
-                        $scope.selectedTeamValue = true;
+                        $scope.senseiCheck = true;
                     }
                 });
         };
@@ -83,8 +74,9 @@
             {
                 userId: $scope.selectedUser,
                 projectLeaderMail: $scope.projectLeaderEmail,
-                teamMail: $scope.senseiEmail,
-                otherEmails: ""
+                senseiMail: $scope.senseiEmail,
+                otherEmails: $scope.otherEmails,
+                notificationId: $scope.idNotification
             }).then(function (response) {
                 if (response.data.success)
                     $scope.showAlert("notification-shape");
@@ -113,6 +105,8 @@
                 $scope.senseiEmail = "";
             }
         };
+
+
         //----------------------------------------------------------------------
 
         //------------------------------Public Functions------------------------

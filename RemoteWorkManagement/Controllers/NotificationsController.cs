@@ -34,11 +34,12 @@ namespace RemoteWorkManagement.Controllers
             var notifications = _notificationsRepository.GetNotificationsForUser(userId).ToList();
             var notifList = notifications.Select(notification => new
             {
-                ProjectLeader = notification.ProjectLeaderMail, 
-                TeamLeader = notification.TeamMail, 
+                IdNotification = notification.IdNotification,
+                ProjectLeader = notification.ProjectLeaderMail,
+                Sensei = notification.SenseiMail,
                 Others = notification.OtherMails
             }).Cast<object>().ToList();
-            return Json(new {notifications = notifList});
+            return Json(new { notifications = notifList });
         }
 
         /// <summary>
@@ -46,26 +47,38 @@ namespace RemoteWorkManagement.Controllers
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <param name="projectLeaderMail">The project leader mail.</param>
-        /// <param name="teamMail">The team mail.</param>
+        /// <param name="senseiMail">The sensei mail.</param>
         /// <param name="otherEmails">The other emails.</param>
+        /// <param name="notificationId">The notification identifier.</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult InsertNotification(Guid userId, string projectLeaderMail, string teamMail, string otherEmails)
+        public JsonResult InsertNotification(Guid userId, string projectLeaderMail, string senseiMail, string otherEmails, Guid? notificationId)
         {
             var success = false;
             var user = _userInfoRepository.GetUser(userId);
-            var notification = new Notifications()
+            if (notificationId != null && notificationId != Guid.Empty)
             {
-                IdUserInfo = user,
-                OtherMails = otherEmails,
-                ProjectLeaderMail = projectLeaderMail,
-                TeamMail = teamMail
-            };
-            var idNotification = _notificationsRepository.InsertNotification(notification);
-            if (idNotification != Guid.Empty)
-                success = true;
-            return Json(new {success = success});
+                var notificationObj = _notificationsRepository.GetNotificationById(notificationId);
+                notificationObj.ProjectLeaderMail = projectLeaderMail;
+                notificationObj.SenseiMail = senseiMail;
+                notificationObj.OtherMails = otherEmails;
+                success = _notificationsRepository.UpdateNotification(notificationObj);
+            }
+            else
+            {
+                var notification = new Notifications()
+                {
+                    IdUserInfo = user,
+                    OtherMails = otherEmails,
+                    ProjectLeaderMail = projectLeaderMail,
+                    SenseiMail = senseiMail
+                };
+                var idNotification = _notificationsRepository.InsertNotification(notification);
+                if (idNotification != Guid.Empty)
+                    success = true;
+            }
+            return Json(new { success = success });
         }
 
-	}
+    }
 }
