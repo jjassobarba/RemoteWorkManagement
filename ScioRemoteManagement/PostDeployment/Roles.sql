@@ -18,7 +18,7 @@ INSERT INTO Roles SELECT 'Sensei','RemoteWorkManagement' WHERE NOT EXISTS (SELEC
 
 PRINT 'Inserting User'
 
-INSERT INTO Users SELECT 'jdromo@sciodev.com','RemoteWorkManagement','jdromo@sciodev.com','',HashBytes('SHA1', 'admin'),'',HashBytes('SHA1', 'rpta'),1,
+INSERT INTO Users SELECT 'admin@rewoma.com','RemoteWorkManagement','admin@rewoma.com','','k1Oo4AWmZ7G9WfWMSTC9Hw9IuSA=','','k1Oo4AWmZ7G9WfWMSTC9Hw9IuSA=',1,
 GETDATE(),GETDATE(),GETDATE(),GETDATE(),0,0,GETDATE(),0,GETDATE(),0,GETDATE() WHERE NOT EXISTS (SELECT 1 FROM Users WHERE Id=1);
 
-INSERT INTO UserInfo SELECT NEWID(),1,'AdminName','AdminLstName','',null,null,null,null,null,1,0,null WHERE NOT EXISTS (SELECT 1 FROM UserInfo WHERE IdMembership=1);
+INSERT INTO UserInfo SELECT NEWID(),1,'AdminName','AdminLstName','',null,null,null,null,null,1,1,null WHERE NOT EXISTS (SELECT 1 FROM UserInfo WHERE IdMembership=1);
