@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').service('userService',['$http','$q',function userService($http, $q) {
+    angular.module('RemoteManagement').service('userService', ['$http', '$q', function userService($http, $q) {
 
         //Return Public API
         return ({
@@ -24,7 +24,7 @@
             return (request.then(handleSuccess, handleError));
         }
 
-        function registerUser(username, firstName, lastName, position, rol, projectLeader, remoteDays, flexTime) {
+        function registerUser(username, firstName, lastName, position, rol, projectLeader, sensei, remoteDays, flexTime) {
             var request = $http({
                 method: 'post',
                 url: '/Home/CreateUser',
@@ -35,6 +35,7 @@
                     position: position,
                     rol: rol,
                     projectLeader: projectLeader,
+                    sensei: sensei,
                     remoteDays: remoteDays,
                     flexTime: flexTime
                 }
@@ -45,7 +46,7 @@
         function getUser(idUser) {
             var request = $http({
                 method: 'post',
-                url:'/Home/GetUser',
+                url: '/Home/GetUser',
                 params: {
                     userId: idUser
                 }
@@ -56,7 +57,7 @@
         function getAllUsers() {
             var request = $http({
                 method: 'get',
-                url:'/Home/GetAllUsers'
+                url: '/Home/GetAllUsers'
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -64,7 +65,7 @@
         function getAllUsersInfo() {
             var request = $http({
                 method: 'get',
-                url:'/Home/GetAllUsersInfo'
+                url: '/Home/GetAllUsersInfo'
             });
             return (request.then(handleSuccess, handleError));
         }

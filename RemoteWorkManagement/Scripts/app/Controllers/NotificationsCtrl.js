@@ -4,6 +4,9 @@
         $scope.users = [];
         $scope.showInfo = false;
         $scope.remoteDaysArray = [];
+        $scope.idProjectLeader = "";
+        $scope.idSensei = "";
+        $scope.idNotification = "";
 
         //---------------------------------------------------------------------
 
@@ -43,6 +46,8 @@
                 $scope.emailNotifications = response.userInfo.ReceiveNotifications;
                 $scope.getNotificationForUser();
                 $scope.showInfo = true;
+                $scope.idProjectLeader = response.userInfo.IdProjectLeader;
+                $scope.idSensei = response.userInfo.IdSensei;
             });
         };
 
@@ -50,16 +55,14 @@
         $scope.getNotificationForUser = function () {
             $http.post('/Notifications/GetNotificationForUser',
                 { userId: $scope.selectedUser }).then(function (response) {
-                    $scope.projectLeaderEmail = "";
-                    $scope.teamEmail = "";
-                    $scope.selectedValue = false;
-                    $scope.selectedTeamValue = false;
                     if (response.data.notifications.length > 0) {
                         var userNotification = response.data.notifications[0];
+                        $scope.idNotification = userNotification.IdNotification;
                         $scope.projectLeaderEmail = userNotification.ProjectLeader;
-                        $scope.teamEmail = userNotification.TeamLeader;
+                        $scope.senseiEmail = userNotification.Sensei;
+                        $scope.otherEmails = userNotification.Others;
                         $scope.selectedValue = true;
-                        $scope.selectedTeamValue = true;
+                        $scope.senseiCheck = true;
                     }
                 });
         };
@@ -71,14 +74,39 @@
             {
                 userId: $scope.selectedUser,
                 projectLeaderMail: $scope.projectLeaderEmail,
-                teamMail: $scope.teamEmail,
-                otherEmails: ""
+                senseiMail: $scope.senseiEmail,
+                otherEmails: $scope.otherEmails,
+                notificationId: $scope.idNotification
             }).then(function (response) {
                 if (response.data.success)
                     $scope.showAlert("notification-shape");
-                    $scope.resetForm();
+                $scope.resetForm();
             });
         };
+
+        //Get the project leader email
+        $scope.getProjectLeaderMail = function () {
+            if ($scope.selectedValue) {
+                userService.getUser($scope.idProjectLeader).then(function (response) {
+                    $scope.projectLeaderEmail = response.userInfo.IdMembership.Email;
+                });
+            } else {
+                $scope.projectLeaderEmail = "";
+            }
+        };
+
+        //Get the sensei Email
+        $scope.getSenseiMail = function () {
+            if ($scope.senseiCheck) {
+                userService.getUser($scope.idSensei).then(function (response) {
+                    $scope.senseiEmail = response.userInfo.IdMembership.Email;
+                });
+            } else {
+                $scope.senseiEmail = "";
+            }
+        };
+
+
         //----------------------------------------------------------------------
 
         //------------------------------Public Functions------------------------

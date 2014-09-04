@@ -21,13 +21,13 @@
                 </div>
             </div>
             <div class="col-md-4">
-                
+
                 <label class="control-label bolder blue">
                     General Information
                 </label>
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
-                       <input type="text" class="form-control input-xlarge" placeholder="First Name"
+                        <input type="text" class="form-control input-xlarge" placeholder="First Name"
                                name="firstname"
                                ng-model="editFirstName"
                                required
@@ -70,6 +70,7 @@
                                 id="editrole-select"
                                 data-placeholder="Choose a role"
                                 ng-options="rol.value as rol.name for rol in roles"
+                                multiple
                                 disable-search="true">
                             <option></option>
                         </select>
@@ -80,16 +81,23 @@
                 </label>
                 <label class="block clearfix">
                     <span class="input-icon input-icon-right input-xlarge">
-                        <input type="text" class="form-control input-xlarge" placeholder="Project Leader Name"
-                               name="plName"
-                               ng-model="editProjectLeader"
-                               required
-                               data-bv-notempty-message="Project Leader required" />
-                        <i class="icon-edit"></i>
+                        <select chosen ng-model="editProjectLeader" class="form-control input-xlarge" id="plEditSelect" data-placeholder="Choose a project leader" ng-options="leader.id as leader.name for leader in projectLeaders">
+                            <option></option>
+                        </select>
                     </span>
                 </label>
             </div>
             <div class="col-md-4">
+                <label class="control-label bolder blue">
+                    Sensei
+                </label>
+                <label class="block clearfix">
+                    <span class="input-icon input-icon-right input-xlarge">
+                        <select chosen ng-model="editSensei" class="form-control input-xlarge" id="senseiEditSelect" data-placeholder="Choose a sensei" ng-options="sensei.id as sensei.name for sensei in senseis">
+                            <option></option>
+                        </select>
+                    </span>
+                </label>
                 <div class="row">
                     <div class="pull-left">
                         <div class=" control-group ">

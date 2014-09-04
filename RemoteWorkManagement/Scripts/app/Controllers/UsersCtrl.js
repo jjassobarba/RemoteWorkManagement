@@ -8,6 +8,7 @@
         $scope.email = "";
         $scope.position = "";
         $scope.projectLeader = "";
+        $scope.sensei = "";
         $scope.selectedDays = [];
         $scope.selectedFlex = "";
         $scope.selectedEditFlex = "";
@@ -16,6 +17,8 @@
         $scope.editSelections = [];
         $scope.editRol = {};
         $scope.usersFullList = [];
+        $scope.senseis = [];
+        $scope.projectLeaders = [];
 
         $scope.showInfo = "False";
 
@@ -60,61 +63,24 @@
         };
         $scope.getAllUsersInfo();
 
-        $scope.getSenseis = function() {
-            $http.post('/Home/GetSenseis').then(function(result) {
-                console.log(result.data);
+        $scope.getSenseis = function () {
+            $http.post('/Home/GetSenseis').then(function (result) {
+                $scope.senseis = result.data.senseis;
             });
         };
         $scope.getSenseis();
 
-        $scope.getTeamLeaders = function() {
-            $http.post('/Home/GetProjectLeaders').then(function(result) {
-                console.log(result);
+        $scope.getTeamLeaders = function () {
+            $http.post('/Home/GetProjectLeaders').then(function (result) {
+                $scope.projectLeaders = result.data.teamLeaders;
             });
         };
         $scope.getTeamLeaders();
 
 
-        //POST
-        $scope.registerUser = function ($files) {
-            userService.registerUser(
-                $scope.email,
-                $scope.firstName,
-                $scope.lastName,
-                $scope.position,
-                $scope.selectedRol,
-                $scope.projectLeader,
-                $scope.selectedDays,
-                $scope.selectedFlex).then(function (data) {
-                    if ($files != undefined) {
-                        $files.each(function (n) {
-                            if (n.type == "image/png" || n.type == "image/jpg" || n.type == "image/gif" || n.type == "image/jpeg") {
-                                $scope.upload = $upload.upload({
-                                    url: '/Home/UploadFile',
-                                    method: 'POST',
-                                    file: n
-                                }).success(function (data, status, headers, config) {
-                                    $scope.showAlert("notification-shape", "notice");
-                                    $scope.resetForm();
-                                    $scope.getUsers();
-                                    $scope.getAllUsersInfo();
-                                }).error(function (data, status, headers, config) {
-
-                                });
-                            }
-                        });
-                    } else {
-                        $scope.showAlert("notification-shape", "notice");
-                        $scope.resetForm();
-                        $scope.getUsers();
-                        $scope.getAllUsersInfo();
-                    }
-                });
-        };
-
         //POST .-Update
         $scope.updateUser = function () {
-            var request = $http({
+            $http({
                 method: 'post',
                 url: '/Home/UpdateUser',
                 params: {
@@ -125,6 +91,7 @@
                     position: $scope.editPosition,
                     rol: $scope.editRol,
                     projectLeader: $scope.editProjectLeader,
+                    sensei: $scope.editSensei,
                     remoteDays: $scope.editSelections.days,
                     flexTime: $scope.selectedEditFlex
                 }
@@ -146,7 +113,7 @@
         //POST -Register ver2
         $scope.saveUpload = function (modelInstance) {
             var files = document.getElementById('uploadImageButton').files[0];
-           $scope.upload = $upload.upload({
+            $scope.upload = $upload.upload({
                 url: '/Home/CreateUser',
                 method: 'POST',
                 data: {
@@ -156,6 +123,7 @@
                     position: $scope.position,
                     rol: $scope.selectedRol,
                     projectLeader: $scope.projectLeader,
+                    sensei: $scope.sensei,
                     remoteDays: $scope.selectedDays.days,
                     flexTime: $scope.selectedFlex
                 },
@@ -172,7 +140,7 @@
                 $scope.getAllUsersInfo();
             });
         };
-        
+
         $scope.getUser = function () {
             $http.post('/Home/GetUser',
                 { userId: $scope.selectedUser })
@@ -194,6 +162,8 @@
                     $scope.editProjectLeader = userInfoData.ProjectLeader;
                     $scope.selectedEditFlex = userInfoData.FlexTime;
                     $scope.editOtherFlexTime = userInfoData.OtherFlexTime;
+                    $scope.editSensei = userInfoData.IdSensei;
+                    $scope.editProjectLeader = userInfoData.IdProjectLeader;
                     $scope.showInfo = "True";
                 });
 
@@ -233,7 +203,7 @@
 
         //Show the alert
         $scope.showAlert = function (elementId, typeMessage1) {
-           $scope.typeMessage = typeMessage1;
+            $scope.typeMessage = typeMessage1;
             var svgshape = document.getElementById(elementId),
                 s = Snap(svgshape.querySelector('svg')),
                 path = s.select('path'),
@@ -245,10 +215,9 @@
             window.setTimeout(function () {
 
                 path.animate({ 'path': pathConfig.to }, 300, mina.easeinout);
-                
+
                 // create the notification
                 $scope.messageLegend = ($scope.typeMessage == "error") ? '<p><span class="icon icon-exclamation-sign big"></span>There was an error</p>' : '<p><span class="icon icon-exclamation-sign big"></span>The changes has been saved</p>';
-                console.log("will enter with  " + $scope.typeMessage);
                 var notification = new NotificationFx({
                     wrapper: svgshape,
                     message: $scope.messageLegend,
@@ -275,6 +244,7 @@
             $scope.email = "";
             $scope.position = "";
             $scope.projectLeader = "";
+            $scope.sensei = "";
             $scope.selectedDays = [];
             $scope.selectedFlex = "";
             $scope.selectedEditFlex = "";
@@ -283,7 +253,7 @@
             $scope.editRol = {};
             $scope.selectDay = "";
             $scope.selectedRol = "";
-            $scope.modelInstance.img = "";
+            //$scope.modelInstance.img = "";
             $scope.addUserForm.$setPristine();
         };
         //-------------------------------------------------------------
