@@ -53,16 +53,27 @@
 
 
         $scope.getNotificationForUser = function () {
+            $scope.idNotification = "";
+            $scope.projectLeaderEmail = "";
+            $scope.senseiEmail = "";
+            $scope.otherEmails = "";
+            $scope.selectedValue = false;
+            $scope.senseiCheck = false;
             $http.post('/Notifications/GetNotificationForUser',
                 { userId: $scope.selectedUser }).then(function (response) {
                     if (response.data.notifications.length > 0) {
                         var userNotification = response.data.notifications[0];
                         $scope.idNotification = userNotification.IdNotification;
-                        $scope.projectLeaderEmail = userNotification.ProjectLeader;
-                        $scope.senseiEmail = userNotification.Sensei;
+                        if (userNotification.ProjectLeader != "" && userNotification.ProjectLeader != undefined) {
+                            $scope.projectLeaderEmail = userNotification.ProjectLeader;
+                            $scope.selectedValue = true;
+                        }
+                        if (userNotification.Sensei != "" && userNotification.Sensei != undefined) {
+                            $scope.senseiEmail = userNotification.Sensei;
+                            $scope.senseiCheck = true;
+                        }
                         $scope.otherEmails = userNotification.Others;
-                        $scope.selectedValue = true;
-                        $scope.senseiCheck = true;
+
                     }
                 });
         };

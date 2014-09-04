@@ -123,7 +123,8 @@ namespace RemoteWorkManagement.Controllers
                     IdMembership = user,
                     RemoteDays = remoteDaysString,
                     FlexTime = flexTime,
-                    Picture = byteFile
+                    Picture = byteFile,
+                    IsTemporalPassword = true
                 };
                 _userInfoRepository.InsertUser(userInfoObject);
             }
