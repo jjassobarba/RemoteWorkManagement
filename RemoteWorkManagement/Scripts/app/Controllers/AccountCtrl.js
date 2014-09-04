@@ -11,9 +11,7 @@
         $scope.msgValidNewPwd = "";
         $scope.validOldPwd = "";
         $scope.stepIndex = 1;        
-        $scope.word = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
-        //document.getElementById('fakePrevButton').setAttribute('disabled', 'disabled');
-        //document.getElementById('fakeNextButton').setAttribute('disabled', 'disabled');        
+        $scope.word = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;       
         
 
         $scope.hideMsgError = function() {
@@ -36,9 +34,10 @@
 
         $scope.isNewPass = function () {
 
-            $http.post('/Account/IsNewPass').then(function (result) {
-                console.log(result.data.isTemporal);
+            $http.post('/Account/IsNewPass').then(function (result) {                
                 if (result.data.isTemporal) {
+                    document.getElementById('fakePrevButton').setAttribute('disabled', 'disabled');
+                    document.getElementById('fakeNextButton').setAttribute('disabled', 'disabled');  
                     $('#modal-wizard').modal('toggle');
                 }
             });
