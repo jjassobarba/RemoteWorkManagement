@@ -505,8 +505,8 @@ namespace Scio.RemoteManagementModels.Membership
                                 transaction.Commit();
                             }
                         }
-                        else
-                            UpdateFailureCount(username, "password");
+                        //else
+                        //    UpdateFailureCount(username, "password");
                     }
                     catch (Exception e)
                     {

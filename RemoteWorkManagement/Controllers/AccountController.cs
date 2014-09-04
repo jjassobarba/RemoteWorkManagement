@@ -61,7 +61,6 @@ namespace RemoteWorkManagement.Controllers
             return View(model);
         }
 
-
         /// <summary>
         /// Logins the specified return URL.
         /// </summary>
@@ -125,6 +124,14 @@ namespace RemoteWorkManagement.Controllers
         {
             var user = User.Identity.Name;
             var success = _membershipProvider.ChangePassword(user, oldPassword, newPassword);
+            if (success)
+            {
+                var usr = _membershipProvider.GetUser(user, false);
+                var userId = Convert.ToInt32(usr.ProviderUserKey);
+                var usrInfo = _userInfoRepository.GetUserByMembershipId(userId);
+                usrInfo.IsTemporalPassword = false;
+                _userInfoRepository.UpdateUser(usrInfo);
+            }
             return Json(new { success = success });
         }
 
