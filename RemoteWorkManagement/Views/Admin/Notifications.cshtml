@@ -58,7 +58,7 @@
                                     <div class="col-xs-12 col-sm-3 center">
                                         <span class="profile-picture">
                                             <img ng-src="data:image/JPEG;base64,{{picture}}" style="width:100%; height:100%;">
-                                         </span>
+                                        </span>
 
                                         <div class="space space-4"></div>
                                         <a href="#" class="btn btn-sm btn-block btn-primary">
@@ -111,28 +111,30 @@
                                     </label>
                                     <div class="checkbox">
                                         <label>
-                                            <input name="cbProjectLeader" type="checkbox" class="ace" ng-model="selectedValue" />
+                                            <input name="cbProjectLeader" type="checkbox" class="ace" ng-model="selectedValue" ng-change="getProjectLeaderMail()" />
                                             <span class="lbl">Project Leader</span>
                                         </label>
                                         <label ng-show="selectedValue" class="clearfix">
                                             <span class="input-icon input-icon-right input-large">
                                                 <input type="email" class="form-control input-large" placeholder="Email"
                                                        ng-model="projectLeaderEmail"
-                                                       name="plEmail"/>
+                                                       name="plEmail"
+                                                       ng-disabled="true" />
                                                 <i class="icon-envelope"></i>
                                             </span>
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input name="cbTeam" type="checkbox" class="ace" ng-model="selectedTeamValue" />
-                                            <span class="lbl">Team</span>
+                                            <input name="cbTeam" type="checkbox" class="ace" ng-model="senseiCheck" ng-change="getSenseiMail()" />
+                                            <span class="lbl">Sensei</span>
                                         </label>
-                                        <label ng-show="selectedTeamValue" class="clearfix">
+                                        <label ng-show="senseiCheck" class="clearfix">
                                             <span class="input-icon input-icon-right input-large">
                                                 <input type="email" class="form-control input-large" placeholder="Email"
                                                        name="tEmail"
-                                                       ng-model="teamEmail"/>
+                                                       ng-model="senseiEmail"
+                                                       ng-disabled="true" />
                                                 <i class="icon-envelope"></i>
                                             </span>
                                         </label>

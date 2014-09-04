@@ -4,6 +4,8 @@
         $scope.users = [];
         $scope.showInfo = false;
         $scope.remoteDaysArray = [];
+        $scope.idProjectLeader = "";
+        $scope.idSensei = "";
 
         //---------------------------------------------------------------------
 
@@ -43,6 +45,16 @@
                 $scope.emailNotifications = response.userInfo.ReceiveNotifications;
                 $scope.getNotificationForUser();
                 $scope.showInfo = true;
+                $scope.idProjectLeader = response.userInfo.IdProjectLeader;
+                $scope.idSensei = response.userInfo.IdSensei;
+                if ($scope.idProjectLeader != undefined) {
+                    $scope.selectedValue = true;
+                    $scope.getProjectLeaderMail();
+                }
+                if ($scope.idSensei != undefined) {
+                    $scope.senseiCheck = true;
+                    $scope.getSenseiMail();
+                }
             });
         };
 
@@ -71,13 +83,35 @@
             {
                 userId: $scope.selectedUser,
                 projectLeaderMail: $scope.projectLeaderEmail,
-                teamMail: $scope.teamEmail,
+                teamMail: $scope.senseiEmail,
                 otherEmails: ""
             }).then(function (response) {
                 if (response.data.success)
                     $scope.showAlert("notification-shape");
-                    $scope.resetForm();
+                $scope.resetForm();
             });
+        };
+
+        //Get the project leader email
+        $scope.getProjectLeaderMail = function () {
+            if ($scope.selectedValue) {
+                userService.getUser($scope.idProjectLeader).then(function (response) {
+                    $scope.projectLeaderEmail = response.userInfo.IdMembership.Email;
+                });
+            } else {
+                $scope.projectLeaderEmail = "";
+            }
+        };
+
+        //Get the sensei Email
+        $scope.getSenseiMail = function () {
+            if ($scope.senseiCheck) {
+                userService.getUser($scope.idSensei).then(function (response) {
+                    $scope.senseiEmail = response.userInfo.IdMembership.Email;
+                });
+            } else {
+                $scope.senseiEmail = "";
+            }
         };
         //----------------------------------------------------------------------
 
