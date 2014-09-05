@@ -56,7 +56,15 @@ namespace RemoteWorkManagement.Controllers
                     FormsAuthentication.SetAuthCookie(model.Email, true);
                     return RedirectToAction("Index", "Admin");
                 }
-                ModelState.AddModelError("", "Invalid usernarme or password");
+                var user = _membershipProvider.GetUser(model.Email, false);
+                if (user != null && user.IsApproved)
+                {
+                    ModelState.AddModelError("", "Invalid usernarme or password");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Your account is not active please contact the administrator");
+                }
             }
             return View(model);
         }
@@ -88,12 +96,12 @@ namespace RemoteWorkManagement.Controllers
             usrInfo.IsTemporalPassword = true;
             if (_userInfoRepository.UpdateUser(usrInfo))
             {
-                bool result = Utilities.MailSender(mail, newPassword);               
-                return Json(new {result = result}, JsonRequestBehavior.AllowGet);
+                bool result = Utilities.MailSender(mail, newPassword);
+                return Json(new { result = result }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new {result = "false"}, JsonRequestBehavior.AllowGet);
+                return Json(new { result = "false" }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -161,10 +169,10 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult ValidateOldPassword(string password)
         {
-            string userName= User.Identity.Name;
+            string userName = User.Identity.Name;
             bool isValid = _membershipProvider.ValidateUser(userName, password);
             return Json(new { result = isValid }, JsonRequestBehavior.AllowGet);
         }
-        
+
     }
 }

@@ -93,7 +93,8 @@
                     projectLeader: $scope.editProjectLeader,
                     sensei: $scope.editSensei,
                     remoteDays: $scope.editSelections.days,
-                    flexTime: $scope.selectedEditFlex
+                    flexTime: $scope.selectedEditFlex,
+                    isActive: $scope.isActive
                 }
             }).then(function (result) {
                 if (result.data.data) {
@@ -164,6 +165,7 @@
                     $scope.editOtherFlexTime = userInfoData.OtherFlexTime;
                     $scope.editSensei = userInfoData.IdSensei;
                     $scope.editProjectLeader = userInfoData.IdProjectLeader;
+                    $scope.isActive = userInfoData.IdMembership.IsActive;
                     $scope.showInfo = "True";
                 });
 

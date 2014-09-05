@@ -146,17 +146,18 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="sensei">The sensei.</param>
         /// <param name="remoteDays">The remote days.</param>
         /// <param name="flexTime">The flex time.</param>
+        /// <param name="isActive">if set to <c>true</c> [is active].</param>
         /// <returns></returns>
         [HttpPost]
         public JsonResult UpdateUser(string idUserInfo, string username, string firstName, string lastName, string position, string rol,
-            Guid? projectLeader, Guid? sensei, string[] remoteDays, string flexTime)
+            Guid? projectLeader, Guid? sensei, string[] remoteDays, string flexTime, bool isActive)
         {
             var remoteDaysString = remoteDays.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
-            var userId = _membershipProvider.GetUser(username, false);
-            var user = new Users();
-            if (userId != null)
+            var user = _membershipProvider.GetUser(username, false);
+            if (user != null)
             {
-                user.Id = Convert.ToInt32(userId.ProviderUserKey.ToString());
+                user.IsApproved = isActive;
+                _membershipProvider.UpdateUser(user);
             }
             var gIdUserInfo = new Guid(idUserInfo);
             var userInfoOldObject = _userInfoRepository.GetUser(gIdUserInfo);
@@ -230,7 +231,8 @@ namespace RemoteWorkManagement.Controllers
                 IdMembership = new
                 {
                     IdMembership = user.IdMembership.Id,
-                    Email = user.IdMembership.Username
+                    Email = user.IdMembership.Username,
+                    IsActive = user.IdMembership.IsApproved
                 },
                 Rol = new
                 {
