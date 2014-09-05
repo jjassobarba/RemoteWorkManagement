@@ -241,6 +241,20 @@ namespace RemoteWorkManagement.Controllers
         }
 
         /// <summary>
+        /// Gets the user by User Name.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetUserByUserName(string userName)
+        {
+            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+            var idMembership = Convert.ToInt32(usr.ProviderUserKey);
+            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMembership);
+            return Json(new { userInfo = usrInfo });
+        }
+
+        /// <summary>
         /// Gets all users information.
         /// </summary>
         /// <returns></returns>

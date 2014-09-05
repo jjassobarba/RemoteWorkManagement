@@ -6,6 +6,7 @@
             loginUser: loginUser,
             registerUser: registerUser,
             getUser: getUser,
+            getUserByUserName : getUserByUserName,
             getAllUsers: getAllUsers,
             getAllUsersInfo: getAllUsersInfo
         });
@@ -51,6 +52,19 @@
                     userId: idUser
                 }
             });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getUserByUserName(userName) {
+            console.log(userName);
+            var request = $http({
+                method: 'post',
+                url : '/Home/GetUserByUserName',
+                params: {
+                    username : userName
+                }
+            });
+            console.log("termino");
             return (request.then(handleSuccess, handleError));
         }
 
