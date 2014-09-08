@@ -40,5 +40,15 @@ namespace RemoteWorkManagement.Helpers
                 return false;
             }
         }
+
+        public enum EmailType
+        {
+            Welcome,
+            ForgotPassword,
+            ChangeRemoteDay,
+            RequestException,
+            CheckIn,
+            CheckOut
+        }
     }
 }
