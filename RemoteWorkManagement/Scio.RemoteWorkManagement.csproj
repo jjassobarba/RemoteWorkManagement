@@ -246,6 +246,7 @@
     <Content Include="Content\css\jquery.dataTables.css" />
     <Content Include="Content\css\jquery.percentageloader-0.1.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\notification.css" />
     <Content Include="Content\css\stylesheet.css" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\css\fullcalendar.print.css" />
@@ -309,6 +310,7 @@
     <Content Include="Scripts\app\Controllers\UsersCtrl.js" />
     <Content Include="Scripts\app\Directives\chosen-spinner.css" />
     <Content Include="Scripts\app\Directives\chosen.js" />
+    <Content Include="Scripts\app\Directives\notification.js" />
     <Content Include="Scripts\app\Directives\popup.js" />
     <Content Include="Scripts\app\Directives\spinner.gif" />
     <Content Include="Scripts\app\Services\UsersService.js" />

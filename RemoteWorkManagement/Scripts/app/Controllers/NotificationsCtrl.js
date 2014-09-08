@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('NotificationsCtrl', ['$scope', 'userService', '$http', function ($scope, userService, $http) {
+    angular.module('RemoteManagement').controller('NotificationsCtrl', ['$scope', 'userService', '$http', '$notification', function ($scope, userService, $http, $notification) {
         //---------------------------Variables Declaration---------------------
         $scope.users = [];
         $scope.showInfo = false;
@@ -89,8 +89,11 @@
                 otherEmails: $scope.otherEmails,
                 notificationId: $scope.idNotification
             }).then(function (response) {
-                if (response.data.success)
-                    $scope.showAlert("notification-shape");
+                if (response.data.success) {
+                    $notification.success('Notifications Updated', 'The notifications have been set.');
+                } else {
+                    $notification.error('Error updating notifications', 'There was an error saving the info');
+                }
                 $scope.resetForm();
             });
         };

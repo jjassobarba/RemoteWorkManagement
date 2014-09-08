@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('UsersCtrl', ['$scope', 'userService', '$upload', '$http', function ($scope, userService, $upload, $http) {
+    angular.module('RemoteManagement').controller('UsersCtrl', ['$scope', 'userService', '$upload', '$http', '$notification', function ($scope, userService, $upload, $http, $notification) {
         //---------------------Variables Declaration------------------------
         $scope.daysOfTheWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         $scope.flexTimeSchedule = ['08:00 - 17:00', '08:30 - 17:30', '09:00 - 18:00', '09:30 - 18:30', 'Other'];
@@ -98,11 +98,11 @@
                 }
             }).then(function (result) {
                 if (result.data.data) {
-                    $scope.showAlert("update-notification", "notice");
+                    $notification.success('User updated', 'The user data is safe');
                     $scope.resetForm();
                     $scope.getUsers();
                 } else {
-                    $scope.showAlert("update-notification", "error");
+                    $notification.error('User no updated', 'There was an error saving the info');
                     $scope.resetForm();
                     $scope.getUsers();
                     $scope.getAllUsersInfo();
@@ -130,12 +130,12 @@
                 },
                 file: files
             }).success(function (data, status, headers, config) {
-                $scope.showAlert("notification-shape", "notice");
+                $notification.success('User created', 'The user data is safe');
                 $scope.resetForm();
                 $scope.getUsers();
                 $scope.getAllUsersInfo();
             }).error(function (data, status, headers, config) {
-                $scope.showAlert("notification-shape", "error");
+                $notification.error('Error creating user', 'There was an error saving the info');
                 $scope.resetForm();
                 $scope.getUsers();
                 $scope.getAllUsersInfo();

@@ -15,37 +15,38 @@
         <li class="active">Users</li>
     </ul>
 </div>
-<div class="page-content">
-    <div class="page-header">
-        <h1>
-            Users
-            <small>
-                <i class="icon-double-angle-right"></i>
-                User options
-            </small>
-        </h1>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div id="tabs">
-                <ul>
-                    <li>
-                        <a href="#createUser">
-                            Create new user
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#editUser">
-                            Edit user
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#usersList">
-                            Users List
-                        </a>
-                    </li>
-                </ul>
-                <div ng-controller="UsersCtrl" ng-cloak>
+<div ng-controller="UsersCtrl" ng-cloak>
+    <div notifications="top right"></div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                Users
+                <small>
+                    <i class="icon-double-angle-right"></i>
+                    User options
+                </small>
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="tabs">
+                    <ul>
+                        <li>
+                            <a href="#createUser">
+                                Create new user
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#editUser">
+                                Edit user
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#usersList">
+                                Users List
+                            </a>
+                        </li>
+                    </ul>
                     <div id="createUser">
                         @Html.Partial("UserPartials/_CreateUser")
                     </div>

@@ -1,3 +1,3 @@
 ﻿(function() {
-    angular.module('RemoteManagement', ['angularFileUpload', 'localytics.directives', 'checklist-model']);
+    angular.module('RemoteManagement', ['angularFileUpload', 'localytics.directives', 'checklist-model', 'notifications']);
 })();
