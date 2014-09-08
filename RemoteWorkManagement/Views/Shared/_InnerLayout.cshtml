@@ -87,7 +87,11 @@
                                         </li>*@
                                     <li class="divider"></li>
                                     <li>
-
+                                        <a href="/TeamMember/Profile">
+                                            <i class="icon-user"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="javascript:document.getElementById('logoutForm').submit()">
                                             <i class="icon-off"></i>
                                             Logout
@@ -126,12 +130,12 @@
                             <span class="menu-text">Users</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="/Admin/Notifications">
-                            <i class="icon-bell"></i>
-                            <span class="menu-text">Notification</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="/Admin/Notifications">
+                                <i class="icon-bell"></i>
+                                <span class="menu-text">Notification</span>
+                            </a>
+                        </li>
                     <li>
                         <a href="/Admin/Reports">
                             <i class="icon-eye-open"></i>
@@ -144,6 +148,10 @@
                             <span class="menu-text">Messages</span>
                         </a>
                     </li>
+                     @if (User.IsInRole("TeamMember"))
+                     {
+                         
+                     }
                 </ul>
                 <div class="sidebar-collapse" id="sidebar-collapse">
                     <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
@@ -170,6 +178,7 @@
     <script type="text/javascript" src="~/Scripts/app/Controllers/UsersCtrl.js"></script>
     <script type="text/javascript" src="~/Scripts/app/Controllers/NotificationsCtrl.js"></script>
     <script type="text/javascript" src="~/Scripts/app/Controllers/AccountCtrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/Controllers/TeamMemberCtrl.js"></script>
     <script type="text/javascript" src="~/Scripts/app/Services/UsersService.js"></script>
     <script type="text/javascript" src="~/Scripts/app/Directives/chosen.js"></script>
     <script type="text/javascript" src="~/Scripts/app/Directives/popup.js"></script>
@@ -182,6 +191,5 @@
     <script type="text/javascript" src="~/Scripts/notifications/progressButton.js"></script>
     <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

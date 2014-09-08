@@ -6,6 +6,7 @@
             loginUser: loginUser,
             registerUser: registerUser,
             getUser: getUser,
+            getActualUser: getActualUser,
             getAllUsers: getAllUsers,
             getAllUsersInfo: getAllUsersInfo
         });
@@ -50,6 +51,14 @@
                 params: {
                     userId: idUser
                 }
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getActualUser() {
+            var request = $http({
+                method: 'post',
+                url: '/Home/GetActualUser'
             });
             return (request.then(handleSuccess, handleError));
         }

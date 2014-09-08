@@ -34,7 +34,7 @@
 
         $scope.isNewPass = function () {
 
-            $http.post('/Account/IsNewPass').then(function (result) {                
+            $http.post('/Account/IsNewPass').then(function (result) {
                 if (result.data.isTemporal) {
                     document.getElementById('fakePrevButton').setAttribute('disabled', 'disabled');
                     document.getElementById('fakeNextButton').setAttribute('disabled', 'disabled');  

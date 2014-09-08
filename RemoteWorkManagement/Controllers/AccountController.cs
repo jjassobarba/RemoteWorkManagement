@@ -127,6 +127,7 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="newPassword">The new password.</param>
         /// <param name="oldPassword">The old password.</param>
         /// <returns></returns>
+       
         [HttpPost]
         public JsonResult ChangePassword(string newPassword, string oldPassword)
         {

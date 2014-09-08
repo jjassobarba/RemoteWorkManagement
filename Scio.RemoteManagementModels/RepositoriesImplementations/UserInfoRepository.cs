@@ -54,9 +54,7 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
             return user;
         }
 
-
-
-        /// <summary>
+       /// <summary>
         /// Inserts the user.
         /// </summary>
         /// <param name="user">The user.</param>

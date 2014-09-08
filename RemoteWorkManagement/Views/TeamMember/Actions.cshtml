@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Actions";
+    Layout = "~/Views/Shared/_InnerLayout.cshtml";
+}
+
+
+<div class="notification-shape shape-box" id="notification-shape" data-path-to="m 0,0 500,0 0,500 -500,0 z">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 500 500" preserveAspectRatio="none">
+        <path d="m 0,0 500,0 0,500 0,-500 z" />
+    </svg>
+</div>
+
+<div ng-controller="TeamMemberCtrl" ng-cloak>
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed'); } catch (e) { }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/Admin/">Home</a>
+            </li>
+            <li class="active">Profile</li>
+        </ul>
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                Profile
+            </h1>
+        </div>
+        <fieldset>
+            <div class="container">
+                <div ng-show="showInfo">
+                    <div class="row" ng-show="loading">
+                        <img src="~/Content/images/loader.png" />
+                    </div>
+                    <div class="row vertical-spacer">
+                        <div class="col-xs-8">
+                            <div id="userProfile" class="user-profile">
+                                <div class="col-xs-12 col-sm-4 center">
+                                    <span class="profile-picture">
+                                        <img ng-src="data:image/JPEG;base64,{{picture}}" style="width:100%; height:100%;">
+                                    </span>
+
+                                    <div class="space space-4"></div>
+                                    <form ng-submit="updatePicture(modelInstance)">
+                                        <input type="file" id="uploadImageButton" name="uploadImageButton" ng-model="modelInstance.img" />
+                                        <button class="btn btn-large btn-block btn-primary">
+                                            <i class="icon-picture bigger-110"></i>
+                                            <span class="bigger-110">Update Profile Picture</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-xs-2 col-sm-8">
+                                    <h4 class="blue">
+                                        <span class="middle">{{fullName}}</span>
+                                    </h4>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Email</div>
+                                        <div class="profile-info-value">
+                                            <span>{{email}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Position</div>
+                                        <div class="profile-info-value">
+                                            <span>{{position}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Flextime</div>
+                                        <div class="profile-info-value">
+                                            <span>{{flexTime}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Remote Work</div>
+                                        <div class="profile-info-value">
+                                            <span ng-repeat="day in remoteDaysArray">
+                                                {{day}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Project Leader</div>
+                                        <div class="profile-info-value">
+                                            <span>{{idProjectLeader}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">Sensei</div>
+                                        <div class="profile-info-value">
+                                            <span>{{idSensei}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+            </div>
+            <div id="email-dialog" class="hide">
+                <p>
+                    Type aditional email address separate by comma
+                </p>
+                <div class="hr hr-12 hr-double"></div>
+                <p>
+                    Email address:
+                </p>
+                <div>
+                    <textarea cols="25" rows="10" ng-model="otherEmails"></textarea>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+</div>

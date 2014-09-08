@@ -171,6 +171,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\TeamMemberController.cs" />
     <Compile Include="DTO\UserInfoDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -257,6 +258,7 @@
     <Content Include="Content\images\forward_disabled.png" />
     <Content Include="Content\images\forward_enabled.png" />
     <Content Include="Content\images\forward_enabled_hover.png" />
+    <Content Include="Content\images\loader.png" />
     <Content Include="Content\images\sort_asc.png" />
     <Content Include="Content\images\sort_asc_disabled.png" />
     <Content Include="Content\images\sort_both.png" />
@@ -307,6 +309,7 @@
     <Content Include="Scripts\app\Controllers\AccountCtrl.js" />
     <Content Include="Scripts\app\Controllers\HomeController.js" />
     <Content Include="Scripts\app\Controllers\NotificationsCtrl.js" />
+    <Content Include="Scripts\app\Controllers\TeamMemberCtrl.js" />
     <Content Include="Scripts\app\Controllers\UsersCtrl.js" />
     <Content Include="Scripts\app\Directives\chosen-spinner.css" />
     <Content Include="Scripts\app\Directives\chosen.js" />
@@ -655,6 +658,8 @@
     <Content Include="Views\Messages\Index.cshtml" />
     <Content Include="Views\Account\NewPass.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\TeamMember\Profile.cshtml" />
+    <Content Include="Views\TeamMember\Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
