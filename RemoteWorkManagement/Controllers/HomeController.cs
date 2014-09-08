@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
 using Castle.Core.Internal;
 using Newtonsoft.Json;
 using RemoteWorkManagement.DTO;
@@ -248,12 +249,55 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="userName"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult GetUserByUserName(string userName)
+        public JsonResult GetActualUser()
         {
             var usr = _membershipProvider.GetUser(User.Identity.Name, false);
             var idMembership = Convert.ToInt32(usr.ProviderUserKey);
-            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMembership);
-            return Json(new { userInfo = usrInfo });
+            var userInfo = _userInfoRepository.GetUserByMembershipId(idMembership);
+            var sensei = new UserInfo();
+            var projectLeader = new UserInfo();
+            Guid? maybeGuid = userInfo.IdSensei;
+            Guid theGuid = maybeGuid ?? Guid.Empty;
+
+            Guid? maybeGuid1 = userInfo.IdProjectLeader;
+            Guid theGuid1 = maybeGuid1 ?? Guid.Empty;
+
+
+
+            if (userInfo.IdSensei!=null)
+            { 
+                sensei = _userInfoRepository.GetUser(theGuid);
+            }
+            if (userInfo.IdProjectLeader != null)
+            {
+                projectLeader = _userInfoRepository.GetUser(theGuid1);
+            }
+                
+            var userMapped = new
+            {
+                IdUserInfo = userInfo.IdUserInfo,
+                FirstName = userInfo.FirstName,
+                LastName = userInfo.LastName,
+                FlexTime = userInfo.FlexTime,
+                OtherFlexTime = userInfo.OtherFlexTime,
+                Picture = userInfo.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(userInfo.Picture),
+                Position = userInfo.Position,
+                ReceiveNotifications = userInfo.ReceiveNotifications,
+                RemoteDays = userInfo.RemoteDays,
+                IdSensei = userInfo.IdSensei != null ? sensei.FirstName+" "+sensei.LastName : string.Empty,
+                IdProjectLeader = userInfo.IdProjectLeader != null ? projectLeader.FirstName + " " + projectLeader.LastName : string.Empty,
+                IdMembership = new
+                {
+                    IdMembership = userInfo.IdMembership.Id,
+                    Email = userInfo.IdMembership.Username,
+                    IsActive = userInfo.IdMembership.IsApproved
+                },
+                Rol = new
+                {
+                    RolName = userInfo.IdMembership.Roles.Select(p => p.RoleName).ToList()
+                }
+            };
+            return Json(new { userInfo = userMapped });
         }
 
         /// <summary>

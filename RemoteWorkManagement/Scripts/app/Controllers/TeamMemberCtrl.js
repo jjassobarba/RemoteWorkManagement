@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('TeamMemberCtrl', ['$scope', 'userService', '$http', function ($scope, userService, $http) {
+    angular.module('RemoteManagement').controller('TeamMemberCtrl', ['$scope', 'userService', '$upload', '$http', function ($scope, userService, $upload, $http) {
         //---------------------------Variables Declaration---------------------
         $scope.users = [];
         $scope.showInfo = true;
@@ -7,29 +7,15 @@
         $scope.idProjectLeader = "";
         $scope.idSensei = "";
         $scope.idNotification = "";
-        $scope.fullName = "soy yo mero";
-
+        $scope.$on('LOAD', function () { $scope.loading = true; });
+        $scope.$on('UNLOAD', function() { $scope.loading = false; });
+       
         //---------------------------------------------------------------------
 
         //---------------------------Public Functions--------------------------
         //GET
-        $scope.getUsers = function () {
-            userService.getAllUsers().then(function (response) {
-                response.users.map(function (d) {
-                    var user = {};
-                    user.id = d.Id;
-                    user.name = d.Name;
-                    $scope.users.push(user);
-                });
-                $scope.users = $scope.users.sortBy(function (d) {
-                    return d.name;
-                });
-            });
-        };
-        $scope.getUsers();
-
         $scope.getUser = function () {
-            userService.getUserByUserName("hardcode").then(function (response) {
+            userService.getActualUser().then(function (response) {
                 console.log(response);
                 $scope.fullName = response.userInfo.FirstName + " " + response.userInfo.LastName;
                 $scope.email = response.userInfo.IdMembership.Email;
@@ -46,84 +32,33 @@
                     $scope.remoteDaysArray = remoteDaysArray;
                 }
                 $scope.emailNotifications = response.userInfo.ReceiveNotifications;
-                $scope.getNotificationForUser();
-                $scope.showInfo = true;
                 $scope.idProjectLeader = response.userInfo.IdProjectLeader;
                 $scope.idSensei = response.userInfo.IdSensei;
             });
         };
-        
+        $scope.getUser();
 
+        //Upload Profile Picture
 
-        $scope.getNotificationForUser = function () {
-            $scope.idNotification = "";
-            $scope.projectLeaderEmail = "";
-            $scope.senseiEmail = "";
-            $scope.otherEmails = "";
-            $scope.selectedValue = false;
-            $scope.senseiCheck = false;
-            $http.post('/Notifications/GetNotificationForUser',
-                { userId: $scope.selectedUser }).then(function (response) {
-                    if (response.data.notifications.length > 0) {
-                        var userNotification = response.data.notifications[0];
-                        $scope.idNotification = userNotification.IdNotification;
-                        if (userNotification.ProjectLeader != "" && userNotification.ProjectLeader != undefined) {
-                            $scope.projectLeaderEmail = userNotification.ProjectLeader;
-                            $scope.selectedValue = true;
-                        }
-                        if (userNotification.Sensei != "" && userNotification.Sensei != undefined) {
-                            $scope.senseiEmail = userNotification.Sensei;
-                            $scope.senseiCheck = true;
-                        }
-                        $scope.otherEmails = userNotification.Others;
-
-                    }
-                });
-        };
-        //---------------------------------------------------------------------
-
-        //POST
-        $scope.insertNotification = function () {
-            $http.post('/Notifications/InsertNotification',
-            {
-                userId: $scope.selectedUser,
-                projectLeaderMail: $scope.projectLeaderEmail,
-                senseiMail: $scope.senseiEmail,
-                otherEmails: $scope.otherEmails,
-                notificationId: $scope.idNotification
-            }).then(function (response) {
-                if (response.data.success)
-                    $scope.showAlert("notification-shape");
-                $scope.resetForm();
+        $scope.updatePicture = function () {
+            $scope.$emit('LOAD');
+            var files = document.getElementById('uploadImageButton').files[0];
+            $scope.upload = $upload.upload({
+                url: '/TeamMember/UpdateProfilePicture',
+                method: 'POST',
+                file: files
+            }).success(function (data, status, headers, config) {
+                $scope.showAlert("notification-shape", "notice");
+                $scope.getUser();
+                $scope.$emit('UNLOAD');
+            }).error(function (data, status, headers, config) {
+                $scope.showAlert("notification-shape", "error");
+                $scope.$emit('UNLOAD');
             });
         };
 
-        //Get the project leader email
-        $scope.getProjectLeaderMail = function () {
-            if ($scope.selectedValue) {
-                userService.getUser($scope.idProjectLeader).then(function (response) {
-                    $scope.projectLeaderEmail = response.userInfo.IdMembership.Email;
-                });
-            } else {
-                $scope.projectLeaderEmail = "";
-            }
-        };
-
-        //Get the sensei Email
-        $scope.getSenseiMail = function () {
-            if ($scope.senseiCheck) {
-                userService.getUser($scope.idSensei).then(function (response) {
-                    $scope.senseiEmail = response.userInfo.IdMembership.Email;
-                });
-            } else {
-                $scope.senseiEmail = "";
-            }
-        };
-
-
-        //----------------------------------------------------------------------
-
         //------------------------------Public Functions------------------------
+        //Show the alert
         $scope.showAlert = function (elementId) {
             var svgshape = document.getElementById(elementId),
                 s = Snap(svgshape.querySelector('svg')),
@@ -156,9 +91,6 @@
 
             }, 500);
         };
-
-        $scope.resetForm = function () {
-            $scope.insertNotifForm.$setPristine();
-        };
+       
     }]);
 })();

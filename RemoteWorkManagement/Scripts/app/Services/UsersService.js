@@ -6,7 +6,7 @@
             loginUser: loginUser,
             registerUser: registerUser,
             getUser: getUser,
-            getUserByUserName : getUserByUserName,
+            getActualUser: getActualUser,
             getAllUsers: getAllUsers,
             getAllUsersInfo: getAllUsersInfo
         });
@@ -55,16 +55,11 @@
             return (request.then(handleSuccess, handleError));
         }
 
-        function getUserByUserName(userName) {
-            console.log(userName);
+        function getActualUser() {
             var request = $http({
                 method: 'post',
-                url : '/Home/GetUserByUserName',
-                params: {
-                    username : userName
-                }
+                url: '/Home/GetActualUser'
             });
-            console.log("termino");
             return (request.then(handleSuccess, handleError));
         }
 
