@@ -170,7 +170,15 @@ namespace RemoteWorkManagement.Controllers
             userInfoOldObject.RemoteDays = remoteDaysString;
             userInfoOldObject.FlexTime = flexTime;
             var status = _userInfoRepository.UpdateUser(userInfoOldObject);
-            var roleList = JsonConvert.DeserializeObject<string[]>(rol);
+            string[] roleList;
+            if (rol.Contains(","))
+            {
+                roleList = JsonConvert.DeserializeObject<string[]>(rol);
+            }
+            else
+            {
+                roleList = new[] { rol };
+            }
             var userRole = _roleProvider.GetRolesForUser(username);
             if (userRole != null && userRole.Length > 0)
             {
