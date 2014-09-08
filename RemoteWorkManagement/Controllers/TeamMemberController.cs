@@ -11,6 +11,7 @@ using Scio.RemoteManagementModels.RepositoriesContracts;
 
 namespace RemoteWorkManagement.Controllers
 {
+    [Authorize]
     public class TeamMemberController : Controller
     {
         private readonly MembershipProvider _membershipProvider;

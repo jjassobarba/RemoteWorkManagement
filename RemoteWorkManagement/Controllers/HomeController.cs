@@ -258,11 +258,8 @@ namespace RemoteWorkManagement.Controllers
             var projectLeader = new UserInfo();
             Guid? maybeGuid = userInfo.IdSensei;
             Guid theGuid = maybeGuid ?? Guid.Empty;
-
             Guid? maybeGuid1 = userInfo.IdProjectLeader;
             Guid theGuid1 = maybeGuid1 ?? Guid.Empty;
-
-
 
             if (userInfo.IdSensei!=null)
             { 
