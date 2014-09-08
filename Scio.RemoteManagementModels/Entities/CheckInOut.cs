@@ -8,6 +8,7 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual UserInfo IdUserInfo { get; set; }
         public virtual DateTime CheckInDate { get; set; }
         public virtual DateTime CheckOutDate { get; set; }
-
+        public virtual bool IsManualCheckIn { get; set; }
+        public virtual bool IsManualCheckOut { get; set; }
     }
 }

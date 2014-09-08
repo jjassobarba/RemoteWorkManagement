@@ -37,13 +37,22 @@ namespace RemoteWorkManagement.Controllers
             _checkInOutRepository = checkInOutRepository;
         }
 
-        //Get Notifications
-        public ActionResult ProfileTeamMember()
+        
+        public ActionResult Profile()
         {
             return View();
         }
 
-        
+        public ActionResult Actions()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// Updates the profile picture.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult UpdateProfilePicture()
         {

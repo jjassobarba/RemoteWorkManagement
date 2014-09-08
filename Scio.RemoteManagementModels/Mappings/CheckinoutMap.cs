@@ -10,6 +10,8 @@ namespace Scio.RemoteManagementModels.Mappings
             Id(x => x.IdCheck).GeneratedBy.GuidComb();
             Map(x => x.CheckInDate);
             Map(x => x.CheckOutDate);
+            Map(x => x.IsManualCheckIn);
+            Map(x => x.IsManualCheckOut);
             References(x => x.IdUserInfo).Column("IdUserInfo").Cascade.All().LazyLoad();
         }
     }

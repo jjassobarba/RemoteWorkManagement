@@ -656,7 +656,8 @@
     <Content Include="Views\Messages\Index.cshtml" />
     <Content Include="Views\Account\NewPass.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\TeamMember\ProfileTeamMember.cshtml" />
+    <Content Include="Views\TeamMember\Profile.cshtml" />
+    <Content Include="Views\TeamMember\Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
