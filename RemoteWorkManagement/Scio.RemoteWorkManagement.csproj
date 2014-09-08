@@ -318,6 +318,9 @@
     <Content Include="Scripts\bootstrap\ace-elements.min.js" />
     <Content Include="Scripts\bootstrap\ace-extra.min.js" />
     <Content Include="Scripts\bootstrap\ace.min.js" />
+    <Content Include="Scripts\bootstrap\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\bootstrap\bootstrap-wysiwyg.min.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular\angular-touch.min.js.map" />
