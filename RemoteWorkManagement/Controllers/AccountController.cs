@@ -96,14 +96,10 @@ namespace RemoteWorkManagement.Controllers
             usrInfo.IsTemporalPassword = true;
             if (_userInfoRepository.UpdateUser(usrInfo))
             {
-                bool result = Utilities.MailSender(mail, newPassword);
+                bool result = Utilities.MailSender(mail, newPassword, Utilities.EmailType.ForgotPassword);
                 return Json(new { result = result }, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                return Json(new { result = "false" }, JsonRequestBehavior.AllowGet);
-            }
-
+            return Json(new { result = "false" }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -127,7 +123,7 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="newPassword">The new password.</param>
         /// <param name="oldPassword">The old password.</param>
         /// <returns></returns>
-       
+
         [HttpPost]
         public JsonResult ChangePassword(string newPassword, string oldPassword)
         {
