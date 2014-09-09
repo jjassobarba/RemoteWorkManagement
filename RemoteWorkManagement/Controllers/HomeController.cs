@@ -129,7 +129,7 @@ namespace RemoteWorkManagement.Controllers
                 };
                 _userInfoRepository.InsertUser(userInfoObject);
             }
-            bool rpt = Utilities.MailSender(username, password);
+            Utilities.MailSender(username, password, Utilities.EmailType.Welcome);
 
             return Json(new { data = status.ToString() });
         }
