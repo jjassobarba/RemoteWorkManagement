@@ -16,7 +16,6 @@
         //GET
         $scope.getUser = function () {
             userService.getActualUser().then(function (response) {
-                console.log(response);
                 $scope.fullName = response.userInfo.FirstName + " " + response.userInfo.LastName;
                 $scope.email = response.userInfo.IdMembership.Email;
                 $scope.position = response.userInfo.Position;
