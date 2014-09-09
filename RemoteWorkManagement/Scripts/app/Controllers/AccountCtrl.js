@@ -1,5 +1,6 @@
 ﻿(function () {
     angular.module('RemoteManagement').controller('AccountCtrl', ['$scope', 'userService', '$http', function ($scope, userSerice, $http) {
+        //---------------------------Variables Declaration---------------------
         $scope.loginBox = true;
         $scope.forgotBox = false;
         $scope.errorForgot = false;
@@ -13,7 +14,10 @@
         $scope.stepIndex = 1;        
         $scope.word = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;       
         
+        //---------------------------------------------------------------------
 
+        //---------------------------Public Functions--------------------------
+        
         $scope.hideMsgError = function() {
             $scope.msgAlert = "";
             $scope.classMsgAlert = "";

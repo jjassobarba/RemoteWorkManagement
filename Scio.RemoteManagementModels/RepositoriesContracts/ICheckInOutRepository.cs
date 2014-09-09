@@ -17,8 +17,23 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         /// <summary>
         /// Inserts the notification.
         /// </summary>
-        /// <param name="notification">The notification.</param>
+        /// <param name="checkInOut">The notification.</param>
         /// <returns></returns>
-        Guid InsertChekInOut(CheckInOut checkInOut);
+        Guid InsertCheckIn(CheckInOut checkInOut);
+
+        /// <summary>
+        /// Insert the notification if is checkOut.
+        /// </summary>
+        /// <param name="checkInOut">The notification.</param>
+        /// <returns></returns>
+        bool InserCheckOut(CheckInOut checkInOut);
+
+        /// <summary>
+        /// Gets the last checkIni by user.
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        CheckInOut GetLastChekInOutByUser(UserInfo userInfo);
+
     }
 }

@@ -269,6 +269,7 @@ namespace RemoteWorkManagement.Controllers
             Guid? maybeGuid1 = userInfo.IdProjectLeader;
             Guid theGuid1 = maybeGuid1 ?? Guid.Empty;
 
+
             if (userInfo.IdSensei!=null)
             { 
                 sensei = _userInfoRepository.GetUser(theGuid);
