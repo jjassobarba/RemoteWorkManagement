@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using Scio.RemoteManagementModels.Utils;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
 
@@ -36,20 +37,51 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         }
 
         /// <summary>
-        /// Inserts the checkInOut.
+        /// Inserts checkIn.
         /// </summary>
-        /// <param name="checkInOut">The checkInOut.</param>
+        /// <param name="checkIn">The checkInOut.</param>
         /// <returns></returns>
-        public Guid InsertChekInOut(CheckInOut checkInOut)
+        public Guid InsertCheckIn(CheckInOut checkIn)
         {
+            checkIn.CheckOutDate = Utils.Utils.MinDate();
             Guid id;
             using (var transaction = _session.BeginTransaction())
             {
-                id = (Guid)_session.Save(checkInOut);
+                id = (Guid)_session.Save(checkIn);
                 transaction.Commit();
             }
             return id;
         }
-        
+
+        /// <summary>
+        /// Inserts CheckOut
+        /// </summary>
+        /// <param name="checkOut"></param>
+        /// <returns></returns>
+        public bool InserCheckOut(CheckInOut checkOut)
+        {
+            bool success = false;
+            using (var transaction = _session.BeginTransaction())
+            {
+                _session.Update(checkOut);
+                transaction.Commit();
+                success = true;
+            }
+            return success;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        public CheckInOut GetLastChekInOutByUser(UserInfo userInfo)
+        { 
+            Guid? midUserInfo = userInfo.IdUserInfo;
+            Guid idUserInfo = midUserInfo ?? Guid.Empty;
+            var query = _session.QueryOver<CheckInOut>().Where(x => x.IdUserInfo.IdUserInfo == idUserInfo);
+            var checkInOut = query.List<CheckInOut>().LastOrDefault();
+            return checkInOut;
+        }
     }
 }

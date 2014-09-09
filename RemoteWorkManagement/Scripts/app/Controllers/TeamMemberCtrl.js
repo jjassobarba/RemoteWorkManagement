@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('TeamMemberCtrl', ['$scope', 'userService', '$upload', '$http', function ($scope, userService, $upload, $http) {
+    angular.module('RemoteManagement').controller('TeamMemberCtrl', ['$scope', 'userService', '$upload', '$http', '$notification', function ($scope, userService, $upload, $http, $notification) {
         //---------------------------Variables Declaration---------------------
         $scope.users = [];
         $scope.showInfo = true;
@@ -16,7 +16,6 @@
         //GET
         $scope.getUser = function () {
             userService.getActualUser().then(function (response) {
-                console.log(response);
                 $scope.fullName = response.userInfo.FirstName + " " + response.userInfo.LastName;
                 $scope.email = response.userInfo.IdMembership.Email;
                 $scope.position = response.userInfo.Position;
@@ -38,8 +37,62 @@
         };
         $scope.getUser();
 
-        //Upload Profile Picture
+        //Gets status checkIn
+        $scope.getStatusCheckIn = function() {
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/GetCheckInStatus'
+            }).success(function (data, status, headers, config) {
+                if (data.data.CheckOutDate == "1753") {
+                    console.log(data);
+                    $scope.disable('btnCheckIn');
+                    $scope.enable('btnCheckOut');
+                } else {
+                    console.log(data);
+                    $scope.disable('btnCheckOut');
+                    $scope.enable('btnCheckIn');
+                }
+            }).error(function (data, status, headers, config) {
+                console.log(data);
+            });
+        };
+        $scope.getStatusCheckIn();
 
+
+        //POST-------------------------------------------------------
+        $scope.checkIn = function() {
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/CheckIn'
+            }).success(function(data, status, headers, config) {
+                console.log(data);
+                $scope.getStatusCheckIn();
+                $notification.success('CheckIn done!', 'Now You can work remotely!');
+            }).error(function(data, status, headers, config) {
+                console.log(data);
+                $scope.getStatusCheckIn();
+                $notification.success('Error!', 'Something is wrong please try again!');
+            });
+        };
+
+
+        $scope.checkOut = function() {
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/CheckOut'
+            }).success(function (data, status, headers, config) {
+                console.log(data);
+                $scope.getStatusCheckIn();
+                $notification.success('CheckOut done!', ':)!');
+            }).error(function (data, status, headers, config) {
+                console.log(data);
+                $scope.getStatusCheckIn();
+                $notification.success('Error!', 'Something is wrong please try again!');
+            });
+        };
+
+
+        //Upload Profile Picture
         $scope.updatePicture = function () {
             $scope.$emit('LOAD');
             var files = document.getElementById('uploadImageButton').files[0];
@@ -56,6 +109,17 @@
                 $scope.$emit('UNLOAD');
             });
         };
+
+
+        //Removes disable attributes for a specific id
+        $scope.enable = function (id) {
+            console.log("habilitando");
+            document.getElementById(id).removeAttribute('disabled');
+        }
+        //Sets disabled attribute for an specific id
+        $scope.disable = function (id) {
+            document.getElementById(id).setAttribute('disabled', 'disabled');
+        }
 
         //------------------------------Public Functions------------------------
         //Show the alert

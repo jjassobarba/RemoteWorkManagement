@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scio.RemoteWorkManagement", "RemoteWorkManagement\Scio.RemoteWorkManagement.csproj", "{F940BA2E-CC61-4103-A370-56F6A0458565}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -22,6 +22,8 @@ EndProject
 Global
 	GlobalSection(CodealikeProperties) = postSolution
 		SolutionGuid = c2a7abeb-91dc-4bc3-88ad-091d63a61b56
+		SolutionGuid = 029073f7-7852-4493-a09c-0e6eee84c809
+		SolutionGuid = 00000000-0000-0000-0000-000000000000
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using Castle.Core.Internal;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using RemoteWorkManagement.DTO;
 using RemoteWorkManagement.Helpers;
@@ -37,7 +38,7 @@ namespace RemoteWorkManagement.Controllers
             _checkInOutRepository = checkInOutRepository;
         }
 
-        
+
         public ActionResult Profile()
         {
             return View();
@@ -77,6 +78,147 @@ namespace RemoteWorkManagement.Controllers
         }
 
 
+        [HttpPost]
+        public JsonResult GetCheckInStatus()
+        {
+            var objCheckInOut = GetLastChekInOut();
+            if (objCheckInOut != null)
+            {
+                var checkInOut = new
+                {
+                    IdCheck = objCheckInOut.IdCheck,
+                    CheckInDate = objCheckInOut.CheckInDate.Year.ToString(),
+                    CheckOutDate = objCheckInOut.CheckOutDate.Year.ToString(),
+                    IsManualCheckIn = objCheckInOut.IsManualCheckIn,
+                    IsManualCheckOut = objCheckInOut.IsManualCheckOut
+                };
+                return Json(new { data = checkInOut });
+            }
+            else
+            {
+                var checkInOut = new
+                {
+                    CheckOutDate = "firstTime"
+                };
+                return Json(new { data = checkInOut });
+            }
+        }
 
+        /// <summary>
+        /// Sets CheckIn for the actual User.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult CheckIn()
+        {
+            var success = false;
+            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+            var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+            var checkIn = new CheckInOut
+            {
+                IdUserInfo = usrInfo,
+                CheckInDate = DateTime.Now
+            };
+
+            var id = _checkInOutRepository.InsertCheckIn(checkIn);
+            if (id != Guid.Empty)
+            {
+                if (SendNotificationsToTeam(usrInfo))
+                    success = true;
+            }
+            return Json(new { success });
+        }
+
+        [HttpPost]
+        public JsonResult CheckOut()
+        {
+            var success = false;
+            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+            var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+
+            var lstCheckInOut = GetLastChekInOut();
+            int result = DateTime.Compare(DateTime.Now.Date, lstCheckInOut.CheckOutDate.Date);
+            if (result != 0)
+            {
+                lstCheckInOut.CheckOutDate = DateTime.Now;
+                if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
+                {
+                    if (SendNotificationsToTeam(usrInfo))
+                        success = true;
+                }
+                return Json(new {success});
+            }
+            else
+            {
+                return Json(new { success });
+            }
+
+
+
+           
+           
+        }
+
+        /// <summary>
+        /// Sends an email to each team member.
+        /// </summary>
+        /// <param name="usrInfo"></param>
+        /// <returns></returns>
+        private bool SendNotificationsToTeam(UserInfo usrInfo)
+        {
+            var notificationsTo = _notificationsRepository.GetNotificationsForUser(usrInfo.IdUserInfo);
+            var projectLeaderMail = "";
+            var senseiMail = "";
+            var otherMails = "";
+            var to = "";
+            foreach (var notification in notificationsTo)
+            {
+                projectLeaderMail = notification.ProjectLeaderMail;
+                senseiMail = notification.SenseiMail;
+                otherMails = notification.OtherMails;
+            }
+
+            if (!projectLeaderMail.IsNullOrWhiteSpace())
+            {
+                if (!senseiMail.IsNullOrEmpty())
+                {
+                    to = !otherMails.IsNullOrEmpty() ? projectLeaderMail + "," + senseiMail + "," + otherMails : projectLeaderMail + "," + senseiMail;
+                }
+                else
+                {
+                    to = !otherMails.IsNullOrEmpty() ? projectLeaderMail + "," + otherMails : projectLeaderMail;
+                }
+            }
+            else
+            {
+                if (!senseiMail.IsNullOrEmpty())
+                {
+                    to = !otherMails.IsNullOrEmpty() ? senseiMail + "," + otherMails : senseiMail;
+                }
+                else
+                {
+                    to = !otherMails.IsNullOrEmpty() ? otherMails : "";
+                }
+            }
+            return Utilities.MailSender(to, "");
+        }
+
+
+        /// <summary>
+        /// Returns the last CheckInOut of the Actual User
+        /// </summary>
+        /// <returns></returns>
+        private CheckInOut GetLastChekInOut()
+        {
+            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+            var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+            var lstCheckInOut = _checkInOutRepository.GetLastChekInOutByUser(usrInfo);
+            return lstCheckInOut;
+        }
     }
 }
