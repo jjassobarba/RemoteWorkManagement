@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D0877A
 EndProject
 Global
 	GlobalSection(CodealikeProperties) = postSolution
+		SolutionGuid = c2a7abeb-91dc-4bc3-88ad-091d63a61b56
 		SolutionGuid = 029073f7-7852-4493-a09c-0e6eee84c809
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
