@@ -11,6 +11,6 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual bool IsManualCheckIn { get; set; }
         public virtual bool IsManualCheckOut { get; set; }
         public virtual bool IsAuthorized { get; set; }
-        public virtual bool Comments { get; set; }
+        public virtual string Comments { get; set; }
     }
 }
