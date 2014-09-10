@@ -49,7 +49,6 @@ namespace RemoteWorkManagement.Controllers
             return View();
         }
 
-
         /// <summary>
         /// Updates the profile picture.
         /// </summary>
@@ -77,7 +76,10 @@ namespace RemoteWorkManagement.Controllers
             return Json(new { data = status });
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult GetCheckInStatus()
         {
@@ -88,17 +90,15 @@ namespace RemoteWorkManagement.Controllers
 
             if (objCheckInOut != null)
             {
-                int checkInStatus = DateTime.Compare(objCheckInOut.CheckInDate.Date, DateTime.Now.Date);
                 int checkInStatus2 = DateTime.Compare(objCheckInOut.CheckInDate.Date, objCheckInOut.CheckOutDate.Date);
 
-                if (checkInStatus2 == 0 && checkInStatus != 0) //si ya tengo uno lleno y todavia no hago chekin
+                if (checkInStatus2 == 0) 
                 {
                     isEnablecheckIn = true;
                     isEnablecheckOut = false;
                 }
 
-
-                if (checkInStatus == 0 && checkInStatus2 != 0) //si ya ice chekin y aun no hago chekout
+                if (checkInStatus2 > 0)
                 {
                     isEnablecheckIn = false;
                     isEnablecheckOut = true;
@@ -130,54 +130,91 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult CheckIn()
         {
             var success = false;
-            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
-            var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
-            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+            var lstCheckInOut = GetLastChekInOut();
 
-            var checkIn = new CheckInOut
-            {
-                IdUserInfo = usrInfo,
-                CheckInDate = DateTime.Now
-            };
 
-            var id = _checkInOutRepository.InsertCheckIn(checkIn);
-            if (id != Guid.Empty)
+            if (lstCheckInOut != null)
             {
-                if (SendNotificationsToTeam(usrInfo))
-                    success = true;
+                int datesComp = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
+                int datesCompToNow = DateTime.Compare(lstCheckInOut.CheckInDate.Date, DateTime.Now.Date);
+
+                if (datesComp == 0 && datesCompToNow < 0)
+                {
+                    var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+                    var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+                    var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+                    var checkIn = new CheckInOut
+                    {
+                        IdUserInfo = usrInfo,
+                        CheckInDate = DateTime.Now
+                    };
+
+                    var id = _checkInOutRepository.InsertCheckIn(checkIn);
+                    if (id != Guid.Empty)
+                    {
+                        if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
+                            success = true;
+                    }
+                    return Json(new {success});
+                }
+                return Json(new { success });
             }
-            return Json(new { success });
+            else
+            {
+                var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+                var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+                var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+                var checkIn = new CheckInOut
+                {
+                    IdUserInfo = usrInfo,
+                    CheckInDate = DateTime.Now
+                };
+
+                var id = _checkInOutRepository.InsertCheckIn(checkIn);
+                if (id != Guid.Empty)
+                {
+                    if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
+                        success = true;
+                }
+                return Json(new { success });
+            }
         }
 
+        /// <summary>
+        /// Sets CheckOut for the actual User.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult CheckOut()
         {
             var success = false;
-            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
-            var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
-            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
-
-
             var lstCheckInOut = GetLastChekInOut();
-            int result = DateTime.Compare(DateTime.Now.Date, lstCheckInOut.CheckOutDate.Date);
-            if (result != 0)
+
+            if (lstCheckInOut != null)
             {
-                lstCheckInOut.CheckOutDate = DateTime.Now;
-                if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
+                var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+                var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+                var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+                int result = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
+                if (result > 0)
                 {
-                    if (SendNotificationsToTeam(usrInfo))
-                        success = true;
+                    lstCheckInOut.CheckOutDate = DateTime.Now;
+                    if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
+                    {
+                        if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                            success = true;
+                    }
+                    return Json(new { success });
                 }
-                return Json(new {success});
+                else
+                {
+                    return Json(new { success });
+                }
             }
-            else
-            {
-                return Json(new { success });
-            }
-
-
-
-           
+            return Json(new { success }); 
            
         }
 
@@ -186,7 +223,7 @@ namespace RemoteWorkManagement.Controllers
         /// </summary>
         /// <param name="usrInfo"></param>
         /// <returns></returns>
-        private bool SendNotificationsToTeam(UserInfo usrInfo)
+        private bool SendNotificationsToTeam(UserInfo usrInfo, Utilities.EmailType type)
         {
             var notificationsTo = _notificationsRepository.GetNotificationsForUser(usrInfo.IdUserInfo);
             var projectLeaderMail = "";
@@ -222,10 +259,9 @@ namespace RemoteWorkManagement.Controllers
                     to = !otherMails.IsNullOrEmpty() ? otherMails : "";
                 }
             }
-            return Utilities.MailSender(to, "",Utilities.EmailType.CheckIn);
+            return Utilities.MailSender(to, "",type);
         }
-
-
+        
         /// <summary>
         /// Returns the last CheckInOut of the Actual User
         /// </summary>

@@ -49,8 +49,8 @@ namespace RemoteWorkManagement.Helpers
                             System.Configuration.ConfigurationManager.AppSettings["emailPassword"])
                 };
                 var bodyMessage = CheckEmailTemplate(type, password);
-                var mail = new MailMessage(
-                    System.Configuration.ConfigurationManager.AppSettings["emailAccount"], mailto, "Welcome to Remote Work Management", bodyMessage);
+                var mail = 
+                    new MailMessage(System.Configuration.ConfigurationManager.AppSettings["emailAccount"],mailto, "Welcome to Remote Work Management", bodyMessage);
                 mail.IsBodyHtml = true;
                 smtp.Send(mail);
                 return true;

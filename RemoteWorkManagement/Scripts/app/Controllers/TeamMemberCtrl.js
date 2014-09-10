@@ -44,11 +44,9 @@
                 url: '/TeamMember/GetCheckInStatus'
             }).success(function (data, status, headers, config) {
                 if (data.data.isEnablecheckOut) {
-                    console.log(data);
                     $scope.disable('btnCheckIn');
                     $scope.enable('btnCheckOut');
                 } else {
-                    console.log(data);
                     $scope.disable('btnCheckOut');
                     $scope.enable('btnCheckIn');
                 }
@@ -60,34 +58,46 @@
 
 
         //POST-------------------------------------------------------
-        $scope.checkIn = function() {
+        $scope.checkIn = function () {
+            $scope.$emit('LOAD');
             var request = $http({
                 method: 'post',
                 url: '/TeamMember/CheckIn'
             }).success(function(data, status, headers, config) {
-                console.log(data);
                 $scope.getStatusCheckIn();
-                $notification.success('CheckIn done!', 'Now You can work remotely!');
-            }).error(function(data, status, headers, config) {
-                console.log(data);
+                console.log(data.success);
+                if (data.success) {
+                    $notification.success('CheckIn done!', 'Now You can work remotely!');
+                } else {
+                    $notification.success('Error!', 'You cant CheckIn without CheckOut! or two times per day');
+                }
+                $scope.$emit('UNLOAD');
+            }).error(function (data, status, headers, config) {
                 $scope.getStatusCheckIn();
                 $notification.success('Error!', 'Something is wrong please try again!');
+                $scope.$emit('UNLOAD');
             });
         };
 
 
-        $scope.checkOut = function() {
+        $scope.checkOut = function () {
+            $scope.$emit('LOAD');
             var request = $http({
                 method: 'post',
                 url: '/TeamMember/CheckOut'
             }).success(function (data, status, headers, config) {
-                console.log(data);
                 $scope.getStatusCheckIn();
-                $notification.success('CheckOut done!', ':)!');
+                console.log(data.success);
+                if (data.success) {
+                    $notification.success('CheckOut done!', '  :)!');
+                } else {
+                    $notification.success('Error!', 'You cant CheckOut without CheckIn!');
+                }
+                $scope.$emit('UNLOAD');
             }).error(function (data, status, headers, config) {
-                console.log(data);
                 $scope.getStatusCheckIn();
                 $notification.success('Error!', 'Something is wrong please try again!');
+                $scope.$emit('UNLOAD');
             });
         };
 
@@ -113,7 +123,6 @@
 
         //Removes disable attributes for a specific id
         $scope.enable = function (id) {
-            console.log("habilitando");
             document.getElementById(id).removeAttribute('disabled');
         }
         //Sets disabled attribute for an specific id
