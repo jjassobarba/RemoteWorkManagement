@@ -10,5 +10,7 @@ namespace Scio.RemoteManagementModels.Entities
         public virtual DateTime CheckOutDate { get; set; }
         public virtual bool IsManualCheckIn { get; set; }
         public virtual bool IsManualCheckOut { get; set; }
+        public virtual bool IsAuthorized { get; set; }
+        public virtual bool Comments { get; set; }
     }
 }

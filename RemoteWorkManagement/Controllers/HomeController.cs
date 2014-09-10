@@ -85,10 +85,9 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="flexTime">The flex time.</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string rol, Guid? projectLeader, Guid? sensei, string remoteDays, string flexTime)
+        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string[] rol, Guid? projectLeader, Guid? sensei, string remoteDays, string flexTime)
         {
             byte[] byteFile = null;
-            var roleList = JsonConvert.DeserializeObject<string[]>(rol);
             for (var x = 1; x < Request.Files.Count + 1; x++)
             {
                 var file = Request.Files[x - 1];
@@ -113,7 +112,7 @@ namespace RemoteWorkManagement.Controllers
                 {
                     user.Id = Convert.ToInt32(userId.ProviderUserKey.ToString());
                 }
-                _roleProvider.AddUsersToRoles(new[] { username }, roleList);
+                _roleProvider.AddUsersToRoles(new[] { username }, rol);
                 var userInfoObject = new UserInfo()
                 {
                     FirstName = firstName,
@@ -150,7 +149,7 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="isActive">if set to <c>true</c> [is active].</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult UpdateUser(string idUserInfo, string username, string firstName, string lastName, string position, string rol,
+        public JsonResult UpdateUser(string idUserInfo, string username, string firstName, string lastName, string position, string[] rol,
             Guid? projectLeader, Guid? sensei, string[] remoteDays, string flexTime, bool isActive)
         {
             var remoteDaysString = remoteDays.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
@@ -170,20 +169,11 @@ namespace RemoteWorkManagement.Controllers
             userInfoOldObject.RemoteDays = remoteDaysString;
             userInfoOldObject.FlexTime = flexTime;
             var status = _userInfoRepository.UpdateUser(userInfoOldObject);
-            string[] roleList;
-            if (rol.Contains(","))
-            {
-                roleList = JsonConvert.DeserializeObject<string[]>(rol);
-            }
-            else
-            {
-                roleList = new[] { rol };
-            }
             var userRole = _roleProvider.GetRolesForUser(username);
             if (userRole != null && userRole.Length > 0)
             {
                 _roleProvider.RemoveUsersFromRoles(new[] { username }, userRole);
-                _roleProvider.AddUsersToRoles(new[] { username }, roleList);
+                _roleProvider.AddUsersToRoles(new[] { username }, rol);
             }
             return Json(new { data = status });
         }
@@ -270,15 +260,15 @@ namespace RemoteWorkManagement.Controllers
             Guid theGuid1 = maybeGuid1 ?? Guid.Empty;
 
 
-            if (userInfo.IdSensei!=null)
-            { 
+            if (userInfo.IdSensei != null)
+            {
                 sensei = _userInfoRepository.GetUser(theGuid);
             }
             if (userInfo.IdProjectLeader != null)
             {
                 projectLeader = _userInfoRepository.GetUser(theGuid1);
             }
-                
+
             var userMapped = new
             {
                 IdUserInfo = userInfo.IdUserInfo,
@@ -290,7 +280,7 @@ namespace RemoteWorkManagement.Controllers
                 Position = userInfo.Position,
                 ReceiveNotifications = userInfo.ReceiveNotifications,
                 RemoteDays = userInfo.RemoteDays,
-                IdSensei = userInfo.IdSensei != null ? sensei.FirstName+" "+sensei.LastName : string.Empty,
+                IdSensei = userInfo.IdSensei != null ? sensei.FirstName + " " + sensei.LastName : string.Empty,
                 IdProjectLeader = userInfo.IdProjectLeader != null ? projectLeader.FirstName + " " + projectLeader.LastName : string.Empty,
                 IdMembership = new
                 {

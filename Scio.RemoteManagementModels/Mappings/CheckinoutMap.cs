@@ -12,6 +12,8 @@ namespace Scio.RemoteManagementModels.Mappings
             Map(x => x.CheckOutDate);
             Map(x => x.IsManualCheckIn);
             Map(x => x.IsManualCheckOut);
+            Map(x => x.IsAuthorized);
+            Map(x => x.Comments);
             References(x => x.IdUserInfo).Column("IdUserInfo").Cascade.All().LazyLoad();
         }
     }
