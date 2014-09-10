@@ -297,6 +297,56 @@
     $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
 
 
+    //  time picker
+    $('#timepickerCheckOut').timepicker({
+        minuteStep: 1,
+        showSeconds: true,
+        showMeridian: false
+    }).next().on(ace.click_event, function () {
+        $(this).prev().focus();
+    });
+
+    $('#timepickerCheckIn').timepicker({
+        minuteStep: 1,
+        showSeconds: true,
+        showMeridian: false
+    }).next().on(ace.click_event, function () {
+        $(this).prev().focus();
+    });
+    //  ./time picker
+
+    //Modal to add comment to notify HR
+    $("#btnCheckInM").on('click', function (e) {
+        e.preventDefault();
+
+        $("#warning-dialog").removeClass('hide').dialog({
+            modal: true,
+            title: "<div class='widget-header widget-header-small'><h4 class='small'><i class='icon-warning-sign'></i>Warning</h4></div>",
+            title_html: true,
+            width: 350,
+            buttons: [
+                {
+                    text: "Cancel",
+                    "class": "btn btn-xs",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                {
+                    text: "OK",
+                    "class": "btn btn-primary btn-xs",
+                    click: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            ]
+        });
+    });
+
+
+
+
+
     var form_initialized = false;
     function initialize_form() {
         if (form_initialized) return;

@@ -43,11 +43,10 @@ namespace RemoteWorkManagement
                       "~/Scripts/bootstrap/bootstrap.min.js",
                       "~/Scripts/bootstrap/bootstrap-tag.min.js",
                       "~/Scripts/bootstrap/bootstrap.wysiwyg.min.js",
-                      "~/Scripts/bootstrap/ace-extra.min.js",
+                     "~/Scripts/bootstrap/bootstrap-timepicker.min.js",
+                      "~/Scripts/scripts/moment.min.js",
+                       "~/Scripts/bootstrap/ace-extra.min.js",
                       "~/Scripts/bootstrap/ace-elements.min.js",
-                      "~/Scripts/bootstrap/bootstrap-datepicker.min.js",
-                      "~/Scripts/bootstrap/bootstrap-datetimepicker.min.js",
-                      "~/Scripts/bootstrap/bootstrap-timepicker.min.js",
                       "~/Scripts/bootstrap/ace.min.js",
                       "~/Scripts/respond/respond.js"));
 

@@ -45,10 +45,14 @@
             }).success(function (data, status, headers, config) {
                 if (data.data.isEnablecheckOut) {
                     $scope.disable('btnCheckIn');
-                    $scope.enable('btnCheckOut');
+                    $scope.disable('btnCheckInM');
+                    $scope.enable('btnCheckOut'); 
+                    $scope.enable('btnCheckOutM');
                 } else {
                     $scope.disable('btnCheckOut');
+                    $scope.disable('btnCheckOutM');
                     $scope.enable('btnCheckIn');
+                    $scope.enable('btnCheckInM');
                 }
             }).error(function (data, status, headers, config) {
                 console.log(data);
@@ -78,9 +82,45 @@
                 $scope.$emit('UNLOAD');
             });
         };
-
-
+        
         $scope.checkOut = function () {
+            $scope.$emit('LOAD');
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/CheckOut'
+            }).success(function (data, status, headers, config) {
+                $scope.getStatusCheckIn();
+                console.log(data.success);
+                if (data.success) {
+                    $notification.success('CheckOut done!', '  :)!');
+                } else {
+                    $notification.success('Error!', 'You cant CheckOut without CheckIn!');
+                }
+                $scope.$emit('UNLOAD');
+            }).error(function (data, status, headers, config) {
+                $scope.getStatusCheckIn();
+                $notification.success('Error!', 'Something is wrong please try again!');
+                $scope.$emit('UNLOAD');
+            });
+        };
+
+        $scope.checkOutM = function () {
+            $scope.$emit('LOAD');
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/IsAllowedDay'
+            }).success(function (data, status, headers, config) {
+                console.log("estatus del dia");
+                console.log(data.success);
+                $scope.$emit('UNLOAD');
+            }).error(function (data, status, headers, config) {
+                $scope.getStatusCheckIn();
+                $notification.success('Error!', 'Something is wrong please try again!');
+                $scope.$emit('UNLOAD');
+            });
+        }; 
+
+        $scope.checkInM = function () {
             $scope.$emit('LOAD');
             var request = $http({
                 method: 'post',

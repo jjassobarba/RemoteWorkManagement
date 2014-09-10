@@ -7,6 +7,7 @@
             registerUser: registerUser,
             getUser: getUser,
             getActualUser: getActualUser,
+            isAllowedDay : isAllowedDay,
             getAllUsers: getAllUsers,
             getAllUsersInfo: getAllUsersInfo
         });
@@ -59,6 +60,14 @@
             var request = $http({
                 method: 'post',
                 url: '/Home/GetActualUser'
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function isAllowedDay() {
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/IsAllowedDay'
             });
             return (request.then(handleSuccess, handleError));
         }

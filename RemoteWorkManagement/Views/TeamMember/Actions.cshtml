@@ -1,15 +1,13 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Actions";
     Layout = "~/Views/Shared/_InnerLayout.cshtml";
 }
 
 <div ng-controller="TeamMemberCtrl" ng-cloak>
-   
+
     <div class="breadcrumbs" id="breadcrumbs">
-        <script type="text/javascript">
-            try { ace.settings.check('breadcrumbs', 'fixed'); } catch (e) { }
-        </script>
+
+
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home home-icon"></i>
@@ -74,17 +72,87 @@
                         </div>
 
                         <div class="panel-collapse collapse" id="collapseThree" style="height: 0px;">
-                            <div class="panel-body">
-                                <div class="input-group col-sm-3">
-                                    <button id="btnCheckIn" class="btn btn-success" ng-click="checkIn()">
-                                        <i class="icon-check bigger-230"></i>
-                                        Automatic CheckIn
-                                    </button>
+                            <div class="panel-body"><!--Panel body-->
+                                
+                            <div class="col-xs-12 col-sm-4 widget-container-span ui-sortable">
+                                    <div class="widget-box">
+
+                                        <div class="widget-header">
+                                            <h5 class="smaller">Automatic CheckIn</h5>
+                                            <div class="widget-toolbar">
+                                                <span class="label label-default">
+                                                    <i class="icon-check bigger-140"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div class="widget-main padding-6">
+                                                <br />
+                                                <button id="btnCheckIn" class="btn btn-success" ng-click="checkIn()">
+                                                    <i class="icon-check bigger-230"></i>
+                                                    Automatic CheckIn
+                                                </button>
+                                                <br /><br /><p></p>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                            </div>
+
+
+                                <div class="col-xs-12 col-sm-4 widget-container-span ui-sortable">
+                                    <div class="widget-box">
+
+                                        <div class="widget-header">
+                                            <h5 class="smaller">Manual CheckIn</h5>
+                                            <div class="widget-toolbar">
+                                                <span class="label label-default">
+                                                    <i class="icon-check bigger-140"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div class="widget-main padding-6">
+                                                <p>
+                                                    <div class="input-group bootstrap-timepicker">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-time bigger-110"></i>
+                                                        </span>
+                                                        <input id="timepickerCheckIn" type="text" class="form-control" />
+                                                    </div>
+                                                </p>
+                                                <p>
+                                                    <button id="btnCheckInM" class="btn btn-success btn-mini " >
+                                                        <i class="icon-unchecked bigger-125"></i>
+                                                        CheckIn
+                                                    </button>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            
+                                <div id="warning-dialog" class="hide">
+                                    <p>
+                                        Type aditional info
+                                    </p>
+                                    <div class="hr hr-12 hr-double"></div>
+                                    <p>
+                                        Please add a comment.
+                                    </p>
+                                    <div>
+                                        <textarea cols="25" rows="10" ng-model="checkIncomment"></textarea>
+                                    </div>
+                                </div>
+
+                            </div><!--/Panel Body-->
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -94,27 +162,81 @@
                                 </a>
                             </h4>
                         </div>
-                        
+
                         <div class="panel-collapse collapse in" id="collapseFour" style="height: 0px;">
                             <div class="panel-body">
-                                <div class="input-group col-sm-3">
-                                    <button id="btnCheckOut" class="btn btn-primary btn-large" ng-click="checkOut()">
-                                        <i class="icon-unchecked bigger-230"></i>
-                                        Automatic CheckOut
-                                    </button>
+
+                                <div class="col-xs-12 col-sm-4 widget-container-span ui-sortable">
+                                    <div class="widget-box">
+
+                                        <div class="widget-header">
+                                            <h5 class="smaller">Automatic CheckOut</h5>
+                                            <div class="widget-toolbar">
+                                                <span class="label label-default">
+                                                    <i class="icon-unchecked bigger-140"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div class="widget-main padding-6">
+                                                <br/>
+                                                <button id="btnCheckOut" class="btn btn-primary btn-large" ng-click="checkOut()">
+                                                    <i class="icon-unchecked bigger-230"></i>
+                                                    Automatic CheckOut
+                                                </button>
+                                                <br /><br/><p></p>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
+
+
+                                <div class="col-xs-12 col-sm-4 widget-container-span ui-sortable">
+                                    <div class="widget-box">
+
+                                        <div class="widget-header">
+                                            <h5 class="smaller">Manual CheckOut</h5>
+                                            <div class="widget-toolbar">
+                                                <span class="label label-default">
+                                                    <i class="icon-unchecked bigger-140"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div class="widget-main padding-6">
+                                                <p>
+                                                    <div class="input-group bootstrap-timepicker">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-time bigger-110"></i>
+                                                        </span>
+                                                        <input id="timepickerCheckOut" type="text" class="form-control" />
+                                                    </div>
+                                                </p>
+                                                <p>
+                                                    <button id="btnCheckOutM" class="btn btn-primary btn-mini " ng-click="checkOutM()">
+                                                        <i class="icon-unchecked bigger-125"></i>
+                                                        CheckOut
+                                                    </button>
+                                                </p> 
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-            <div class="row" ng-show="loading">
+            <div class="row align-center">
+                <br /><br />
                 <img src="~/Content/images/loader.png" />
             </div>
         </fieldset>
     </div>
 </div>
-
-
-

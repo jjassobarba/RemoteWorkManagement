@@ -49,6 +49,28 @@ namespace RemoteWorkManagement.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// returns 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult IsAllowedDay()
+        { 
+            var success = false;
+            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+            var usrInfo = _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(usr.ProviderUserKey));
+            var remoteDays = usrInfo.RemoteDays;
+            var today = DateTime.Now.DayOfWeek.ToString();
+            string[] days =remoteDays.Split(',');
+            if (days.Any(day => day == today))
+            {
+                success = true;
+                return Json(new { success });
+            }
+            return Json(new {success});
+        }
+
         /// <summary>
         /// Updates the profile picture.
         /// </summary>
