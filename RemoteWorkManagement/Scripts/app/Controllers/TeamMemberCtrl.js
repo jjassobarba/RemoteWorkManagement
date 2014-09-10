@@ -43,7 +43,7 @@
                 method: 'post',
                 url: '/TeamMember/GetCheckInStatus'
             }).success(function (data, status, headers, config) {
-                if (data.data.CheckOutDate == "1753") {
+                if (data.data.isEnablecheckOut) {
                     console.log(data);
                     $scope.disable('btnCheckIn');
                     $scope.enable('btnCheckOut');

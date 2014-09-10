@@ -82,25 +82,43 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult GetCheckInStatus()
         {
             var objCheckInOut = GetLastChekInOut();
+            bool isEnablecheckIn=false;
+            bool isEnablecheckOut=false;
+
+
             if (objCheckInOut != null)
             {
-                var checkInOut = new
+                int checkInStatus = DateTime.Compare(objCheckInOut.CheckInDate.Date, DateTime.Now.Date);
+                int checkInStatus2 = DateTime.Compare(objCheckInOut.CheckInDate.Date, objCheckInOut.CheckOutDate.Date);
+
+                if (checkInStatus2 == 0 && checkInStatus != 0) //si ya tengo uno lleno y todavia no hago chekin
                 {
-                    IdCheck = objCheckInOut.IdCheck,
-                    CheckInDate = objCheckInOut.CheckInDate.Year.ToString(),
-                    CheckOutDate = objCheckInOut.CheckOutDate.Year.ToString(),
-                    IsManualCheckIn = objCheckInOut.IsManualCheckIn,
-                    IsManualCheckOut = objCheckInOut.IsManualCheckOut
+                    isEnablecheckIn = true;
+                    isEnablecheckOut = false;
+                }
+
+
+                if (checkInStatus == 0 && checkInStatus2 != 0) //si ya ice chekin y aun no hago chekout
+                {
+                    isEnablecheckIn = false;
+                    isEnablecheckOut = true;
+                }
+                
+                var status = new
+                {
+                    isEnablecheckIn = isEnablecheckIn,
+                    isEnablecheckOut = isEnablecheckOut
                 };
-                return Json(new { data = checkInOut });
+                return Json(new { data = status });
             }
             else
             {
-                var checkInOut = new
+                var status = new
                 {
-                    CheckOutDate = "firstTime"
+                    isEnablecheckIn = true,
+                    isEnablecheckOut = false
                 };
-                return Json(new { data = checkInOut });
+                return Json(new { data = status });
             }
         }
 
@@ -204,7 +222,7 @@ namespace RemoteWorkManagement.Controllers
                     to = !otherMails.IsNullOrEmpty() ? otherMails : "";
                 }
             }
-            return Utilities.MailSender(to, "");
+            return Utilities.MailSender(to, "",Utilities.EmailType.CheckIn);
         }
 
 
