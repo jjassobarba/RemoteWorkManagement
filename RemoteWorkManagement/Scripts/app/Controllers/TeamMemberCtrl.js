@@ -7,6 +7,7 @@
         $scope.idProjectLeader = "";
         $scope.idSensei = "";
         $scope.idNotification = "";
+        $scope.isAllowedDay = false;
         $scope.$on('LOAD', function () { $scope.loading = true; });
         $scope.$on('UNLOAD', function() { $scope.loading = false; });
        
@@ -60,9 +61,17 @@
         };
         $scope.getStatusCheckIn();
 
+        //Verifies if the user is allowed to work remotely today
+        $scope.getStatusDay = function() {
+            userService.isAllowedDay().then(function(response) {
+                $scope.isAllowedDay = response.success;
+            });
+        };
+        $scope.getStatusDay();
+
 
         //POST-------------------------------------------------------
-        $scope.checkIn = function () {
+        $scope.checkInss = function () {
             $scope.$emit('LOAD');
             var request = $http({
                 method: 'post',
@@ -82,7 +91,53 @@
                 $scope.$emit('UNLOAD');
             });
         };
-        
+
+        $scope.checkIn = function () {
+            $scope.$emit('LOAD');
+            if ($scope.isAllowedDay) {
+                var request = $http({
+                    method: 'post',
+                    url: '/TeamMember/CheckIn'
+                }).success(function (data, status, headers, config) {
+                    $scope.getStatusCheckIn();
+                    console.log(data.success);
+                    if (data.success) {
+                        $notification.success('CheckIn done!', 'Now You can work remotely!');
+                    } else {
+                        $notification.success('Error!', 'You cant CheckIn without CheckOut! or two times per day');
+                    }
+                    $scope.$emit('UNLOAD');
+                }).error(function (data, status, headers, config) {
+                    $scope.getStatusCheckIn();
+                    $notification.success('Error!', 'Something is wrong please try again!');
+                    $scope.$emit('UNLOAD');
+                });
+            } else {
+                $("#warning-dialog").removeClass('hide').dialog({
+                    modal: true,
+                    title: "<div class='widget-header widget-header-small'><h4 class='small'><i class='icon-warning-sign'></i>Warning</h4></div>",
+                    title_html: true,
+                    width: 350,
+                    buttons: [
+                        {
+                            text: "Cancel",
+                            "class": "btn btn-xs",
+                            click: function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                        {
+                            text: "OK",
+                            "class": "btn btn-primary btn-xs",
+                            click: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+            }
+        };
+
         $scope.checkOut = function () {
             $scope.$emit('LOAD');
             var request = $http({
@@ -103,44 +158,6 @@
                 $scope.$emit('UNLOAD');
             });
         };
-
-        $scope.checkOutM = function () {
-            $scope.$emit('LOAD');
-            var request = $http({
-                method: 'post',
-                url: '/TeamMember/IsAllowedDay'
-            }).success(function (data, status, headers, config) {
-                console.log("estatus del dia");
-                console.log(data.success);
-                $scope.$emit('UNLOAD');
-            }).error(function (data, status, headers, config) {
-                $scope.getStatusCheckIn();
-                $notification.success('Error!', 'Something is wrong please try again!');
-                $scope.$emit('UNLOAD');
-            });
-        }; 
-
-        $scope.checkInM = function () {
-            $scope.$emit('LOAD');
-            var request = $http({
-                method: 'post',
-                url: '/TeamMember/CheckOut'
-            }).success(function (data, status, headers, config) {
-                $scope.getStatusCheckIn();
-                console.log(data.success);
-                if (data.success) {
-                    $notification.success('CheckOut done!', '  :)!');
-                } else {
-                    $notification.success('Error!', 'You cant CheckOut without CheckIn!');
-                }
-                $scope.$emit('UNLOAD');
-            }).error(function (data, status, headers, config) {
-                $scope.getStatusCheckIn();
-                $notification.success('Error!', 'Something is wrong please try again!');
-                $scope.$emit('UNLOAD');
-            });
-        };
-
 
         //Upload Profile Picture
         $scope.updatePicture = function () {
