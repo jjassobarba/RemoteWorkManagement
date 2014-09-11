@@ -150,8 +150,8 @@ namespace RemoteWorkManagement.Controllers
         /// <returns></returns>
         [HttpPost]
         public JsonResult CheckIn(string comment, string type)
-        {
-            var success = false;
+       {
+            var data = new {success = false, isMailSent = false};
             var id = Guid.Empty;
             var lstCheckInOut = GetLastChekInOut();
             var checkIn = new CheckInOut();
@@ -181,9 +181,11 @@ namespace RemoteWorkManagement.Controllers
                             id = _checkInOutRepository.InsertCheckIn(checkIn);
                             if (id != Guid.Empty)
                             {
+                                data = new { success = true, isMailSent = false };
                                 string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName;
                                 if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckIn))
-                                    success = true;
+                                    data = new { success = true, isMailSent = true };
+
                             }
                             break;
                         case "Exception":
@@ -199,15 +201,16 @@ namespace RemoteWorkManagement.Controllers
                              id = _checkInOutRepository.InsertCheckIn(checkIn);
                             if (id != Guid.Empty)
                             {
+                                data = new { success = true, isMailSent = false };
                                 string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName + "|" + comment;
                                 if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckInUD))
-                                    success = true;
+                                    data = new { success = true, isMailSent = true };
                             }
                             break;
                     }
-                    return Json(new { success });
+                    return Json(new { data = data });
                 }
-                return Json(new { success });
+                return Json(new { data = data });
             }
             else
             {
@@ -230,9 +233,10 @@ namespace RemoteWorkManagement.Controllers
                         id = _checkInOutRepository.InsertCheckIn(checkIn);
                         if (id != Guid.Empty)
                         {
+                            data = new { success = true, isMailSent = false };
                             string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName;
                             if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckIn))
-                                success = true;
+                                data = new { success = true, isMailSent = true };
                         }
                         break;
                     case "Exception":
@@ -248,13 +252,14 @@ namespace RemoteWorkManagement.Controllers
                         id = _checkInOutRepository.InsertCheckIn(checkIn);
                         if (id != Guid.Empty)
                         {
+                            data = new { success = true, isMailSent = false };
                             string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName + "|" + comment;
                             if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckInUD))
-                                success = true;
+                                data = new { success = true, isMailSent = true };
                         }
                         break;
                 }
-                return Json(new { success });
+                return Json(new { data = data });
             }
         }
 
@@ -265,7 +270,7 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult CheckInM(string comment, string type, string time)
         {
-            var success = false;
+            var data = new { success = false, isMailSent = false };
             var lstCheckInOut = GetLastChekInOut();
             var id = Guid.Empty;
             var checkIn = new CheckInOut();
@@ -295,9 +300,10 @@ namespace RemoteWorkManagement.Controllers
                             id = _checkInOutRepository.InsertCheckIn(checkIn);
                             if (id != Guid.Empty)
                             {
+                                data = new { success = true, isMailSent = false };
                                 string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName;
                                 if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckIn))
-                                    success = true;
+                                    data = new { success = true, isMailSent = true };
                             }
                             break;
                         case "Exception":
@@ -313,15 +319,16 @@ namespace RemoteWorkManagement.Controllers
                             id = _checkInOutRepository.InsertCheckIn(checkIn);
                             if (id != Guid.Empty)
                             {
+                                data = new { success = true, isMailSent = false };
                                 string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName + "|" + comment;
                                 if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckInUD))
-                                    success = true;
+                                    data = new { success = true, isMailSent = true };
                             }
                             break;
                     }
-                    return Json(new { success });
+                    return Json(new { data = data });
                 }
-                return Json(new { success });
+                return Json(new { data = data });
             }
             else
             {
@@ -344,9 +351,10 @@ namespace RemoteWorkManagement.Controllers
                         id = _checkInOutRepository.InsertCheckIn(checkIn);
                         if (id != Guid.Empty)
                         {
+                            data = new { success = true, isMailSent = false };
                             string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName;
                             if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckIn))
-                                success = true;
+                                data = new { success = true, isMailSent = true };
                         }
                         break;
                     case "Exception":
@@ -362,13 +370,14 @@ namespace RemoteWorkManagement.Controllers
                         id = _checkInOutRepository.InsertCheckIn(checkIn);
                         if (id != Guid.Empty)
                         {
+                            data = new { success = true, isMailSent = false };
                             string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName + "|" + comment;
                             if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckInUD))
-                                success = true;
+                                data = new { success = true, isMailSent = true };
                         }
                         break;
                 }
-                return Json(new { success });
+                return Json(new { data = data });
             }
         }
 
@@ -379,7 +388,7 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult CheckOut()
         {
-            var success = false;
+            var data = new { success = false, isMailSent = false };
             var lstCheckInOut = GetLastChekInOut();
 
             if (lstCheckInOut != null)
@@ -398,10 +407,11 @@ namespace RemoteWorkManagement.Controllers
                         lstCheckInOut.IsManualCheckOut = false;
                         if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
                         {
+                            data = new { success = true, isMailSent = false };
                             if (SendNotificationsToTeam(usrInfo, "", Utilities.EmailType.CheckOut))
-                                success = true;
+                                data = new { success = true, isMailSent = true };
                         }
-                        return Json(new { success });
+                        return Json(new { data = data });
                     }
                     else
                     {
@@ -409,19 +419,20 @@ namespace RemoteWorkManagement.Controllers
                         lstCheckInOut.IsManualCheckOut = false;
                         if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
                         {
+                            data = new { success = true, isMailSent = false };
                             if (SendNotificationsToTeam(usrInfo, "", Utilities.EmailType.CheckOut))
-                                success = true;
+                                data = new { success = true, isMailSent = true };
                         }
-                        return Json(new { success });
+                        return Json(new { data = data });
                     }
                    
                 }
                 else
                 {
-                    return Json(new { success });
+                    return Json(new { data = data });
                 }
             }
-            return Json(new { success }); 
+            return Json(new { data = data }); 
         }
 
         /// <summary>
@@ -431,7 +442,7 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult CheckOutM(string time)
         {
-            var success = false;
+            var data = new { success = false, isMailSent = false };
             var lstCheckInOut = GetLastChekInOut();
 
             if (lstCheckInOut != null)
@@ -450,10 +461,11 @@ namespace RemoteWorkManagement.Controllers
                         lstCheckInOut.IsManualCheckOut = true;
                         if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
                         {
+                            data = new { success = true, isMailSent = false };
                             if (SendNotificationsToTeam(usrInfo, "",Utilities.EmailType.CheckOut))
-                                success = true;
+                                data = new { success = true, isMailSent = true };
                         }
-                        return Json(new { success });
+                        return Json(new { data = data });
                     }
                     else
                     {
@@ -461,19 +473,20 @@ namespace RemoteWorkManagement.Controllers
                         lstCheckInOut.IsManualCheckOut = true;
                         if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
                         {
+                            data = new { success = true, isMailSent = false };
                             if (SendNotificationsToTeam(usrInfo, "",Utilities.EmailType.CheckOut))
-                                success = true;
+                                data = new { success = true, isMailSent = true };
                         }
-                        return Json(new { success });
+                        return Json(new { data = data });
                     }
 
                 }
                 else
                 {
-                    return Json(new { success });
+                    return Json(new { data = data });
                 }
             }
-            return Json(new { success });
+            return Json(new { data = data });
         }
 
         /// <summary>

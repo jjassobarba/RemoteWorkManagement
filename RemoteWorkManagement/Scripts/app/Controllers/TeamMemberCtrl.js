@@ -84,8 +84,12 @@
                     }
                 }).success(function (data, status, headers, config) {
                     $scope.getStatusCheckIn();
-                    if (data.success) {
-                        $notification.success('CheckIn done!', 'Now You can work remotely!');
+                    if (data.data.success) {
+                        if (data.data.isMailSent) {
+                            $notification.success('CheckIn done!', 'Now You can work remotely!');
+                        } else {
+                            $notification.warning('CheckIn done!', 'Your email has not been sent.');
+                        }
                     } else {
                         $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                     }
@@ -106,9 +110,12 @@
                         }
                     }).success(function (data, status, headers, config) {
                         $scope.getStatusCheckIn();
-                        console.log(data.success);
-                        if (data.success) {
-                            $notification.success('CheckIn done!', 'Now You can work remotely!');
+                        if (data.data.success) {
+                            if (data.data.isMailSent) {
+                                $notification.success('CheckIn done!', 'Now You can work remotely!');
+                            } else {
+                                $notification.warning('CheckIn done!', 'Your email has not been sent.');
+                            }
                         } else {
                             $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                         }
@@ -160,9 +167,12 @@
                     }
                 }).success(function (data, status, headers, config) {
                     $scope.getStatusCheckIn();
-                    console.log(data.success);
-                    if (data.success) {
-                        $notification.success('CheckIn done!', 'Now You can work remotely!');
+                    if (data.data.success) {
+                        if (data.data.isMailSent) {
+                            $notification.success('CheckIn done!', 'Now You can work remotely!');
+                        } else {
+                            $notification.warning('CheckIn done!', 'Your email has not been sent.');
+                        }
                     } else {
                         $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                     }
@@ -184,8 +194,12 @@
                         }
                     }).success(function (data, status, headers, config) {
                         $scope.getStatusCheckIn();
-                        if (data.success) {
-                            $notification.success('CheckIn done!', 'Now You can work remotely!');
+                        if (data.data.success) {
+                            if (data.data.isMailSent) {
+                                $notification.success('CheckIn done!', 'Now You can work remotely!');
+                            } else {
+                                $notification.warning('CheckIn done!', 'Your email has not been sent.');
+                            }
                         } else {
                             $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                         }
@@ -230,11 +244,15 @@
                 url: '/TeamMember/CheckOut'
             }).success(function (data, status, headers, config) {
                 $scope.getStatusCheckIn();
-                console.log(data.success);
-                if (data.success) {
-                    $notification.success('CheckOut done!', '  :)!');
+                
+                if (data.data.success) {
+                    if (data.data.isMailSent) {
+                        $notification.success('CheckOut done!', 'Now you can be offline!');
+                    } else {
+                        $notification.warning('CheckOut done!', 'Your email has not been sent.');
+                    }
                 } else {
-                    $notification.error('Error!', 'You cant CheckOut without CheckIn!');
+                    $notification.error('Error!', 'You cant CheckOut without CheckIn');
                 }
                 $scope.$emit('UNLOAD');
             }).error(function (data, status, headers, config) {
@@ -255,10 +273,14 @@
             }).success(function (data, status, headers, config) {
                 $scope.getStatusCheckIn();
                 console.log(data.success);
-                if (data.success) {
-                    $notification.success('CheckOut done!', '  :)!');
+                if (data.data.success) {
+                    if (data.data.isMailSent) {
+                        $notification.success('CheckOut done!', 'Now you can be offline!');
+                    } else {
+                        $notification.warning('CheckOut done!', 'Your email has not been sent.');
+                    }
                 } else {
-                    $notification.error('Error!', 'You cant CheckOut without CheckIn!');
+                    $notification.error('Error!', 'You cant CheckOut without CheckIn');
                 }
                 $scope.$emit('UNLOAD');
             }).error(function (data, status, headers, config) {
