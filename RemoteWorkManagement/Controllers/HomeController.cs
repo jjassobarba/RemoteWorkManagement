@@ -280,8 +280,8 @@ namespace RemoteWorkManagement.Controllers
                 Position = userInfo.Position,
                 ReceiveNotifications = userInfo.ReceiveNotifications,
                 RemoteDays = userInfo.RemoteDays,
-                IdSensei = userInfo.IdSensei != null ? sensei.FirstName + " " + sensei.LastName : string.Empty,
-                IdProjectLeader = userInfo.IdProjectLeader != null ? projectLeader.FirstName + " " + projectLeader.LastName : string.Empty,
+                IdSensei = userInfo.IdSensei != null ? sensei.FirstName + " " + sensei.LastName : "No data available",
+                IdProjectLeader = userInfo.IdProjectLeader != null ? projectLeader.FirstName + " " + projectLeader.LastName : "No data available",
                 IdMembership = new
                 {
                     IdMembership = userInfo.IdMembership.Id,

@@ -72,10 +72,8 @@
 
         //POST-------------------------------------------------------
         
-
         $scope.checkIn = function () {
             $scope.$emit('LOAD');
-            console.log($scope.checkIncomment);
             if ($scope.isAllowedDay) {
                 var request = $http({
                     method: 'post',
@@ -86,16 +84,15 @@
                     }
                 }).success(function (data, status, headers, config) {
                     $scope.getStatusCheckIn();
-                    console.log(data.success);
                     if (data.success) {
                         $notification.success('CheckIn done!', 'Now You can work remotely!');
                     } else {
-                        $notification.success('Error!', 'You cant CheckIn without CheckOut! or two times per day');
+                        $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                     }
                     $scope.$emit('UNLOAD');
                 }).error(function (data, status, headers, config) {
                     $scope.getStatusCheckIn();
-                    $notification.success('Error!', 'Something is wrong please try again!');
+                    $notification.error('Whoa! Something seems wrong.', 'please try again!');
                     $scope.$emit('UNLOAD');
                 });
             } else {
@@ -113,15 +110,16 @@
                         if (data.success) {
                             $notification.success('CheckIn done!', 'Now You can work remotely!');
                         } else {
-                            $notification.success('Error!', 'You cant CheckIn without CheckOut! or two times per day');
+                            $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                         }
                         $scope.$emit('UNLOAD');
                     }).error(function (data, status, headers, config) {
                         $scope.getStatusCheckIn();
-                        $notification.success('Error!', 'Something is wrong please try again!');
+                        $notification.error('Whoa! Something seems wrong.', 'please try again!');
                         $scope.$emit('UNLOAD');
                     });
                 } else {
+                    $scope.$emit('UNLOAD');
                     $("#warning-dialog").removeClass('hide').dialog({
                         modal: true,
                         title: "<div class='widget-header widget-header-small'><h4 class='small'><i class='icon-warning-sign'></i>Warning</h4></div>",
@@ -166,12 +164,12 @@
                     if (data.success) {
                         $notification.success('CheckIn done!', 'Now You can work remotely!');
                     } else {
-                        $notification.success('Error!', 'You cant CheckIn without CheckOut! or two times per day');
+                        $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                     }
                     $scope.$emit('UNLOAD');
                 }).error(function (data, status, headers, config) {
                     $scope.getStatusCheckIn();
-                    $notification.success('Error!', 'Something is wrong please try again!');
+                    $notification.error('Whoa! Something seems wrong.', 'please try again!');
                     $scope.$emit('UNLOAD');
                 });
             } else {
@@ -186,19 +184,19 @@
                         }
                     }).success(function (data, status, headers, config) {
                         $scope.getStatusCheckIn();
-                        console.log(data.success);
                         if (data.success) {
                             $notification.success('CheckIn done!', 'Now You can work remotely!');
                         } else {
-                            $notification.success('Error!', 'You cant CheckIn without CheckOut! or two times per day');
+                            $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                         }
                         $scope.$emit('UNLOAD');
                     }).error(function (data, status, headers, config) {
                         $scope.getStatusCheckIn();
-                        $notification.success('Error!', 'Something is wrong please try again!');
+                        $notification.error('Whoa! Something seems wrong.', 'please try again!');
                         $scope.$emit('UNLOAD');
                     });
                 } else {
+                    $scope.$emit('UNLOAD');
                     $("#warning-dialog").removeClass('hide').dialog({
                         modal: true,
                         title: "<div class='widget-header widget-header-small'><h4 class='small'><i class='icon-warning-sign'></i>Warning</h4></div>",
@@ -236,12 +234,12 @@
                 if (data.success) {
                     $notification.success('CheckOut done!', '  :)!');
                 } else {
-                    $notification.success('Error!', 'You cant CheckOut without CheckIn!');
+                    $notification.error('Error!', 'You cant CheckOut without CheckIn!');
                 }
                 $scope.$emit('UNLOAD');
             }).error(function (data, status, headers, config) {
                 $scope.getStatusCheckIn();
-                $notification.success('Error!', 'Something is wrong please try again!');
+                $notification.error('Whoa! Something seems wrong.', 'please try again!');
                 $scope.$emit('UNLOAD');
             });
         };
@@ -260,12 +258,12 @@
                 if (data.success) {
                     $notification.success('CheckOut done!', '  :)!');
                 } else {
-                    $notification.success('Error!', 'You cant CheckOut without CheckIn!');
+                    $notification.error('Error!', 'You cant CheckOut without CheckIn!');
                 }
                 $scope.$emit('UNLOAD');
             }).error(function (data, status, headers, config) {
                 $scope.getStatusCheckIn();
-                $notification.success('Error!', 'Something is wrong please try again!');
+                $notification.error('Whoa! Something seems wrong.', 'please try again!');
                 $scope.$emit('UNLOAD');
             });
         };
@@ -279,11 +277,11 @@
                 method: 'POST',
                 file: files
             }).success(function (data, status, headers, config) {
-                $scope.showAlert("notification-shape", "notice");
+                $notification.success('Profile picture has been updated.', '');
                 $scope.getUser();
                 $scope.$emit('UNLOAD');
             }).error(function (data, status, headers, config) {
-                $scope.showAlert("notification-shape", "error");
+                $notification.error('Whoa! Something seems wrong.', '');
                 $scope.$emit('UNLOAD');
             });
         };
