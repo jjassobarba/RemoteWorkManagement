@@ -212,7 +212,7 @@
                                                         <span class="input-group-addon">
                                                             <i class="icon-time bigger-110"></i>
                                                         </span>
-                                                        <input id="timepickerCheckOut" type="text" class="form-control" />
+                                                        <input id="timepickerCheckOut" type="text" class="form-control" ng-model="checkOutTime" />
                                                     </div>
                                                 </p>
                                                 <p>
@@ -233,7 +233,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row align-center">
+            <div class="row align-center" ng-show="loading">
                 <br /><br />
                 <img src="~/Content/images/loader.png" />
             </div>

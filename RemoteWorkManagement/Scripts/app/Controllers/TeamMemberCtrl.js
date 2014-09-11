@@ -246,6 +246,30 @@
             });
         };
 
+        $scope.checkOutM = function () {
+            $scope.$emit('LOAD');
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/CheckOutM',
+                params: {
+                    time: $scope.checkOutTime
+                }
+            }).success(function (data, status, headers, config) {
+                $scope.getStatusCheckIn();
+                console.log(data.success);
+                if (data.success) {
+                    $notification.success('CheckOut done!', '  :)!');
+                } else {
+                    $notification.success('Error!', 'You cant CheckOut without CheckIn!');
+                }
+                $scope.$emit('UNLOAD');
+            }).error(function (data, status, headers, config) {
+                $scope.getStatusCheckIn();
+                $notification.success('Error!', 'Something is wrong please try again!');
+                $scope.$emit('UNLOAD');
+            });
+        };
+
         //Upload Profile Picture
         $scope.updatePicture = function () {
             $scope.$emit('LOAD');

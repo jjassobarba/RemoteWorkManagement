@@ -224,7 +224,7 @@ namespace RemoteWorkManagement.Controllers
         }
 
         /// <summary>
-        /// Sets CheckIn for the actual User.
+        /// Sets Manual CheckIn for the actual User.
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -319,6 +319,111 @@ namespace RemoteWorkManagement.Controllers
                 var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
 
                 int result = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
+                int compareDateToday = DateTime.Compare(lstCheckInOut.CheckInDate.Date, DateTime.Now.Date);
+                if (result > 0)
+                {
+                    if (compareDateToday < 0)
+                    {
+                        lstCheckInOut.CheckOutDate = lstCheckInOut.CheckInDate;
+                        lstCheckInOut.IsManualCheckOut = false;
+                        if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
+                        {
+                            if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                                success = true;
+                        }
+                        return Json(new { success });
+                    }
+                    else
+                    {
+                        lstCheckInOut.CheckOutDate = DateTime.Now;
+                        lstCheckInOut.IsManualCheckOut = false;
+                        if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
+                        {
+                            if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                                success = true;
+                        }
+                        return Json(new { success });
+                    }
+                   
+                }
+                else
+                {
+                    return Json(new { success });
+                }
+            }
+            return Json(new { success }); 
+        }
+
+        /// <summary>
+        /// Sets CheckOut for the actual User.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult CheckOutM(string time)
+        {
+            var success = false;
+            var lstCheckInOut = GetLastChekInOut();
+
+            if (lstCheckInOut != null)
+            {
+                var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+                var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+                var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+                int result = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
+                int compareDateToday = DateTime.Compare(lstCheckInOut.CheckInDate.Date, DateTime.Now.Date);
+                if (result > 0)
+                {
+                    if (compareDateToday < 0)
+                    {
+                        lstCheckInOut.CheckOutDate = lstCheckInOut.CheckInDate;
+                        lstCheckInOut.IsManualCheckOut = true;
+                        if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
+                        {
+                            if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                                success = true;
+                        }
+                        return Json(new { success });
+                    }
+                    else
+                    {
+                        lstCheckInOut.CheckOutDate = Convert.ToDateTime(time);
+                        lstCheckInOut.IsManualCheckOut = true;
+                        if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
+                        {
+                            if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                                success = true;
+                        }
+                        return Json(new { success });
+                    }
+
+                }
+                else
+                {
+                    return Json(new { success });
+                }
+            }
+            return Json(new { success });
+        }
+
+        /// <summary>
+        /// Sets CheckOut for the actual User.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult CheckOutss(string type)
+        {
+            var success = false;
+            var lstCheckInOut = GetLastChekInOut();
+
+            if (lstCheckInOut != null)
+            {
+                var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+                var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+                var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+                int result = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
+                int compareDateToday = DateTime.Compare(lstCheckInOut.CheckInDate.Date, DateTime.Now.Date);
                 if (result > 0)
                 {
                     lstCheckInOut.CheckOutDate = DateTime.Now;
@@ -334,8 +439,8 @@ namespace RemoteWorkManagement.Controllers
                     return Json(new { success });
                 }
             }
-            return Json(new { success }); 
-           
+            return Json(new { success });
+
         }
 
         /// <summary>
