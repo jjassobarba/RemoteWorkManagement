@@ -120,11 +120,11 @@
                                                         <span class="input-group-addon">
                                                             <i class="icon-time bigger-110"></i>
                                                         </span>
-                                                        <input id="timepickerCheckIn" type="text" class="form-control" />
+                                                        <input id="timepickerCheckIn" type="text" class="form-control" ng-model="checkInTime"/>
                                                     </div>
                                                 </p>
                                                 <p>
-                                                    <button id="btnCheckInM" class="btn btn-success btn-mini " >
+                                                    <button id="btnCheckInM" class="btn btn-success btn-mini" ng-click="checkInM()">
                                                         <i class="icon-unchecked bigger-125"></i>
                                                         CheckIn
                                                     </button>

@@ -316,7 +316,7 @@
     //  ./time picker
 
     //Modal to add comment to notify HR
-    $("#btnCheckInM").on('click', function (e) {
+    $("#btnCheckInMsd").on('click', function (e) {
         e.preventDefault();
 
         $("#warning-dialog").removeClass('hide').dialog({

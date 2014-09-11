@@ -144,17 +144,16 @@ namespace RemoteWorkManagement.Controllers
             }
         }
 
-        /// <summary>
+       /// <summary>
         /// Sets CheckIn for the actual User.
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult CheckIn()
+        public JsonResult CheckIn(string comment, string type)
         {
             var success = false;
             var lstCheckInOut = GetLastChekInOut();
-
-
+            var checkIn = new CheckInOut();
             if (lstCheckInOut != null)
             {
                 int datesComp = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
@@ -166,11 +165,31 @@ namespace RemoteWorkManagement.Controllers
                     var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
                     var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
 
-                    var checkIn = new CheckInOut
+                    switch (type)
                     {
-                        IdUserInfo = usrInfo,
-                        CheckInDate = DateTime.Now
-                    };
+                        case "Automatic":
+                            checkIn = new CheckInOut
+                            {
+                                IdUserInfo = usrInfo,
+                                CheckInDate = DateTime.Now,
+                                IsManualCheckIn = false,
+                                IsManualCheckOut= false,
+                                IsAuthorized = true,
+                                Comments = ""
+                            };
+                            break;
+                        case "Exception":
+                            checkIn = new CheckInOut
+                            {
+                                IdUserInfo = usrInfo,
+                                CheckInDate = DateTime.Now,
+                                IsManualCheckIn = false,
+                                IsManualCheckOut= false,
+                                IsAuthorized = false,
+                                Comments = comment
+                            };
+                            break;
+                    }
 
                     var id = _checkInOutRepository.InsertCheckIn(checkIn);
                     if (id != Guid.Empty)
@@ -178,7 +197,7 @@ namespace RemoteWorkManagement.Controllers
                         if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
                             success = true;
                     }
-                    return Json(new {success});
+                    return Json(new { success });
                 }
                 return Json(new { success });
             }
@@ -188,7 +207,86 @@ namespace RemoteWorkManagement.Controllers
                 var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
                 var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
 
-                var checkIn = new CheckInOut
+                checkIn = new CheckInOut
+                {
+                    IdUserInfo = usrInfo,
+                    CheckInDate = DateTime.Now
+                };
+
+                var id = _checkInOutRepository.InsertCheckIn(checkIn);
+                if (id != Guid.Empty)
+                {
+                    if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
+                        success = true;
+                }
+                return Json(new { success });
+            }
+        }
+
+        /// <summary>
+        /// Sets CheckIn for the actual User.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult CheckInM(string comment, string type, string time)
+        {
+            var success = false;
+            var lstCheckInOut = GetLastChekInOut();
+            var checkIn = new CheckInOut();
+            if (lstCheckInOut != null)
+            {
+                int datesComp = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
+                int datesCompToNow = DateTime.Compare(lstCheckInOut.CheckInDate.Date, DateTime.Now.Date);
+
+                if (datesComp == 0 && datesCompToNow < 0)
+                {
+                    var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+                    var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+                    var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+                    switch (type)
+                    {
+                        case "Manual":
+                            checkIn = new CheckInOut
+                            {
+                                IdUserInfo = usrInfo,
+                                CheckInDate = Convert.ToDateTime(time),
+                                IsManualCheckIn = true,
+                                IsManualCheckOut = false,
+                                IsAuthorized = true,
+                                Comments = ""
+                            };
+                            break;
+                        case "Exception":
+                            checkIn = new CheckInOut
+                            {
+                                IdUserInfo = usrInfo,
+                                CheckInDate = Convert.ToDateTime(time),
+                                IsManualCheckIn = true,
+                                IsManualCheckOut = false,
+                                IsAuthorized = false,
+                                Comments = comment
+                            };
+                            break;
+                    }
+
+                    var id = _checkInOutRepository.InsertCheckIn(checkIn);
+                    if (id != Guid.Empty)
+                    {
+                        if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
+                            success = true;
+                    }
+                    return Json(new { success });
+                }
+                return Json(new { success });
+            }
+            else
+            {
+                var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+                var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+                var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+
+                checkIn = new CheckInOut
                 {
                     IdUserInfo = usrInfo,
                     CheckInDate = DateTime.Now
