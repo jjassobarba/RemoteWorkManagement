@@ -12,7 +12,7 @@ namespace RemoteWorkManagement.Helpers
         private const string RequestExceptionTemplate = "<html><head><title> Request Exception </title></head><body style='font-family: sans-serif, helvetica, arial;'><img src='http://s9.postimg.org/6suk6q4vj/Banner_Rewoma.png' alt='Remote Logo'><h3 style='color: #5090C1;'> Request Exception </h3><p>The user <b>@username</b> wants an exception to work in remote. </p><p>Log in <a href='http://remotework.scio.local/Account/Login'>REWOMA</a> to follow the status.</p><p>HR Team</p><p style='height: 30px; background-color: #e2e2e2;'>&copy Scio Consulting</p></body></html>";
         private const string CheckInTemplate = "<html><head><title> Check In Template </title></head><body style='font-family: sans-serif, helvetica, arial;'><img src='http://s9.postimg.org/6suk6q4vj/Banner_Rewoma.png' alt='Remote Logo'><h3 style='color: #5090C1;'> Check In </h3><p>Hello Mates, I am able to star working, feel free to contact me.</p><p><b>@fullname</b></p><p style='height: 30px; background-color: #e2e2e2;'>&copy Scio Consulting</p></body></html>";
         private const string CheckOutTemplate = "<html><head><title> Change Remote Dat </title></head><body style='font-family: sans-serif, helvetica, arial;'><img src='http://s9.postimg.org/6suk6q4vj/Banner_Rewoma.png' alt='Remote Logo'><h3 style='color: #5090C1;'> Check Out </h3><p>My shift for today is done. I'll be offline.</p><p><b>@fullname</b></p><p style='height: 30px; background-color: #e2e2e2;'>&copy Scio Consulting</p></body></html>";
-
+        private const string CheckInTemplateUD = "<html><head><title> Check In Template </title></head><body style='font-family: sans-serif, helvetica, arial;'><img src='http://s9.postimg.org/6suk6q4vj/Banner_Rewoma.png' alt='Remote Logo'><h3 style='color: #5090C1;'> Check In </h3><p>Hello Mates, I am able to star working, feel free to contact me.</p><p><b>Additional Comment.</b></p><p> @comment </p><p><b>@fullname</b></p><p style='height: 30px; background-color: #e2e2e2;'>&copy Scio Consulting</p></body></html>";
 
 
         /// <summary>
@@ -25,17 +25,18 @@ namespace RemoteWorkManagement.Helpers
             ChangeRemoteDay,
             RequestException,
             CheckIn,
-            CheckOut
+            CheckOut,
+            CheckInUD
         }
 
         /// <summary>
         /// emails sender.
         /// </summary>
         /// <param name="mailto">The mailto.</param>
-        /// <param name="password">The fieldValue.</param>
+        /// <param name="fieldValue">The fieldValue.</param>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        public static bool MailSender(string mailto, string password, EmailType type)
+        public static bool MailSender(string mailto, string fieldValue, EmailType type)
         {
             try
             {
@@ -48,7 +49,7 @@ namespace RemoteWorkManagement.Helpers
                         new NetworkCredential(System.Configuration.ConfigurationManager.AppSettings["emailAccount"],
                             System.Configuration.ConfigurationManager.AppSettings["emailPassword"])
                 };
-                var bodyMessage = CheckEmailTemplate(type, password);
+                var bodyMessage = CheckEmailTemplate(type, fieldValue);
                 var mail = 
                     new MailMessage(System.Configuration.ConfigurationManager.AppSettings["emailAccount"],mailto, "Welcome to Remote Work Management", bodyMessage);
                 mail.IsBodyHtml = true;
@@ -68,7 +69,7 @@ namespace RemoteWorkManagement.Helpers
         /// <param name="fieldValue">The fieldValue.</param>
         private static string CheckEmailTemplate(EmailType emailType, string fieldValue)
         {
-            string body = null;
+            string body = null, bodyaux = null;
             switch (emailType)
             {
                 case EmailType.Welcome:
@@ -88,6 +89,11 @@ namespace RemoteWorkManagement.Helpers
                     break;
                 case EmailType.CheckOut:
                     body = CheckOutTemplate.Replace("@fullname", fieldValue);
+                    break;
+                case EmailType.CheckInUD:
+                    string[] msg = fieldValue.Split('|');
+                    bodyaux = CheckInTemplateUD.Replace("@fullname", msg[0]);
+                    body = bodyaux.Replace("@comment", msg[1]);
                     break;
             }
             return body;

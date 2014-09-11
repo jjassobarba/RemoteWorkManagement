@@ -112,26 +112,26 @@
                                                 </span>
                                             </div>
                                         </div>
-
-                                        <div class="widget-body">
-                                            <div class="widget-main padding-6">
-                                                <p>
-                                                    <div class="input-group bootstrap-timepicker">
-                                                        <span class="input-group-addon">
-                                                            <i class="icon-time bigger-110"></i>
-                                                        </span>
-                                                        <input id="timepickerCheckIn" type="text" class="form-control" ng-model="checkInTime"/>
-                                                    </div>
-                                                </p>
-                                                <p>
-                                                    <button id="btnCheckInM" class="btn btn-success btn-mini" ng-click="checkInM()">
-                                                        <i class="icon-unchecked bigger-125"></i>
-                                                        CheckIn
-                                                    </button>
-                                                </p>
+                                        <form ng-submit="checkInM()">
+                                            <div class="widget-body">
+                                                <div class="widget-main padding-6">
+                                                    <p>
+                                                        <div class="input-group bootstrap-timepicker">
+                                                            <span class="input-group-addon">
+                                                                <i class="icon-time bigger-110"></i>
+                                                            </span>
+                                                            <input id="timepickerCheckIn" type="text" class="form-control" required="" ng-model="checkInTime" />
+                                                        </div>
+                                                    </p>
+                                                    <p>
+                                                        <button id="btnCheckInM" class="btn btn-success btn-mini">
+                                                            <i class="icon-unchecked bigger-125"></i>
+                                                            CheckIn
+                                                        </button>
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-
+                                        </form>
                                     </div>
                                 </div>
 
@@ -204,25 +204,26 @@
                                                 </span>
                                             </div>
                                         </div>
-
-                                        <div class="widget-body">
-                                            <div class="widget-main padding-6">
-                                                <p>
-                                                    <div class="input-group bootstrap-timepicker">
-                                                        <span class="input-group-addon">
-                                                            <i class="icon-time bigger-110"></i>
-                                                        </span>
-                                                        <input id="timepickerCheckOut" type="text" class="form-control" ng-model="checkOutTime" />
-                                                    </div>
-                                                </p>
-                                                <p>
-                                                    <button id="btnCheckOutM" class="btn btn-primary btn-mini " ng-click="checkOutM()">
-                                                        <i class="icon-unchecked bigger-125"></i>
-                                                        CheckOut
-                                                    </button>
-                                                </p> 
+                                        <form ng-submit="checkOutM()">
+                                            <div class="widget-body">
+                                                <div class="widget-main padding-6">
+                                                    <p>
+                                                        <div class="input-group bootstrap-timepicker">
+                                                            <span class="input-group-addon">
+                                                                <i class="icon-time bigger-110"></i>
+                                                            </span>
+                                                            <input id="timepickerCheckOut" type="text" class="form-control" ng-model="checkOutTime" required />
+                                                        </div>
+                                                    </p>
+                                                    <p>
+                                                        <button id="btnCheckOutM" class="btn btn-primary btn-mini ">
+                                                            <i class="icon-unchecked bigger-125"></i>
+                                                            CheckOut
+                                                        </button>
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
 
                                     </div>
                                 </div>

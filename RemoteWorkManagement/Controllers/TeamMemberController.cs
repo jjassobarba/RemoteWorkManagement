@@ -51,7 +51,7 @@ namespace RemoteWorkManagement.Controllers
 
 
         /// <summary>
-        /// returns 
+        /// returns true if the user is allowed to work the current day.
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -152,9 +152,10 @@ namespace RemoteWorkManagement.Controllers
         public JsonResult CheckIn(string comment, string type)
         {
             var success = false;
+            var id = Guid.Empty;
             var lstCheckInOut = GetLastChekInOut();
             var checkIn = new CheckInOut();
-            if (lstCheckInOut != null)
+            if (lstCheckInOut != null) //if not first time
             {
                 int datesComp = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
                 int datesCompToNow = DateTime.Compare(lstCheckInOut.CheckInDate.Date, DateTime.Now.Date);
@@ -173,10 +174,17 @@ namespace RemoteWorkManagement.Controllers
                                 IdUserInfo = usrInfo,
                                 CheckInDate = DateTime.Now,
                                 IsManualCheckIn = false,
-                                IsManualCheckOut= false,
+                                IsManualCheckOut = false,
                                 IsAuthorized = true,
                                 Comments = ""
                             };
+                            id = _checkInOutRepository.InsertCheckIn(checkIn);
+                            if (id != Guid.Empty)
+                            {
+                                string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName;
+                                if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckIn))
+                                    success = true;
+                            }
                             break;
                         case "Exception":
                             checkIn = new CheckInOut
@@ -188,14 +196,14 @@ namespace RemoteWorkManagement.Controllers
                                 IsAuthorized = false,
                                 Comments = comment
                             };
+                             id = _checkInOutRepository.InsertCheckIn(checkIn);
+                            if (id != Guid.Empty)
+                            {
+                                string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName + "|" + comment;
+                                if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckInUD))
+                                    success = true;
+                            }
                             break;
-                    }
-
-                    var id = _checkInOutRepository.InsertCheckIn(checkIn);
-                    if (id != Guid.Empty)
-                    {
-                        if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
-                            success = true;
                     }
                     return Json(new { success });
                 }
@@ -207,17 +215,44 @@ namespace RemoteWorkManagement.Controllers
                 var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
                 var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
 
-                checkIn = new CheckInOut
+                switch (type)
                 {
-                    IdUserInfo = usrInfo,
-                    CheckInDate = DateTime.Now
-                };
-
-                var id = _checkInOutRepository.InsertCheckIn(checkIn);
-                if (id != Guid.Empty)
-                {
-                    if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
-                        success = true;
+                    case "Automatic":
+                        checkIn = new CheckInOut
+                        {
+                            IdUserInfo = usrInfo,
+                            CheckInDate = DateTime.Now,
+                            IsManualCheckIn = false,
+                            IsManualCheckOut = false,
+                            IsAuthorized = true,
+                            Comments = ""
+                        };
+                        id = _checkInOutRepository.InsertCheckIn(checkIn);
+                        if (id != Guid.Empty)
+                        {
+                            string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName;
+                            if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckIn))
+                                success = true;
+                        }
+                        break;
+                    case "Exception":
+                        checkIn = new CheckInOut
+                        {
+                            IdUserInfo = usrInfo,
+                            CheckInDate = DateTime.Now,
+                            IsManualCheckIn = false,
+                            IsManualCheckOut = false,
+                            IsAuthorized = false,
+                            Comments = comment
+                        };
+                        id = _checkInOutRepository.InsertCheckIn(checkIn);
+                        if (id != Guid.Empty)
+                        {
+                            string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName + "|" + comment;
+                            if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckInUD))
+                                success = true;
+                        }
+                        break;
                 }
                 return Json(new { success });
             }
@@ -232,6 +267,7 @@ namespace RemoteWorkManagement.Controllers
         {
             var success = false;
             var lstCheckInOut = GetLastChekInOut();
+            var id = Guid.Empty;
             var checkIn = new CheckInOut();
             if (lstCheckInOut != null)
             {
@@ -256,6 +292,13 @@ namespace RemoteWorkManagement.Controllers
                                 IsAuthorized = true,
                                 Comments = ""
                             };
+                            id = _checkInOutRepository.InsertCheckIn(checkIn);
+                            if (id != Guid.Empty)
+                            {
+                                string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName;
+                                if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckIn))
+                                    success = true;
+                            }
                             break;
                         case "Exception":
                             checkIn = new CheckInOut
@@ -267,14 +310,14 @@ namespace RemoteWorkManagement.Controllers
                                 IsAuthorized = false,
                                 Comments = comment
                             };
+                            id = _checkInOutRepository.InsertCheckIn(checkIn);
+                            if (id != Guid.Empty)
+                            {
+                                string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName + "|" + comment;
+                                if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckInUD))
+                                    success = true;
+                            }
                             break;
-                    }
-
-                    var id = _checkInOutRepository.InsertCheckIn(checkIn);
-                    if (id != Guid.Empty)
-                    {
-                        if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
-                            success = true;
                     }
                     return Json(new { success });
                 }
@@ -286,17 +329,44 @@ namespace RemoteWorkManagement.Controllers
                 var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
                 var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
 
-                checkIn = new CheckInOut
+                switch (type)
                 {
-                    IdUserInfo = usrInfo,
-                    CheckInDate = DateTime.Now
-                };
-
-                var id = _checkInOutRepository.InsertCheckIn(checkIn);
-                if (id != Guid.Empty)
-                {
-                    if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckIn))
-                        success = true;
+                    case "Manual":
+                        checkIn = new CheckInOut
+                        {
+                            IdUserInfo = usrInfo,
+                            CheckInDate = Convert.ToDateTime(time),
+                            IsManualCheckIn = true,
+                            IsManualCheckOut = false,
+                            IsAuthorized = true,
+                            Comments = ""
+                        };
+                        id = _checkInOutRepository.InsertCheckIn(checkIn);
+                        if (id != Guid.Empty)
+                        {
+                            string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName;
+                            if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckIn))
+                                success = true;
+                        }
+                        break;
+                    case "Exception":
+                        checkIn = new CheckInOut
+                        {
+                            IdUserInfo = usrInfo,
+                            CheckInDate = Convert.ToDateTime(time),
+                            IsManualCheckIn = true,
+                            IsManualCheckOut = false,
+                            IsAuthorized = false,
+                            Comments = comment
+                        };
+                        id = _checkInOutRepository.InsertCheckIn(checkIn);
+                        if (id != Guid.Empty)
+                        {
+                            string fieldValue = usrInfo.FirstName + " " + usrInfo.LastName + "|" + comment;
+                            if (SendNotificationsToTeam(usrInfo, fieldValue, Utilities.EmailType.CheckInUD))
+                                success = true;
+                        }
+                        break;
                 }
                 return Json(new { success });
             }
@@ -328,7 +398,7 @@ namespace RemoteWorkManagement.Controllers
                         lstCheckInOut.IsManualCheckOut = false;
                         if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
                         {
-                            if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                            if (SendNotificationsToTeam(usrInfo, "", Utilities.EmailType.CheckOut))
                                 success = true;
                         }
                         return Json(new { success });
@@ -339,7 +409,7 @@ namespace RemoteWorkManagement.Controllers
                         lstCheckInOut.IsManualCheckOut = false;
                         if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
                         {
-                            if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                            if (SendNotificationsToTeam(usrInfo, "", Utilities.EmailType.CheckOut))
                                 success = true;
                         }
                         return Json(new { success });
@@ -380,7 +450,7 @@ namespace RemoteWorkManagement.Controllers
                         lstCheckInOut.IsManualCheckOut = true;
                         if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
                         {
-                            if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                            if (SendNotificationsToTeam(usrInfo, "",Utilities.EmailType.CheckOut))
                                 success = true;
                         }
                         return Json(new { success });
@@ -391,7 +461,7 @@ namespace RemoteWorkManagement.Controllers
                         lstCheckInOut.IsManualCheckOut = true;
                         if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
                         {
-                            if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
+                            if (SendNotificationsToTeam(usrInfo, "",Utilities.EmailType.CheckOut))
                                 success = true;
                         }
                         return Json(new { success });
@@ -407,48 +477,13 @@ namespace RemoteWorkManagement.Controllers
         }
 
         /// <summary>
-        /// Sets CheckOut for the actual User.
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult CheckOutss(string type)
-        {
-            var success = false;
-            var lstCheckInOut = GetLastChekInOut();
-
-            if (lstCheckInOut != null)
-            {
-                var usr = _membershipProvider.GetUser(User.Identity.Name, false);
-                var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
-                var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
-
-                int result = DateTime.Compare(lstCheckInOut.CheckInDate.Date, lstCheckInOut.CheckOutDate.Date);
-                int compareDateToday = DateTime.Compare(lstCheckInOut.CheckInDate.Date, DateTime.Now.Date);
-                if (result > 0)
-                {
-                    lstCheckInOut.CheckOutDate = DateTime.Now;
-                    if (_checkInOutRepository.InserCheckOut(lstCheckInOut))
-                    {
-                        if (SendNotificationsToTeam(usrInfo, Utilities.EmailType.CheckOut))
-                            success = true;
-                    }
-                    return Json(new { success });
-                }
-                else
-                {
-                    return Json(new { success });
-                }
-            }
-            return Json(new { success });
-
-        }
-
-        /// <summary>
         /// Sends an email to each team member.
         /// </summary>
         /// <param name="usrInfo"></param>
+        /// <param name="fieldValue"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
-        private bool SendNotificationsToTeam(UserInfo usrInfo, Utilities.EmailType type)
+        private bool SendNotificationsToTeam(UserInfo usrInfo, string fieldValue, Utilities.EmailType type)
         {
             var notificationsTo = _notificationsRepository.GetNotificationsForUser(usrInfo.IdUserInfo);
             var projectLeaderMail = "";
@@ -484,7 +519,7 @@ namespace RemoteWorkManagement.Controllers
                     to = !otherMails.IsNullOrEmpty() ? otherMails : "";
                 }
             }
-            return Utilities.MailSender(to, "",type);
+            return Utilities.MailSender(to, fieldValue ,type);
         }
         
         /// <summary>
