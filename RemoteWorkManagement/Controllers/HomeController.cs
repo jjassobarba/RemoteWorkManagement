@@ -85,7 +85,7 @@ namespace RemoteWorkManagement.Controllers
         /// <param name="flexTime">The flex time.</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string[] rol, Guid? projectLeader, Guid? sensei, string remoteDays, string flexTime)
+        public JsonResult CreateUser(string username, string firstName, string lastName, string position, string rol, Guid? projectLeader, Guid? sensei, string remoteDays, string flexTime)
         {
             byte[] byteFile = null;
             for (var x = 1; x < Request.Files.Count + 1; x++)
@@ -103,6 +103,8 @@ namespace RemoteWorkManagement.Controllers
 
             var remoteList = JsonConvert.DeserializeObject<string[]>(remoteDays);
             var remoteDaysString = remoteList.Aggregate("", (current, remoteDay) => current + (remoteDay + ","));
+            var rolList = JsonConvert.DeserializeObject<string[]>(rol);
+            
             _membershipProvider.CreateUser(username, password, username, string.Empty, string.Empty, true, new Guid(), out status);
             if (status == MembershipCreateStatus.Success)
             {
@@ -112,7 +114,7 @@ namespace RemoteWorkManagement.Controllers
                 {
                     user.Id = Convert.ToInt32(userId.ProviderUserKey.ToString());
                 }
-                _roleProvider.AddUsersToRoles(new[] { username }, rol);
+                _roleProvider.AddUsersToRoles(new[] { username }, rolList);
                 var userInfoObject = new UserInfo()
                 {
                     FirstName = firstName,

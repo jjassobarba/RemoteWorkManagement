@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_InnerLayout.cshtml";
+}
+<div ng-controller="TeamMemberCtrl" ng-cloak>
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed'); } catch (e) { }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/Admin/">Home</a>
+            </li>
+            <li class="active">Dashboard</li>
+        </ul>
+    </div>
+    <div class="page-content">
+        <div notifications="top right"></div>
+        <div class="page-header">
+            <h1>
+                Dashboard
+            </h1>
+        </div>
+        <fieldset>
+            <div class="container">
+                <div class="row vertical-spacer">
+                    <div class="col-xs-8">
+                        
+                        <div class="col-xs-4 center">
+                            <p><label>Team members</label></p>
+                            <p>
+                                <div ang:round:progress data-round-progress-model="roundProgressData"
+                                     data-round-progress-width="100"
+                                     data-round-progress-height="100"
+                                     data-round-progress-outer-circle-width="10"
+                                     data-round-progress-inner-circle-width="4"
+                                     data-round-progress-outer-circle-radius="40"
+                                     data-round-progress-inner-circle-radius="20"
+                                     data-round-progress-label-font="14pt Arial"
+                                     data-round-progress-outer-circle-background-color="#D8D8D8"
+                                     data-round-progress-outer-circle-foreground-color="#2E9AFE"
+                                     data-round-progress-inner-circle-color="#D8D8D8"
+                                     data-round-progress-label-color="#070719"></div>
+                            </p>
+                        </div>
+                        
+                        <div class="col-xs-4 center">
+                            <p><label>Team members</label></p>
+                            <p>
+                                <div ang:round:progress data-round-progress-model="roundProgressData"
+                                     data-round-progress-width="100"
+                                     data-round-progress-height="100"
+                                     data-round-progress-outer-circle-width="10"
+                                     data-round-progress-inner-circle-width="4"
+                                     data-round-progress-outer-circle-radius="40"
+                                     data-round-progress-inner-circle-radius="20"
+                                     data-round-progress-label-font="14pt Arial"
+                                     data-round-progress-outer-circle-background-color="#D8D8D8"
+                                     data-round-progress-outer-circle-foreground-color="#2E9AFE"
+                                     data-round-progress-inner-circle-color="#D8D8D8"
+                                     data-round-progress-label-color="#070719"></div>
+                            </p>
+                        </div>
+                        
+                        <div class="col-xs-4 center">
+                            <p><label>Team members</label></p>
+                            <p>
+                                <div ang:round:progress data-round-progress-model="roundProgressData"
+                                     data-round-progress-width="100"
+                                     data-round-progress-height="100"
+                                     data-round-progress-outer-circle-width="10"
+                                     data-round-progress-inner-circle-width="4"
+                                     data-round-progress-outer-circle-radius="40"
+                                     data-round-progress-inner-circle-radius="20"
+                                     data-round-progress-label-font="14pt Arial"
+                                     data-round-progress-outer-circle-background-color="#D8D8D8"
+                                     data-round-progress-outer-circle-foreground-color="#2E9AFE"
+                                     data-round-progress-inner-circle-color="#D8D8D8"
+                                     data-round-progress-label-color="#070719"></div>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <br /><br />
+                    <div style="text-align: center"></div>
+                    <input type="number" ng-model="roundProgressData.label" />
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+</div>

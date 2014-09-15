@@ -49,6 +49,11 @@ namespace RemoteWorkManagement.Controllers
             return View();
         }
 
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
 
         /// <summary>
         /// returns true if the user is allowed to work the current day.
@@ -56,7 +61,9 @@ namespace RemoteWorkManagement.Controllers
         /// <returns></returns>
         [HttpPost]
         public JsonResult IsAllowedDay()
-        { 
+        {
+            var xx = _userInfoRepository.GetChildUsers(User.Identity.Name);
+            var s = xx;
             var success = false;
             var usr = _membershipProvider.GetUser(User.Identity.Name, false);
             var usrInfo = _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(usr.ProviderUserKey));

@@ -3,6 +3,7 @@
         //---------------------------Variables Declaration---------------------
         $scope.users = [];
         $scope.showInfo = true;
+        $scope.vallue = 40;
         $scope.remoteDaysArray = [];
         $scope.idProjectLeader = "";
         $scope.idSensei = "";
@@ -13,6 +14,17 @@
         $scope.$on('UNLOAD', function() { $scope.loading = false; });
        
         //---------------------------------------------------------------------
+
+        $scope.roundProgressData = {
+            label: 11,
+            percentage: 0.11
+        }
+
+        // Here I synchronize the value of label and percentage in order to have a nice demo
+        $scope.$watch('roundProgressData', function (newValue, oldValue) {
+            newValue.percentage = newValue.label / 100;
+        }, true);
+
 
         //---------------------------Public Functions--------------------------
         //GET

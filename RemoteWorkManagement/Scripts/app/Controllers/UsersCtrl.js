@@ -12,6 +12,7 @@
         $scope.selectedDays = [];
         $scope.selectedFlex = "";
         $scope.selectedEditFlex = "";
+        $scope.selectedRol = [];
         $scope.roles = [];
         $scope.users = [];
         $scope.editSelections = [];
