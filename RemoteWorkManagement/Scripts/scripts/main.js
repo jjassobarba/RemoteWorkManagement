@@ -344,7 +344,8 @@
     });
 
 
-
+    //.knob circle input
+    $(".knob").knob();
 
 
     var form_initialized = false;

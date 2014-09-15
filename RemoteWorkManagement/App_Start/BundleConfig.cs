@@ -20,9 +20,11 @@ namespace RemoteWorkManagement
                         "~/Scripts/jquery/jquery.dataTables.bootstrap.js",
                         "~/Scripts/jquery/jquery.dataTables.min.js",
                         "~/Scripts/jquery/jquery.hotkeys.min.js",
+                        "~/Scripts/jquery/jquery.knob.min.js",
                         "~/Scripts/jquery/jquery.ui.touch-punch.min.js",
                         "~/Scripts/jquery/jquery.slimscroll.min.js",
                         "~/Scripts/jquery/jquery.maskedinput.min.js"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/mainScripts").Include(
                         "~/Scripts/scripts/main.js",
@@ -43,9 +45,9 @@ namespace RemoteWorkManagement
                       "~/Scripts/bootstrap/bootstrap.min.js",
                       "~/Scripts/bootstrap/bootstrap-tag.min.js",
                       "~/Scripts/bootstrap/bootstrap.wysiwyg.min.js",
-                     "~/Scripts/bootstrap/bootstrap-timepicker.min.js",
+                      "~/Scripts/bootstrap/bootstrap-timepicker.min.js",
                       "~/Scripts/scripts/moment.min.js",
-                       "~/Scripts/bootstrap/ace-extra.min.js",
+                      "~/Scripts/bootstrap/ace-extra.min.js",
                       "~/Scripts/bootstrap/ace-elements.min.js",
                       "~/Scripts/bootstrap/ace.min.js",
                       "~/Scripts/respond/respond.js"));
