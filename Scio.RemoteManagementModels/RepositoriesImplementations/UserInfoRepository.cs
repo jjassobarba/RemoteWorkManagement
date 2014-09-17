@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+using FluentNHibernate.Conventions;
 using NHibernate;
+using NHibernate.Criterion;
+using NHibernate.Hql.Ast.ANTLR;
+using NHibernate.Linq;
+using NHibernate.Mapping;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
+using System.Collections;
 
 namespace Scio.RemoteManagementModels.RepositoriesImplementations
 {
@@ -102,6 +110,73 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         public bool DeleteUser(Guid idUser)
         {
             throw new NotImplementedException();
+        }
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Notifications> GetChildUsers(string userName)
+        {
+            var today = DateTime.Now.DayOfWeek.ToString();
+
+            // lista de usuarios a cargo del proyect actual 
+            var userslist = _session.QueryOver<Notifications>()
+                .Where(x => x.ProjectLeaderMail == userName)
+                .List();
+            
+            //lsia de todos los usuarios
+            var users = _session.QueryOver<UserInfo>().List();
+
+            //lista de usuarios q deben hacer checkin Hoy
+            var listadeldia = (from user in users
+                let days = user.RemoteDays.Split(',')
+                where days.Any(day => day == today)
+                select user).ToList();
+
+            //usuarios que tienen checkin hoy
+            var yaTienenCheckin = _session.QueryOver<CheckInOut>().List();
+            var yatienenCheckin2 =
+                yaTienenCheckin.Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) == 0).ToList();
+            List<UserInfo> checkInUserList = new List<UserInfo>();
+            foreach (var user in yatienenCheckin2)
+            {
+                checkInUserList.Add(user.IdUserInfo);
+            }
+            var listaDeChecados = checkInUserList;
+
+            //usuarios que no tienen checkin hoy
+            var noTienenCheckin = _session.QueryOver<CheckInOut>().List();
+            var noTienenCheckin2 =
+                noTienenCheckin.Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) != 0).ToList();
+
+            var noTienenCheckinList = (from user in noTienenCheckin2
+                group user by user.IdUserInfo
+                into newGroup
+                select newGroup).ToList();
+
+            List<Guid> list = new List<Guid>();
+            
+            foreach (var x in noTienenCheckinList)
+            {
+                list.Add(x.Key.IdUserInfo); 
+            }
+            var nombredeusuarios = _session.QueryOver<UserInfo>().Where(x => x.IdUserInfo.IsIn(list)).List();
+            
+
+
+
+            var gdfg = list;
+            var asdsf = nombredeusuarios;
+            var otro = listadeldia;
+            var sdf = yatienenCheckin2;
+            var dfo = noTienenCheckin;
+            var idsuariossinchecin = noTienenCheckinList;
+            var sdfgdgdf = listaDeChecados;
+            return userslist;
         }
     }
 }
