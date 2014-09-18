@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('TeamMemberCtrl', ['$scope', 'userService', '$upload', '$http', '$notification', function ($scope, userService, $upload, $http, $notification) {
+    angular.module('RemoteManagement').controller('TeamMemberCtrl', ['$scope', 'userService', '$upload', '$http', '$notification','$q', function ($scope, userService, $upload, $http, $notification,$q) {
         //---------------------------Variables Declaration---------------------
         $scope.users = [];
         $scope.showInfo = true;
@@ -10,18 +10,25 @@
         $scope.idNotification = "";
         $scope.isAllowedDay = false;
         $scope.checkIncomment = "";
+        $scope.remainingUsers = [];
+        $scope.readyUsers = [];
+        $scope.countCheckInOutUsers = 0;
+        $scope.countNotLoggedUsers = 0;
+        $scope.countLoggedUsers = 0;
         $scope.$on('LOAD', function () { $scope.loading = true; });
         $scope.$on('UNLOAD', function() { $scope.loading = false; });
        
         //---------------------------------------------------------------------
 
-        $scope.roundProgressData = {
-            label: 11,
-            percentage: 0.11
-        }
+        
 
         // Here I synchronize the value of label and percentage in order to have a nice demo
         $scope.$watch('roundProgressData', function (newValue, oldValue) {
+            newValue.percentage = newValue.label / 100;
+        }, true);
+
+        // Here I synchronize the value of label and percentage in order to have a nice demo
+        $scope.$watch('roundProgressData2', function (newValue, oldValue) {
             newValue.percentage = newValue.label / 100;
         }, true);
 
@@ -81,6 +88,40 @@
             });
         };
         $scope.getStatusDay();
+
+
+       $scope.chartLoader = function () {
+            userService.getRemainingUsers().then(function (response) {
+                console.log(response);
+                console.log(response.data);
+                $scope.remainingUsers = response.data;
+                console.log($scope.remainingUsers);
+                userService.getReadyUsers().then(function(data) {
+                    $scope.readyUsers = data.data;
+                    console.log($scope.readyUsers);
+                    console.log("3");
+                    $scope.countCheckInOutUsers = (100 / ($scope.readyUsers.length + $scope.remainingUsers.length));
+                    $scope.countNotLoggedUsers = ($scope.remainingUsers.length * $scope.countCheckInOutUsers);
+                    $scope.countLoggedUsers = ($scope.readyUsers.length * $scope.countCheckInOutUsers);
+                    console.log($scope.countCheckInOutUsers);
+                    console.log($scope.countNotLoggedUsers);
+                    console.log($scope.countLoggedUsers);
+                    $scope.roundProgressData = {
+                        label: $scope.countNotLoggedUsers,
+                        percentage: $scope.countNotLoggedUsers
+                    }
+                    console.log("round progress data");
+                    console.log($scope.roundProgressData);
+                    $scope.roundProgressData2 = {
+                        label: $scope.countLoggedUsers,
+                        percentage: $scope.countLoggedUsers
+                    }
+                    console.log("round progress data2");
+                    console.log($scope.roundProgressData2);
+                });
+            });
+        };
+        $scope.chartLoader();
 
         //POST-------------------------------------------------------
         

@@ -1,431 +1,167 @@
 ﻿@{
-    ViewBag.Title = "Scio Admin Panel";
+    ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_InnerLayout.cshtml";
 }
-
-<div class="breadcrumbs" id="breadcrumbs">
-    <script type="text/javascript">
-        try { ace.settings.check('breadcrumbs', 'fixed'); } catch (e) { }
-    </script>
-    <ul class="breadcrumb">
-        <li>
-            <i class="icon-home home-icon"></i>
-            <a href="#">Home</a>
-        </li>
-        <li class="active">Dashboard</li>
-    </ul>
-</div>
-<div class="page-content">
-    <div class="page-header">
-        <h1>
-            Dashboard
-            <small>
-                <i class="icon-double-angle-right"></i>
-                overview &amp; stats
-            </small>
-        </h1>
+<div ng-controller="TeamMemberCtrl" ng-cloak>
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed'); } catch (e) { }
+        </script>
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/Admin/">Home</a>
+            </li>
+            <li class="active">Dashboard</li>
+        </ul>
     </div>
-    <div id="timeline">
-        <div class="row">
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <div class="timeline-container timeline-style2">
-                    <span class="timeline-label">
-                        <b>Today</b>
-                    </span>
+    <div class="page-content">
+        <div notifications="top right"></div>
+        <div class="page-header">
+            <h1>
+                Dashboard
+            </h1>
+        </div>
+        <fieldset>
+            <div class="container">
+                <div class="row vertical-spacer">
+                    <div class="col-xs-8">
 
-                    <div class="timeline-items">
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                <span class="timeline-date">11:15 pm</span>
+                        <div class="col-xs-4 center">
+                            <p><label>Users not logged</label></p>
+                            <p>
+                                <div ang:round:progress data-round-progress-model="roundProgressData"
+                                     data-round-progress-width="100"
+                                     data-round-progress-height="100"
+                                     data-round-progress-outer-circle-width="10"
+                                     data-round-progress-inner-circle-width="4"
+                                     data-round-progress-outer-circle-radius="40"
+                                     data-round-progress-inner-circle-radius="25"
+                                     data-round-progress-label-font="12pt Arial"
+                                     data-round-progress-outer-circle-background-color="#D8D8D8"
+                                     data-round-progress-outer-circle-foreground-color="#FFBF00"
+                                     data-round-progress-inner-circle-color="#D8D8D8"
+                                     data-round-progress-label-color="#070719"></div>
+                            </p>
+                        </div>
 
-                                <i class="timeline-indicator btn btn-info no-hover"></i>
-                            </div>
+                        <div class="col-xs-4 center">
+                            <p><label>Users logged in</label></p>
+                            <p>
+                                <div ang:round:progress data-round-progress-model="roundProgressData2"
+                                     data-round-progress-width="100"
+                                     data-round-progress-height="100"
+                                     data-round-progress-outer-circle-width="10"
+                                     data-round-progress-inner-circle-width="4"
+                                     data-round-progress-outer-circle-radius="40"
+                                     data-round-progress-inner-circle-radius="25"
+                                     data-round-progress-label-font="12pt Arial"
+                                     data-round-progress-outer-circle-background-color="#D8D8D8"
+                                     data-round-progress-outer-circle-foreground-color="#01DF01"
+                                     data-round-progress-inner-circle-color="#D8D8D8"
+                                     data-round-progress-label-color="#070719"></div>
+                            </p>
+                        </div>
 
-                            <div class="widget-box transparent">
-                                <div class="widget-body">
-                                    <div class="widget-main no-padding">
-                                        <span class="bigger-110">
-                                            <a href="#" class="purple bolder">Susan</a>
-                                            reviewed a product
-                                        </span>
 
-                                        <br />
-                                        <i class="icon-hand-right grey bigger-125"></i>
-                                        <a href="#">Click to read &hellip;</a>
-                                    </div>
-                                </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <br /><br />
+                    <div style="text-align: center"></div>
+
+                </div>
+
+                <div class="row">
+                    <br />
+                    <div class="widget-box transparent col-xs-4">
+                        <div class="widget-header widget-header-small">
+                            <h4 class="blue smaller">
+                                <i class="icon-rss orange"></i>
+                                Users not logged
+                            </h4>
+
+                            <div class="widget-toolbar action-buttons">
+                                <a href="#" data-action="reload">
+                                    <i class="icon-refresh blue"></i>
+                                </a>
+
+                                &nbsp;
+                                <a href="#" class="pink">
+                                    <i class="icon-trash"></i>
+                                </a>
                             </div>
                         </div>
 
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                <span class="timeline-date">12:30 pm</span>
+                        <div class="widget-body  ">
+                            <div class="widget-main padding-8">
+                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
+                                    <div id="profile-feed-1" class="profile-feed" style="overflow: hidden; width: auto; height: 250px;">
 
-                                <i class="timeline-indicator btn btn-info no-hover"></i>
-                            </div>
 
-                            <div class="widget-box transparent">
-                                <div class="widget-body">
-                                    <div class="widget-main no-padding">
-                                        Going to
-                                        <span class="green bolder">veg cafe</span>
-                                        for lunch
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                <span class="timeline-date">11:15 pm</span>
-
-                                <i class="timeline-indicator btn btn-info no-hover"></i>
-                            </div>
-
-                            <div class="widget-box transparent">
-                                <div class="widget-body">
-                                    <div class="widget-main no-padding">
-                                        Designed a new logo for our website. Would appreciate feedback.
-                                        <a href="#">
-                                            Click to see
-                                            <i class="icon-zoom-in blue bigger-110"></i>
-                                        </a>
-
-                                        <div class="space-2"></div>
-
-                                        <div class="action-buttons">
-                                            <a href="#">
-                                                <i class="icon-heart red bigger-125"></i>
-                                            </a>
-
-                                            <a href="#">
-                                                <i class="icon-facebook blue bigger-125"></i>
-                                            </a>
-
-                                            <a href="#">
-                                                <i class="icon-reply light-green bigger-130"></i>
-                                            </a>
+                                        <div class="profile-activity clearfix" ng-repeat="remainingUser in remainingUsers">
+                                            <div>
+                                                <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{remainingUser.Picture}}">
+                                                <a class="user" href="#"> {{remainingUser.FirstName}} {{remainingUser.LastName}}</a>
+                                            </div>
+                                            <div class="time">
+                                                <i class="icon-time bigger-110"></i>
+                                                {{remainingUser.FlexTime}}
+                                            </div>
                                         </div>
-                                    </div>
+
+
+                                    </div><div class="slimScrollBar ui-draggable" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 99.0491283676704px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                <span class="timeline-date">9:00 am</span>
-
-                                <i class="timeline-indicator btn btn-info no-hover"></i>
-                            </div>
-
-                            <div class="widget-box transparent">
-                                <div class="widget-body">
-                                    <div class="widget-main no-padding"> Took the final exam. Phew! </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- /.timeline-items -->
-                </div><!-- /.timeline-container -->
-
-                <div class="timeline-container timeline-style2">
-                    <span class="timeline-label">
-                        <b>Yesterday</b>
-                    </span>
-
-                    <div class="timeline-items">
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                <span class="timeline-date">9:00 am</span>
-
-                                <i class="timeline-indicator btn btn-success no-hover"></i>
-                            </div>
-
-                        </div>
-
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                i
-                                <span class="timeline-date">9:00 am</span>
-
-                                <i class="timeline-indicator btn btn-success no-hover"></i>
-                            </div>
-
-                            <div class="widget-box transparent">
-                                <div class="widget-body">
-                                    <div class="widget-main no-padding">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod
-                                        <span class="pink2 bolder">high life</span>
-                                        accusamus terry richardson ad squid &hellip;
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                <span class="timeline-date">9:00 am</span>
-
-                                <i class="timeline-indicator btn btn-success no-hover"></i>
-                            </div>
-
-                            <div class="widget-box transparent">
-                                <div class="widget-body">
-                                    <div class="widget-main no-padding"> Going to cafe for lunch </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                <span class="timeline-date">9:00 am</span>
-
-                                <i class="timeline-indicator btn btn-success no-hover"></i>
-                            </div>
-
-                            <div class="widget-box transparent">
-                                <div class="widget-body">
-                                    <div class="widget-main no-padding">
-                                        <span class="red bolder">Critical security patch released</span>
-
-                                        <br />
-                                        Please download the new patch for maximum security.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- /.timeline-items -->
-                </div><!-- /.timeline-container -->
-
-                <div class="timeline-container timeline-style2">
-                    <span class="timeline-label">
-                        <b>May 17</b>
-                    </span>
-
-                    <div class="timeline-items">
-                        <div class="timeline-item clearfix">
-                            <div class="timeline-info">
-                                <span class="timeline-date">9:00 am</span>
-
-                                <i class="timeline-indicator btn btn-grey no-hover"></i>
-                            </div>
-
-                            <div class="widget-box transparent">
-                                <div class="widget-body">
-                                    <div class="widget-main no-padding">
-                                        <span class="bolder blue">Lorum Ipsum</span>
-                                        Anim pariatur cliche reprehenderit, enim eiusmod
-                                        <span class="purple bolder">high life</span>
-                                        accusamus terry richardson ad squid &hellip;
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- /.timeline-items -->
-                </div><!-- /.timeline-container -->
-            </div>
-        </div>
-    </div>
-    @*<div ng-controller="UsersCtrl">
-        <div id="modal-wizard" class="modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" data-target="#modal-step-contents">
-                        <ul class="wizard-steps">
-                            <li data-target="#modal-step1" class="active">
-                                <span class="step">1</span>
-                                <span class="title">Type Old Password</span>
-                            </li>
-
-                            <li data-target="#modal-step2">
-                                <span class="step">2</span>
-                                <span class="title">Type New Password</span>
-                            </li>
-
-                            <li data-target="#modal-step3">
-                                <span class="step">3</span>
-                                <span class="title">Repeat Password</span>
-                            </li>
-
-                            <li data-target="#modal-step4">
-                                <span class="step">4</span>
-                                <span class="title">Ready!</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="modal-body step-content" id="modal-step-contents">
-                        <div class="step-pane active" id="modal-step1">
-                            <div class="center">
-                                <h4 class="blue">Step 1: Type Old Password</h4>
-                                <div class="row">
-                                    <input type="password" placeholder="Old Password" ng-model="oldPassword" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step-pane" id="modal-step2">
-                            <div class="center">
-                                <h4 class="blue">Step 2: Type New Password</h4>
-                                <div class="row">
-                                    <input type="password" placeholder="New Password" ng-model="newPassword" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step-pane" id="modal-step3">
-                            <div class="center">
-                                <h4 class="blue">Step 3: Repeat Password</h4>
-                                <div class="row">
-                                    <input type="password" placeholder="Repeat Password" ng-model="repeatPassword" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step-pane" id="modal-step4">
-                            <div class="center">
-                                <h4 class="blue">Step 4: Everything Set :)</h4>
-                                <h2>Click finish to start using this awesome app</h2>
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal-footer wizard-actions">
-                        <button class="btn btn-sm btn-prev">
-                            <i class="icon-arrow-left"></i>
-                            Prev
-                        </button>
+                    <div class="widget-box transparent col-xs-4">
+                        <div class="widget-header widget-header-small">
+                            <h4 class="blue smaller">
+                                <i class="icon-rss orange"></i>
+                                Users logged in
+                            </h4>
 
-                        <button class="btn btn-success btn-sm btn-next" data-last="Finish ">
-                            Next
-                            <i class="icon-arrow-right icon-on-right"></i>
-                        </button>
+                            <div class="widget-toolbar action-buttons">
+                                <a href="#" data-action="reload">
+                                    <i class="icon-refresh blue"></i>
+                                </a>
 
-                        <button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
-                            <i class="icon-remove"></i>
-                            Cancel
-                        </button>
+                                &nbsp;
+                                <a href="#" class="pink">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="widget-body  ">
+                            <div class="widget-main padding-8">
+                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
+                                    <div id="profile-feed-1" class="profile-feed" style="overflow: hidden; width: auto; height: 250px;">
+
+
+                                        <div class="profile-activity clearfix" ng-repeat="readyUser in readyUsers">
+                                            <div>
+                                                <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{readyUser.Picture}}">
+                                                <a class="user" href="#"> {{readyUser.FirstName}} {{readyUser.LastName}} </a>
+                                            </div>
+                                            <div class="time">
+                                                <i class="icon-time bigger-110"></i>
+                                                {{readyUser.FlexTime}}
+                                            </div>
+                                        </div>
+
+                                    </div><div class="slimScrollBar ui-draggable" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 99.0491283676704px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@
-    
-    
-    <!-- wizard change password-->
-    <div ng-controller="AccountCtrl" ng-cloak>
-        <div id="modal-wizard" class="modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" data-target="#modal-step-contents">
-                        <ul class="wizard-steps">
-                            <li data-target="#modal-step1" class="active">
-                                <span class="step">1</span>
-                                <span class="title">Type Old Password</span>
-                            </li>
 
-                            <li data-target="#modal-step2">
-                                <span class="step">2</span>
-                                <span class="title">Type New Password</span>
-                            </li>
-
-                            <li data-target="#modal-step3">
-                                <span class="step">3</span>
-                                <span class="title">Repeat Password</span>
-                            </li>
-
-                            <li data-target="#modal-step4">
-                                <span class="step">4</span>
-                                <span class="title">Ready!</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="modal-body step-content" id="modal-step-contents">
-                        <div class="step-pane active" id="modal-step1">                            
-                                <div class="center">
-                                    <h4 class="blue">Step 1: Type Old Password</h4>
-                                    <div class="row">
-                                        <input type="password" placeholder="Old Password" ng-model="oldPassword" ng-change="validateOldPwd()" />                                        
-                                    </div> 
-                                    <div style="color:{{ mycolor }}">
-                                       {{ validOldPwd }}
-                                    </div>                                   
-                                </div>                            
-                        </div>
-
-                        
-                            <div class="step-pane" id="modal-step2">
-                                <div class="center">
-                                    <h4 class="blue">Step 2: Type New Password</h4>
-                                    <div class="row">
-                                        <input type="password" placeholder="New Password" id="newPassword" name="newPassword" ng-model="newPassword" ng-change="validateNewPwd()" />
-                                    </div>
-                                    <div class="alert-error">
-                                        <span style="color:{{ mycolor }}"> {{ msgValidNewPwd }}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="step-pane" id="modal-step3">
-                                <div class="center">
-                                    <h4 class="blue">Step 3: Repeat Password</h4>
-                                    <div class="row">
-                                        <input type="password" placeholder="Repeat Password" ng-model="repeatPassword" id="repeatPassword" ng-change="validateMatchPwd()" ng-required="" />
-                                    </div>
-                                    <div class="alert-error">
-                                        <span style="color:{{ mycolor }}"> {{ passMatchMsg }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        
-
-                        <div class="step-pane" id="modal-step4">
-                            <div class="center">
-                                <h4 class="blue">Step 4: Everything Set :)</h4>
-                                <h2>{{msgUpdatePass}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-footer" id="fakeButtons">
-                        <button id="fakePrevButton" class="btn btn-sm" ng-click="prevStep()">
-                            <i class="icon-arrow-left"></i>
-                            Prev
-                        </button>
-
-                        <button id="fakeNextButton" class="btn btn-success btn-sm"  ng-click="nextStep()"
-                               >
-                            Next
-                            <i class="icon-arrow-right icon-on-right"></i>
-                        </button>
-
-                        <button id="fakeCancelButton" class="btn btn-danger btn-sm pull-left" ng-click="cancelStep()">
-                            <i class="icon-remove"></i>
-                            Cancel
-                        </button>
-                    </div>
-
-                    <div class="modal-footer wizard-actions" ng-hide="true">
-                        <button id="prevButton" class="btn btn-sm btn-prev">
-                            <i class="icon-arrow-left"></i>
-                            Prev
-                        </button>
-
-                        <button id="nextButton" class="btn btn-success btn-sm btn-next" data-last="Finish">                             
-                            Next
-                            <i class="icon-arrow-right icon-on-right"></i>
-                        </button>
-
-                        <button id="cancelButton" class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
-                            <i class="icon-remove"></i>
-                            Cancel
-                        </button>
-                    </div>
-
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
+        </fieldset>
     </div>
-    <!-- ./wizard change password-->
+</div>

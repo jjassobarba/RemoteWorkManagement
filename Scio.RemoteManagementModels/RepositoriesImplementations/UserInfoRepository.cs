@@ -111,64 +111,71 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         {
             throw new NotImplementedException();
         }
-
-
-
-
+        
         /// <summary>
-        /// 
+        /// Gets the remaining users
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Notifications> GetChildUsers(string userName)
+        /// <returns>list</returns>
+        public IEnumerable<UserInfo> GetRemainingUsers(string userName)
         {
             var today = DateTime.Now.DayOfWeek.ToString();
-
-            // lista de usuarios a cargo del proyect actual 
-            var userslist = _session.QueryOver<Notifications>()
-                .Where(x => x.ProjectLeaderMail == userName)
-                .List();
-            
-            //lsia de todos los usuarios
+            var checkInOutList = _session.QueryOver<CheckInOut>().List();
             var users = _session.QueryOver<UserInfo>().List();
 
-            //lista de usuarios q deben hacer checkin Hoy
-            var listadeldia = (from user in users
+            var userslist = _session.QueryOver<Notifications>()
+                .Where(x => x.ProjectLeaderMail == userName || x.SenseiMail == userName)
+                .List();
+            List<UserInfo> userListToday = userslist.Select(x => x.IdUserInfo).ToList();
+
+            var usersRemainingToday = (from user in userListToday
+                let days = user.RemoteDays.Split(',')
+                where days.Any(day => day == today)
+                select user).ToList();
+
+            List<UserInfo> realUserRemainingToday = usersRemainingToday.ToList();
+
+            var usersCheckIn = checkInOutList
+                .Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) == 0).ToList();
+            
+            foreach (var userDone in usersCheckIn)
+            {
+                foreach (var userRemaining in usersRemainingToday.Where(userRemaining => userDone.IdUserInfo.IdUserInfo == userRemaining.IdUserInfo))
+                {
+                    realUserRemainingToday.Remove(userRemaining);
+                }
+            }
+            return realUserRemainingToday;
+
+            //lista de usuarios q deben hacer checkin Hoy lista con userinfo objects
+            var listadeldia = (from user in users 
                 let days = user.RemoteDays.Split(',')
                 where days.Any(day => day == today)
                 select user).ToList();
 
             //usuarios que tienen checkin hoy
             var yaTienenCheckin = _session.QueryOver<CheckInOut>().List();
-            var yatienenCheckin2 =
-                yaTienenCheckin.Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) == 0).ToList();
-            List<UserInfo> checkInUserList = new List<UserInfo>();
-            foreach (var user in yatienenCheckin2)
-            {
-                checkInUserList.Add(user.IdUserInfo);
-            }
-            var listaDeChecados = checkInUserList;
 
+            var yatienenCheckin2 =  yaTienenCheckin
+                .Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) == 0).ToList();
+            List<UserInfo> checkInUserList = yatienenCheckin2.Select(user => user.IdUserInfo).ToList();
+            var listaDeChecados = checkInUserList;
+            
             //usuarios que no tienen checkin hoy
             var noTienenCheckin = _session.QueryOver<CheckInOut>().List();
             var noTienenCheckin2 =
-                noTienenCheckin.Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) != 0).ToList();
+                noTienenCheckin.Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) != 0
+                    &&  DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) != 0).ToList();
 
             var noTienenCheckinList = (from user in noTienenCheckin2
                 group user by user.IdUserInfo
                 into newGroup
                 select newGroup).ToList();
+            List<Guid> list = noTienenCheckinList.Select(x => x.Key.IdUserInfo).ToList();
 
-            List<Guid> list = new List<Guid>();
-            
-            foreach (var x in noTienenCheckinList)
-            {
-                list.Add(x.Key.IdUserInfo); 
-            }
-            var nombredeusuarios = _session.QueryOver<UserInfo>().Where(x => x.IdUserInfo.IsIn(list)).List();
-            
-
-
-
+            var nombredeusuarios = _session.QueryOver<UserInfo>()
+                .Where(x => x.IdUserInfo.IsIn(list))
+                .List();
+            var dsf = userListToday;
             var gdfg = list;
             var asdsf = nombredeusuarios;
             var otro = listadeldia;
@@ -176,7 +183,42 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
             var dfo = noTienenCheckin;
             var idsuariossinchecin = noTienenCheckinList;
             var sdfgdgdf = listaDeChecados;
-            return userslist;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public IEnumerable<UserInfo> GetReadyUsers(string userName)
+        {
+            var today = DateTime.Now.DayOfWeek.ToString();
+            var checkInOutList = _session.QueryOver<CheckInOut>().List();
+
+            var userslist = _session.QueryOver<Notifications>()
+                .Where(x => x.ProjectLeaderMail == userName || x.SenseiMail == userName)
+                .List();
+            List<UserInfo> userListToday = userslist.Select(x => x.IdUserInfo).ToList();
+
+            var usersRemainingToday = (from user in userListToday
+                                       let days = user.RemoteDays.Split(',')
+                                       where days.Any(day => day == today)
+                                       select user).ToList();
+
+            List<UserInfo> readyUsers = new List<UserInfo>();
+
+            var usersCheckIn = checkInOutList
+                .Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) == 0).ToList();
+
+            foreach (var userDone in usersCheckIn)
+            {
+                foreach (var userRemaining in usersRemainingToday.Where(userRemaining => userDone.IdUserInfo.IdUserInfo == userRemaining.IdUserInfo))
+                {
+                    readyUsers.Add(userRemaining);
+                }
+            }
+            return readyUsers;
         }
     }
 }

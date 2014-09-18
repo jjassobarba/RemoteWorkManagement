@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using Castle.Core.Internal;
@@ -62,8 +63,6 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult IsAllowedDay()
         {
-            var xx = _userInfoRepository.GetChildUsers(User.Identity.Name);
-            var s = xx;
             var success = false;
             var usr = _membershipProvider.GetUser(User.Identity.Name, false);
             var usrInfo = _userInfoRepository.GetUserByMembershipId(Convert.ToInt32(usr.ProviderUserKey));
@@ -76,6 +75,70 @@ namespace RemoteWorkManagement.Controllers
                 return Json(new { success });
             }
             return Json(new {success});
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetRemainingUsers()
+        {
+            var  usersList= _userInfoRepository.GetRemainingUsers(User.Identity.Name);
+            var usersInfoList = usersList.Select(user => new
+            {
+                IdUserInfo = user.IdUserInfo,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                FlexTime = user.FlexTime,
+                OtherFlexTime = user.OtherFlexTime,
+                Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
+                Position = user.Position,
+                ReceiveNotifications = user.ReceiveNotifications,
+                RemoteDays = user.RemoteDays,
+                IdMembership = new
+                {
+                    IdMembership = user.IdMembership.Id,
+                    Email = user.IdMembership.Username
+                },
+                Rol = new
+                {
+                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
+                }
+            }).Cast<object>().ToList();
+            return Json(new { data = usersInfoList });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetReadyUsers()
+        {
+            var usersList = _userInfoRepository.GetReadyUsers(User.Identity.Name);
+            var usersInfoList = usersList.Select(user => new
+            {
+                IdUserInfo = user.IdUserInfo,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                FlexTime = user.FlexTime,
+                OtherFlexTime = user.OtherFlexTime,
+                Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
+                Position = user.Position,
+                ReceiveNotifications = user.ReceiveNotifications,
+                RemoteDays = user.RemoteDays,
+                IdMembership = new
+                {
+                    IdMembership = user.IdMembership.Id,
+                    Email = user.IdMembership.Username
+                },
+                Rol = new
+                {
+                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
+                }
+            }).Cast<object>().ToList();
+            return Json(new { data = usersInfoList });
         }
 
         /// <summary>

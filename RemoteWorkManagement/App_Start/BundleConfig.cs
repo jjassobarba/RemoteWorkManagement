@@ -15,6 +15,7 @@ namespace RemoteWorkManagement
                         "~/Scripts/jquery/chosen.jquery.min.js",
                         "~/Scripts/jquery/select2.min.js",
                         "~/Scripts/jquery/typeahead-bs2.min.js",
+                        "~/Scripts/jquery/jquery.slimscroll.min.js",
                         "~/Scripts/jquery/jquery.autosize.min.js",
                         "~/Scripts/jquery/jquery.inputlimiter.1.3.1.min.js",
                         "~/Scripts/jquery/jquery.dataTables.bootstrap.js",

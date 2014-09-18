@@ -314,40 +314,7 @@
         $(this).prev().focus();
     });
     //  ./time picker
-
-    //Modal to add comment to notify HR
-    $("#btnCheckInMsd").on('click', function (e) {
-        e.preventDefault();
-
-        $("#warning-dialog").removeClass('hide').dialog({
-            modal: true,
-            title: "<div class='widget-header widget-header-small'><h4 class='small'><i class='icon-warning-sign'></i>Warning</h4></div>",
-            title_html: true,
-            width: 350,
-            buttons: [
-                {
-                    text: "Cancel",
-                    "class": "btn btn-xs",
-                    click: function () {
-                        $(this).dialog("close");
-                    }
-                },
-                {
-                    text: "OK",
-                    "class": "btn btn-primary btn-xs",
-                    click: function () {
-                        $(this).dialog("close");
-                    }
-                }
-            ]
-        });
-    });
-
-
-    //.knob circle input
-    $(".knob").knob();
-
-
+    
     var form_initialized = false;
     function initialize_form() {
         if (form_initialized) return;

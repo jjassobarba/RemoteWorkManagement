@@ -27,6 +27,20 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         UserInfo GetUserByMembershipId(int membershipId);
 
         /// <summary>
+        /// Gets the remaining users - for CheckIn.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        IEnumerable<UserInfo> GetRemainingUsers(string userName);
+
+        /// <summary>
+        /// Gets ready users - for CheckIn.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        IEnumerable<UserInfo> GetReadyUsers(string userName);
+
+        /// <summary>
         /// Inserts the user.
         /// </summary>
         /// <param name="user">The user.</param>

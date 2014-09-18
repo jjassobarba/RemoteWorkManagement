@@ -9,7 +9,9 @@
             getActualUser: getActualUser,
             isAllowedDay : isAllowedDay,
             getAllUsers: getAllUsers,
-            getAllUsersInfo: getAllUsersInfo
+            getAllUsersInfo: getAllUsersInfo,
+            getRemainingUsers: getRemainingUsers,
+            getReadyUsers: getReadyUsers
         });
 
         //------Public Methods------
@@ -87,6 +89,22 @@
             });
             return (request.then(handleSuccess, handleError));
         }
+
+        function getRemainingUsers() {
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/GetRemainingUsers'
+            });
+            return (request.then(handleSuccess, handleError));
+        };
+
+        function getReadyUsers() {
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/GetReadyUsers'
+            });
+            return (request.then(handleSuccess, handleError));
+        };
         //--------------------------
 
 
