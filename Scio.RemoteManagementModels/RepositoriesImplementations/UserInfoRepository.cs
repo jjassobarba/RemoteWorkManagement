@@ -195,30 +195,68 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         {
             var today = DateTime.Now.DayOfWeek.ToString();
             var checkInOutList = _session.QueryOver<CheckInOut>().List();
+            List<UserInfo> readyUsers = new List<UserInfo>();
 
             var userslist = _session.QueryOver<Notifications>()
                 .Where(x => x.ProjectLeaderMail == userName || x.SenseiMail == userName)
                 .List();
+
+            // List of users assigned to this project leader/sensei
             List<UserInfo> userListToday = userslist.Select(x => x.IdUserInfo).ToList();
 
+            // List of users allowed to work remotely assigned to this pl/s
             var usersRemainingToday = (from user in userListToday
                                        let days = user.RemoteDays.Split(',')
                                        where days.Any(day => day == today)
                                        select user).ToList();
 
-            List<UserInfo> readyUsers = new List<UserInfo>();
-
+            // List of all the Checkin registered today
             var usersCheckIn = checkInOutList
                 .Where(x => DateTime.Compare(x.CheckInDate.Date, DateTime.Now.Date) == 0).ToList();
 
             foreach (var userDone in usersCheckIn)
             {
-                foreach (var userRemaining in usersRemainingToday.Where(userRemaining => userDone.IdUserInfo.IdUserInfo == userRemaining.IdUserInfo))
+                foreach (var userRemaining in usersRemainingToday
+                    .Where(userRemaining => userDone.IdUserInfo.IdUserInfo == userRemaining.IdUserInfo))
                 {
                     readyUsers.Add(userRemaining);
                 }
             }
             return readyUsers;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public IEnumerable<UserInfo> GetNotAllowedCheckInUsers(string userName)
+        {
+            List<UserInfo> users = new List<UserInfo>();
+            var today = DateTime.Now.DayOfWeek.ToString();
+            var checkInOutList = _session.QueryOver<CheckInOut>().List();
+
+            var unauthorizedCheckInOutList = checkInOutList
+                .Where(x => !x.IsAuthorized && DateTime.Compare(x.CheckInDate.Date,
+                                                                           DateTime.Now.Date) == 0).ToList();
+            
+            var assignedNotificationsList = _session.QueryOver<Notifications>()
+                .Where(x => x.ProjectLeaderMail == userName || x.SenseiMail == userName)
+                .List();
+
+            List<UserInfo> assignedUsersList = assignedNotificationsList.Select(x => x.IdUserInfo).ToList();
+            foreach (var unauthorizedUser in unauthorizedCheckInOutList)
+            {
+                foreach (var userInList in assignedUsersList)
+                {
+                    if (unauthorizedUser.IdUserInfo.IdUserInfo == userInList.IdUserInfo)
+                    {
+                        users.Add(userInList);
+                    }
+                }
+            }
+            return users;
+        }
+
     }
 }

@@ -55,7 +55,7 @@
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
                         ctx.fillStyle = labelColor;
-                        ctx.fillText(newValue.label +  ' %', x, y);
+                        ctx.fillText(newValue.label + newValue.marks, x, y);
 
                         // The "foreground" circle
                         var startAngle = -(Math.PI / 2);

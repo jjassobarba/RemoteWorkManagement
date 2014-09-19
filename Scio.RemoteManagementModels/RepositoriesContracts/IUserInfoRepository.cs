@@ -60,5 +60,12 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         /// <param name="idUser">The identifier user.</param>
         /// <returns></returns>
         bool DeleteUser(Guid idUser);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        IEnumerable<UserInfo> GetNotAllowedCheckInUsers(string userName);
     }
 }

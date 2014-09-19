@@ -90,7 +90,39 @@ namespace RemoteWorkManagement.Controllers
                 IdUserInfo = user.IdUserInfo,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                FlexTime = user.FlexTime,
+                FlexTime = GetTimeBeforeCheckIn(user),
+                OtherFlexTime = user.OtherFlexTime,
+                Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
+                Position = user.Position,
+                ReceiveNotifications = user.ReceiveNotifications,
+                RemoteDays = user.RemoteDays,
+                IdMembership = new
+                {
+                    IdMembership = user.IdMembership.Id,
+                    Email = user.IdMembership.Username
+                },
+                Rol = new
+                {
+                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
+                }
+            }).Cast<object>().ToList();
+            return Json(new { data = usersInfoList });
+        }
+
+       /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetReadyUsers()
+        {
+            var usersList = _userInfoRepository.GetReadyUsers(User.Identity.Name);
+            var usersInfoList = usersList.Select(user => new
+            {
+                IdUserInfo = user.IdUserInfo,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                FlexTime = GetTimeAfterCheckIn(user),
                 OtherFlexTime = user.OtherFlexTime,
                 Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
                 Position = user.Position,
@@ -110,19 +142,19 @@ namespace RemoteWorkManagement.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Gets unauthorized users that checked in today in charge of the actual user.
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult GetReadyUsers()
+        public JsonResult GetNotAllowedCheckInUsers()
         {
-            var usersList = _userInfoRepository.GetReadyUsers(User.Identity.Name);
-            var usersInfoList = usersList.Select(user => new
+            var userList = _userInfoRepository.GetNotAllowedCheckInUsers(User.Identity.Name);
+            var usersInfoList = userList.Select(user => new
             {
                 IdUserInfo = user.IdUserInfo,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                FlexTime = user.FlexTime,
+                FlexTime = GetTimeAfterCheckIn(user),
                 OtherFlexTime = user.OtherFlexTime,
                 Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
                 Position = user.Position,
@@ -139,6 +171,61 @@ namespace RemoteWorkManagement.Controllers
                 }
             }).Cast<object>().ToList();
             return Json(new { data = usersInfoList });
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public object GetTimeBeforeCheckIn(UserInfo user)
+        {
+            var message = new { Time = "", Color = "" };
+            var newFlexTime = user.FlexTime.ToString().Trim();
+            var arrayTime = newFlexTime.Split('-');
+            var checkInTime = Convert.ToDateTime(arrayTime[0]);
+            TimeSpan failTime = new TimeSpan(checkInTime.Ticks - DateTime.Now.Ticks);
+            if (failTime < TimeSpan.Zero)
+            {
+                message = new
+                {
+                    Time = failTime.ToString(@"hh\:mm\:ss")+ " late",
+                    Color = "red time"
+                };
+            }
+            else
+            {
+                message = new
+                {
+                    Time = failTime.ToString(@"hh\:mm\:ss") + " on time",
+                    Color = "blue time"
+                };
+            }
+            return message;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public string GetTimeAfterCheckIn(UserInfo user)
+        {
+            string message = "";
+            var newFlexTime = user.FlexTime.ToString().Trim();
+            var arrayTime = newFlexTime.Split('-');
+            var checkInTime = Convert.ToDateTime(arrayTime[0]);
+            TimeSpan failTime = new TimeSpan(checkInTime.Ticks - DateTime.Now.Ticks);
+            if (failTime < TimeSpan.Zero)
+            {
+                message = failTime.ToString(@"hh\:mm\:ss") + " online";
+            }
+            else
+            {
+                message = failTime.ToString(@"hh\:mm\:ss") + " online";
+            }
+            return message;
         }
 
         /// <summary>

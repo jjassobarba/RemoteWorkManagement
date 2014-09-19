@@ -7,11 +7,12 @@
             registerUser: registerUser,
             getUser: getUser,
             getActualUser: getActualUser,
-            isAllowedDay : isAllowedDay,
+            isAllowedDay: isAllowedDay,
             getAllUsers: getAllUsers,
             getAllUsersInfo: getAllUsersInfo,
             getRemainingUsers: getRemainingUsers,
-            getReadyUsers: getReadyUsers
+            getReadyUsers: getReadyUsers,
+            getNotAllowedCheckInUsers: getNotAllowedCheckInUsers
         });
 
         //------Public Methods------
@@ -102,6 +103,14 @@
             var request = $http({
                 method: 'post',
                 url: '/TeamMember/GetReadyUsers'
+            });
+            return (request.then(handleSuccess, handleError));
+        };
+
+        function getNotAllowedCheckInUsers() {
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/GetNotAllowedCheckInUsers'
             });
             return (request.then(handleSuccess, handleError));
         };
