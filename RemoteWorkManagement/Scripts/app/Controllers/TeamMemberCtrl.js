@@ -101,6 +101,7 @@
                 console.log($scope.remainingUsers);
                 userService.getReadyUsers().then(function(data) {
                     $scope.readyUsers = data.data;
+                    console.log(data.data);
                     $scope.countCheckInOutUsers = (100 / ($scope.readyUsers.length + $scope.remainingUsers.length));
                     $scope.countNotLoggedUsers = ($scope.remainingUsers.length * $scope.countCheckInOutUsers).toFixed(1);
                     $scope.countLoggedUsers = ($scope.readyUsers.length * $scope.countCheckInOutUsers).toFixed(1);
@@ -125,6 +126,7 @@
 
                     userService.getNotAllowedCheckInUsers().then(function(data2) {
                         $scope.unAuthorizedUsersCheckedIn = data2.data;
+                        console.log($scope.unAuthorizedUsersCheckedIn);
                         $scope.roundProgressUnauthorizedUser = {
                             label: $scope.unAuthorizedUsersCheckedIn.length,
                             percentage: $scope.unAuthorizedUsersCheckedIn.length,

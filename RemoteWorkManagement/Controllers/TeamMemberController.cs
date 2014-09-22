@@ -55,7 +55,6 @@ namespace RemoteWorkManagement.Controllers
             return View();
         }
 
-
         /// <summary>
         /// returns true if the user is allowed to work the current day.
         /// </summary>
@@ -78,7 +77,7 @@ namespace RemoteWorkManagement.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get the users that should check in (just team member's who are in charge of the current user)
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -109,36 +108,14 @@ namespace RemoteWorkManagement.Controllers
             return Json(new { data = usersInfoList });
         }
 
-       /// <summary>
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [HttpPost]
         public JsonResult GetReadyUsers()
         {
-            var usersList = _userInfoRepository.GetReadyUsers(User.Identity.Name);
-            var usersInfoList = usersList.Select(user => new
-            {
-                IdUserInfo = user.IdUserInfo,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                FlexTime = GetTimeAfterCheckIn(user),
-                OtherFlexTime = user.OtherFlexTime,
-                Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
-                Position = user.Position,
-                ReceiveNotifications = user.ReceiveNotifications,
-                RemoteDays = user.RemoteDays,
-                IdMembership = new
-                {
-                    IdMembership = user.IdMembership.Id,
-                    Email = user.IdMembership.Username
-                },
-                Rol = new
-                {
-                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
-                }
-            }).Cast<object>().ToList();
-            return Json(new { data = usersInfoList });
+            return Json(new { data =_userInfoRepository.GetReadyUsers(User.Identity.Name) });
         }
 
         /// <summary>
@@ -148,31 +125,8 @@ namespace RemoteWorkManagement.Controllers
         [HttpPost]
         public JsonResult GetNotAllowedCheckInUsers()
         {
-            var userList = _userInfoRepository.GetNotAllowedCheckInUsers(User.Identity.Name);
-            var usersInfoList = userList.Select(user => new
-            {
-                IdUserInfo = user.IdUserInfo,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                FlexTime = GetTimeAfterCheckIn(user),
-                OtherFlexTime = user.OtherFlexTime,
-                Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
-                Position = user.Position,
-                ReceiveNotifications = user.ReceiveNotifications,
-                RemoteDays = user.RemoteDays,
-                IdMembership = new
-                {
-                    IdMembership = user.IdMembership.Id,
-                    Email = user.IdMembership.Username
-                },
-                Rol = new
-                {
-                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
-                }
-            }).Cast<object>().ToList();
-            return Json(new { data = usersInfoList });
+            return Json(new { data = _userInfoRepository.GetNotAllowedCheckInUsers(User.Identity.Name) });
         }
-
 
         /// <summary>
         /// 
@@ -301,7 +255,20 @@ namespace RemoteWorkManagement.Controllers
             }
         }
 
-       /// <summary>
+        /// <summary>
+        /// Returns the last CheckInOut of the Actual User
+        /// </summary>
+        /// <returns></returns>
+        private CheckInOut GetLastChekInOut()
+        {
+            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
+            var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
+            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
+            var lstCheckInOut = _checkInOutRepository.GetLastChekInOutByUser(usrInfo);
+            return lstCheckInOut;
+        }
+
+        /// <summary>
         /// Sets CheckIn for the actual User.
         /// </summary>
         /// <returns></returns>
@@ -692,17 +659,6 @@ namespace RemoteWorkManagement.Controllers
             return Utilities.MailSender(to, fieldValue ,type);
         }
         
-        /// <summary>
-        /// Returns the last CheckInOut of the Actual User
-        /// </summary>
-        /// <returns></returns>
-        private CheckInOut GetLastChekInOut()
-        {
-            var usr = _membershipProvider.GetUser(User.Identity.Name, false);
-            var idMemebership = Convert.ToInt32(usr.ProviderUserKey);
-            var usrInfo = _userInfoRepository.GetUserByMembershipId(idMemebership);
-            var lstCheckInOut = _checkInOutRepository.GetLastChekInOutByUser(usrInfo);
-            return lstCheckInOut;
-        }
+       
     }
 }

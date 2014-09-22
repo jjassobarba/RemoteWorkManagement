@@ -25,21 +25,7 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         /// <param name="membershipId">The membership identifier.</param>
         /// <returns></returns>
         UserInfo GetUserByMembershipId(int membershipId);
-
-        /// <summary>
-        /// Gets the remaining users - for CheckIn.
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <returns></returns>
-        IEnumerable<UserInfo> GetRemainingUsers(string userName);
-
-        /// <summary>
-        /// Gets ready users - for CheckIn.
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <returns></returns>
-        IEnumerable<UserInfo> GetReadyUsers(string userName);
-
+        
         /// <summary>
         /// Inserts the user.
         /// </summary>
@@ -62,10 +48,24 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         bool DeleteUser(Guid idUser);
 
         /// <summary>
+        /// Gets the remaining users - for CheckIn.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        IEnumerable<UserInfo> GetRemainingUsers(string userName);
+
+        /// <summary>
+        /// Gets ready users - for CheckIn.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        IEnumerable<object> GetReadyUsers(string userName);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        IEnumerable<UserInfo> GetNotAllowedCheckInUsers(string userName);
+        IEnumerable<object> GetNotAllowedCheckInUsers(string userName);
     }
 }
