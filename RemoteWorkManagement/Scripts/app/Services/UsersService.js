@@ -12,7 +12,8 @@
             getAllUsersInfo: getAllUsersInfo,
             getRemainingUsers: getRemainingUsers,
             getReadyUsers: getReadyUsers,
-            getNotAllowedCheckInUsers: getNotAllowedCheckInUsers
+            getNotAllowedCheckInUsers: getNotAllowedCheckInUsers,
+            getAllUsersbyProyectLeader: getAllUsersbyProyectLeader
         });
 
         //------Public Methods------
@@ -111,6 +112,14 @@
             var request = $http({
                 method: 'post',
                 url: '/TeamMember/GetNotAllowedCheckInUsers'
+            });
+            return (request.then(handleSuccess, handleError));
+        };
+
+        function getAllUsersbyProyectLeader() {
+            var request = $http({
+                method: 'post',
+                url: '/TeamMember/GetAllUsersbyProyectLeader'
             });
             return (request.then(handleSuccess, handleError));
         };

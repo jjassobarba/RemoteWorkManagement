@@ -275,6 +275,24 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
 
 
         /// <summary>
+        /// Gets all the team member's who are in charge of the current user
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public IEnumerable<UserInfo> GetAllUsersbyProyectLeader(string userName)
+        {
+            var userslist = _session.QueryOver<Notifications>()
+               .Where(x => x.ProjectLeaderMail == userName || x.SenseiMail == userName)
+               .List();
+            
+            List<UserInfo> userListToday = userslist.Select(x => x.IdUserInfo).ToList();
+
+            return userListToday;
+        }
+
+
+
+        /// <summary>
         /// Gets the time that the user has been online
         /// </summary>
         /// <param name="checkInOut"></param>

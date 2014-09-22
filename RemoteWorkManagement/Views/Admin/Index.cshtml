@@ -19,6 +19,8 @@
         <div notifications="top right"></div>
         <div class="page-header">
             <h1>
+                <a class="user tip" data-toggle="tooltip" data-placement="right" href="#"
+                   title="este es tun topsd">Dashboard</a>
                 Dashboard
             </h1>
         </div>
@@ -28,7 +30,14 @@
                     <div class="col-xs-8">
 
                         <div class="col-xs-4 center">
-                            <p><label>Users not logged</label></p>
+                            <p>
+                                <div class="widget-header widget-header-small">
+                                    <h4 class="blue smaller">
+                                        <i class="icon-rss orange"></i>
+                                        Users not logged
+                                    </h4>
+                                </div>
+                            </p>
                             <p>
                                 <div ang:round:progress data-round-progress-model="roundProgressData"
                                      data-round-progress-width="100"
@@ -36,17 +45,49 @@
                                      data-round-progress-outer-circle-width="10"
                                      data-round-progress-inner-circle-width="4"
                                      data-round-progress-outer-circle-radius="40"
-                                     data-round-progress-inner-circle-radius="25"
+                                     data-round-progress-inner-circle-radius="27"
                                      data-round-progress-label-font="12pt Arial"
                                      data-round-progress-outer-circle-background-color="#D8D8D8"
                                      data-round-progress-outer-circle-foreground-color="#FFBF00"
                                      data-round-progress-inner-circle-color="#D8D8D8"
                                      data-round-progress-label-color="#070719"></div>
                             </p>
+                            <p>
+                                <div class="widget-box transparent">
+
+                                    <div class="widget-body  ">
+                                        <div class="widget-main padding-8">
+                                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 350px;">
+                                                <div id="profile-feed-1" class="profile-feed" style="overflow: hidden; width: auto; height: 350px;">
+
+
+                                                    <div class="profile-activity clearfix" ng-repeat="remainingUser in remainingUsers">
+                                                        <div>
+                                                            <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{remainingUser.Picture}}">
+                                                            <a class="user" href="#"> {{remainingUser.FirstName}} {{remainingUser.LastName}}</a>
+                                                        </div>
+                                                        <div ng-class="[remainingUser.FlexTime.Color]">
+                                                            <i class="icon-time bigger-110"></i>
+                                                            {{remainingUser.FlexTime.Time}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
                         </div>
 
                         <div class="col-xs-4 center">
-                            <p><label>Users logged in</label></p>
+                            <p>
+                                <div class="widget-header widget-header-small">
+                                    <h4 class="blue smaller">
+                                        <i class="icon-rss orange"></i>
+                                        Users logged in
+                                    </h4>
+                                </div>
+                            </p>
                             <p>
                                 <div ang:round:progress data-round-progress-model="roundProgressData2"
                                      data-round-progress-width="100"
@@ -54,12 +95,91 @@
                                      data-round-progress-outer-circle-width="10"
                                      data-round-progress-inner-circle-width="4"
                                      data-round-progress-outer-circle-radius="40"
-                                     data-round-progress-inner-circle-radius="25"
+                                     data-round-progress-inner-circle-radius="27"
                                      data-round-progress-label-font="12pt Arial"
                                      data-round-progress-outer-circle-background-color="#D8D8D8"
                                      data-round-progress-outer-circle-foreground-color="#01DF01"
                                      data-round-progress-inner-circle-color="#D8D8D8"
                                      data-round-progress-label-color="#070719"></div>
+                            </p>
+                            <p>
+                                <div class="widget-box transparent">
+
+                                    <div class="widget-body  ">
+                                        <div class="widget-main padding-8">
+                                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
+                                                <div id="profile-feed-2" class="profile-feed" style="overflow: hidden; width: auto; height: 250px;">
+
+
+                                                    <div class="profile-activity clearfix" ng-repeat="readyUser in readyUsers">
+                                                        <div>
+                                                            <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{readyUser.Picture}}">
+                                                            <i class="blue icon-exclamation-sign" ng-show="{{readyUser.IsManualCheckIn}}"></i>
+                                                            <a class="user" href="#"> {{readyUser.FirstName}} {{readyUser.LastName}} </a>
+                                                        </div>
+                                                        <div class="time" style=" color:green">
+                                                            <i class="icon-time bigger-110"></i>
+                                                            {{readyUser.FlexTime}}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+
+
+                        <div class="col-xs-4 center">
+                            <p>
+                                <div class="widget-header widget-header-small">
+                                    <h4 class="blue smaller">
+                                        <i class="icon-rss orange"></i>
+                                        Unauthorized users
+                                    </h4>
+                                </div>
+                            </p>
+                            <p>
+                                <div ang:round:progress data-round-progress-model="roundProgressUnauthorizedUser"
+                                     data-round-progress-width="100"
+                                     data-round-progress-height="100"
+                                     data-round-progress-outer-circle-width="10"
+                                     data-round-progress-inner-circle-width="4"
+                                     data-round-progress-outer-circle-radius="40"
+                                     data-round-progress-inner-circle-radius="27"
+                                     data-round-progress-label-font="12pt Arial"
+                                     data-round-progress-outer-circle-background-color="#0080FF"
+                                     data-round-progress-outer-circle-foreground-color="#0080FF"
+                                     data-round-progress-inner-circle-color="#D8D8D8"
+                                     data-round-progress-label-color="#070719"></div>
+                            </p>
+                            <p>
+                                <div class="widget-box transparent">
+                                    <div class="widget-body  ">
+                                        <div class="widget-main padding-8">
+                                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
+                                                <div id="profile-feed-3" class="profile-feed" style="overflow: hidden; width: auto; height: 250px;">
+
+
+                                                    <div class="profile-activity clearfix" ng-repeat="user in unAuthorizedUsersCheckedIn">
+                                                        <div>
+                                                            <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{user.Picture}}">
+                                                            <a class="user tip" data-toggle="tooltip" data-placement="bottom" href="#"
+                                                               title="{{user.CommentsCheckIn}}">{{user.FirstName}} {{user.LastName}}</a>
+                                                        </div>
+                                                        <div class="time" style=" color:green">
+                                                            <i class="icon-time bigger-110"></i>
+                                                            {{user.FlexTime}}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </p>
                         </div>
 
@@ -75,90 +195,9 @@
 
                 <div class="row">
                     <br />
-                    <div class="widget-box transparent col-xs-4">
-                        <div class="widget-header widget-header-small">
-                            <h4 class="blue smaller">
-                                <i class="icon-rss orange"></i>
-                                Users not logged
-                            </h4>
-
-                            <div class="widget-toolbar action-buttons">
-                                <a href="#" data-action="reload">
-                                    <i class="icon-refresh blue"></i>
-                                </a>
-
-                                &nbsp;
-                                <a href="#" class="pink">
-                                    <i class="icon-trash"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="widget-body  ">
-                            <div class="widget-main padding-8">
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
-                                    <div id="profile-feed-1" class="profile-feed" style="overflow: hidden; width: auto; height: 250px;">
 
 
-                                        <div class="profile-activity clearfix" ng-repeat="remainingUser in remainingUsers">
-                                            <div>
-                                                <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{remainingUser.Picture}}">
-                                                <a class="user" href="#"> {{remainingUser.FirstName}} {{remainingUser.LastName}}</a>
-                                            </div>
-                                            <div class="time">
-                                                <i class="icon-time bigger-110"></i>
-                                                {{remainingUser.FlexTime}}
-                                            </div>
-                                        </div>
 
-
-                                    </div><div class="slimScrollBar ui-draggable" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 99.0491283676704px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget-box transparent col-xs-4">
-                        <div class="widget-header widget-header-small">
-                            <h4 class="blue smaller">
-                                <i class="icon-rss orange"></i>
-                                Users logged in
-                            </h4>
-
-                            <div class="widget-toolbar action-buttons">
-                                <a href="#" data-action="reload">
-                                    <i class="icon-refresh blue"></i>
-                                </a>
-
-                                &nbsp;
-                                <a href="#" class="pink">
-                                    <i class="icon-trash"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="widget-body  ">
-                            <div class="widget-main padding-8">
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;">
-                                    <div id="profile-feed-1" class="profile-feed" style="overflow: hidden; width: auto; height: 250px;">
-
-
-                                        <div class="profile-activity clearfix" ng-repeat="readyUser in readyUsers">
-                                            <div>
-                                                <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{readyUser.Picture}}">
-                                                <a class="user" href="#"> {{readyUser.FirstName}} {{readyUser.LastName}} </a>
-                                            </div>
-                                            <div class="time">
-                                                <i class="icon-time bigger-110"></i>
-                                                {{readyUser.FlexTime}}
-                                            </div>
-                                        </div>
-
-                                    </div><div class="slimScrollBar ui-draggable" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 99.0491283676704px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 

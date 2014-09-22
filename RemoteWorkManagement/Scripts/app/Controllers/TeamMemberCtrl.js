@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('TeamMemberCtrl', ['$scope', 'userService', '$upload', '$http', '$notification','$q', function ($scope, userService, $upload, $http, $notification,$q) {
+    angular.module('RemoteManagement').controller('TeamMemberCtrl', ['$scope', 'userService', '$upload', '$http', '$notification', '$q', '$timeout', function ($scope, userService, $upload, $http, $notification, $q, $timeout) {
         //---------------------------Variables Declaration---------------------
         $scope.users = [];
         $scope.showInfo = true;
@@ -34,6 +34,24 @@
         $scope.$watch('roundProgressData2', function (newValue, oldValue) {
             newValue.percentage = newValue.label / 100;
         }, true);
+
+
+            //this block of code is just for refresh the charts in 
+            $timeout(function () {
+                 $scope.automatic();
+            }, 10000);
+
+            $scope.automatic = function () {
+                $scope.chartLoader();
+                $timeout(function () {
+                   $scope.auto();
+                }, 10000);
+            };
+
+            $scope.auto = function() {
+              $scope.automatic();
+            };
+            // end block..
 
 
         //---------------------------Public Functions--------------------------
@@ -99,45 +117,55 @@
                 console.log(response.data);
                 $scope.remainingUsers = response.data;
                 console.log($scope.remainingUsers);
-                userService.getReadyUsers().then(function(data) {
-                    $scope.readyUsers = data.data;
-                    console.log(data.data);
-                    $scope.countCheckInOutUsers = (100 / ($scope.readyUsers.length + $scope.remainingUsers.length));
-                    $scope.countNotLoggedUsers = ($scope.remainingUsers.length * $scope.countCheckInOutUsers).toFixed(1);
-                    $scope.countLoggedUsers = ($scope.readyUsers.length * $scope.countCheckInOutUsers).toFixed(1);
-
-                    console.log($scope.countCheckInOutUsers);
-                    console.log($scope.countNotLoggedUsers);
-                    console.log($scope.countLoggedUsers);
-                    $scope.roundProgressData = {
-                        label: $scope.countNotLoggedUsers,
-                        percentage: $scope.countNotLoggedUsers,
-                        marks: '%'
+                userService.getNotAllowedCheckInUsers().then(function (data2) {
+                    $scope.unAuthorizedUsersCheckedIn = data2.data;
+                    console.log($scope.unAuthorizedUsersCheckedIn);
+                    $scope.roundProgressUnauthorizedUser = {
+                        label: $scope.unAuthorizedUsersCheckedIn.length,
+                        percentage: $scope.unAuthorizedUsersCheckedIn.length,
+                        marks: ''
                     }
-                    console.log("round progress data");
-                    console.log($scope.roundProgressData);
-                    $scope.roundProgressData2 = {
-                        label: $scope.countLoggedUsers,
-                        percentage: $scope.countLoggedUsers,
-                        marks: '%'
-                    }
-                    console.log("round progress data2");
-                    console.log($scope.roundProgressData2);
+                    userService.getReadyUsers().then(function (data) {
+                        $scope.readyUsers = data.data;
+                        console.log(data.data);
+                        $scope.countCheckInOutUsers = (100 / ($scope.readyUsers.length + $scope.remainingUsers.length));
+                        $scope.countNotLoggedUsers = ($scope.remainingUsers.length * $scope.countCheckInOutUsers).toFixed(1);
+                        $scope.countLoggedUsers = ($scope.readyUsers.length * $scope.countCheckInOutUsers).toFixed(1);
 
-                    userService.getNotAllowedCheckInUsers().then(function(data2) {
-                        $scope.unAuthorizedUsersCheckedIn = data2.data;
-                        console.log($scope.unAuthorizedUsersCheckedIn);
-                        $scope.roundProgressUnauthorizedUser = {
-                            label: $scope.unAuthorizedUsersCheckedIn.length,
-                            percentage: $scope.unAuthorizedUsersCheckedIn.length,
-                            marks: ''
+                        console.log($scope.countCheckInOutUsers);
+                        console.log($scope.countNotLoggedUsers);
+                        console.log($scope.countLoggedUsers);
+                        $scope.roundProgressData = {
+                            label: $scope.countNotLoggedUsers,
+                            percentage: $scope.countNotLoggedUsers,
+                            marks: '%'
                         }
+                        console.log("round progress data");
+                        console.log($scope.roundProgressData);
+                        $scope.roundProgressData2 = {
+                            label: $scope.countLoggedUsers,
+                            percentage: $scope.countLoggedUsers,
+                            marks: '%'
+                        }
+                        console.log("round progress data2");
+                        console.log($scope.roundProgressData2);
+                        
+                        $(".tip").tooltip();
                     });
 
                 });
             });
         };
-        $scope.chartLoader();
+       $scope.chartLoader();
+
+       $scope.getAllUsersbyProyectLeader = function () {
+           console.log("todos los usuariossssss");
+            userService.getAllUsersbyProyectLeader().then(function(response) {
+                console.log("todos los usuarios");
+                console.log(response.data);
+            });
+        };
+        $scope.getAllUsersbyProyectLeader();
 
         //POST-------------------------------------------------------
         

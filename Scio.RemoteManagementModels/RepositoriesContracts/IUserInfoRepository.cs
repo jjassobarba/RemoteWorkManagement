@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NHibernate.Type;
 using Scio.RemoteManagementModels.Entities;
 
 namespace Scio.RemoteManagementModels.RepositoriesContracts
@@ -67,5 +68,12 @@ namespace Scio.RemoteManagementModels.RepositoriesContracts
         /// <param name="userName"></param>
         /// <returns></returns>
         IEnumerable<object> GetNotAllowedCheckInUsers(string userName);
+
+        /// <summary>
+        /// Gets all the team member's who are in charge of the current user
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        IEnumerable<UserInfo> GetAllUsersbyProyectLeader(string userName);
     }
 }

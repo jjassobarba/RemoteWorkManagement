@@ -129,6 +129,38 @@ namespace RemoteWorkManagement.Controllers
         }
 
         /// <summary>
+        /// Gets all the team member's who are in charge of the current user.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GetAllUsersbyProyectLeader()
+        {
+            var usersList = _userInfoRepository.GetAllUsersbyProyectLeader(User.Identity.Name);
+            var usersInfoList = usersList.Select(user => new
+            {
+                IdUserInfo = user.IdUserInfo,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                FlexTime = GetTimeBeforeCheckIn(user),
+                OtherFlexTime = user.OtherFlexTime,
+                Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
+                Position = user.Position,
+                ReceiveNotifications = user.ReceiveNotifications,
+                RemoteDays = user.RemoteDays,
+                IdMembership = new
+                {
+                    IdMembership = user.IdMembership.Id,
+                    Email = user.IdMembership.Username
+                },
+                Rol = new
+                {
+                    RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
+                }
+            }).Cast<object>().ToList();
+            return Json(new { data = usersInfoList });
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="user"></param>
