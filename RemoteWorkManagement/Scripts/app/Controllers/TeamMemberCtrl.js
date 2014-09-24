@@ -17,42 +17,49 @@
         $scope.countCheckInOutUsers = 0;
         $scope.countNotLoggedUsers = 0;
         $scope.countLoggedUsers = 0;
+        $scope.roundProgressData = 0;
+        $scope.roundProgressData2 = 0;
+        $scope.roundProgressUnauthorizedUser = 0;
         $scope.color = "red";
         $scope.$on('LOAD', function () { $scope.loading = true; });
-        $scope.$on('UNLOAD', function() { $scope.loading = false; });
-       
+        $scope.$on('UNLOAD', function () { $scope.loading = false; });
+        $scope.isCheckInDisable = true;
+        $scope.isCheckOutDisable = true;
+        $scope.isCheckInManualDisable = true;
+        $scope.isCheckOutManualDisable = true;
+
         //---------------------------------------------------------------------
 
         // Here I synchronize the value of label and percentage in order to have a chart
-        $scope.$watch('roundProgressData', function (newValue, oldValue) {
+        $scope.$watch('roundProgressData', function (newValue) {
             newValue.percentage = newValue.label / 100;
         }, true);
 
-        $scope.$watch('roundProgressUnauthorizedUser', function (newValue, oldValue) {
+        $scope.$watch('roundProgressUnauthorizedUser', function (newValue) {
             newValue.percentage = newValue.label / 100;
         }, true);
-       
-        $scope.$watch('roundProgressData2', function (newValue, oldValue) {
+
+        $scope.$watch('roundProgressData2', function (newValue) {
             newValue.percentage = newValue.label / 100;
         }, true);
 
 
-            //this block of code is just for refresh the charts. 
+        //this block of code is just for refresh the charts. 
+        $timeout(function () {
+            $scope.automatic();
+        }, 10000);
+
+        $scope.automatic = function () {
+            $scope.chartLoader();
             $timeout(function () {
-                 $scope.automatic();
+                $scope.auto();
             }, 10000);
+        };
 
-            $scope.automatic = function () {
-                $scope.chartLoader();
-                $timeout(function () {
-                   $scope.auto();
-                }, 10000);
-            };
-
-            $scope.auto = function() {
-              $scope.automatic();
-            };
-            // end block..
+        $scope.auto = function () {
+            $scope.automatic();
+        };
+        // end block..
 
 
         //---------------------------Public Functions--------------------------
@@ -81,106 +88,90 @@
         $scope.getUser();
 
         //Gets status checkIn
-        $scope.getStatusCheckIn = function() {
-            var request = $http({
+        $scope.getStatusCheckIn = function () {
+            $http({
                 method: 'post',
                 url: '/TeamMember/GetCheckInStatus'
-            }).success(function (data, status, headers, config) {
+            }).success(function (data) {
                 if (data.data.isEnablecheckOut) {
-                    $scope.disable('btnCheckIn');
-                    $scope.disable('btnCheckInM');
-                    $scope.enable('btnCheckOut'); 
-                    $scope.enable('btnCheckOutM');
+                    $scope.isCheckInDisable = true;
+                    $scope.isCheckInManualDisable = true;
+                    $scope.isCheckOutDisable = false;
+                    $scope.isCheckOutManualDisable = false;
                 } else {
-                    $scope.disable('btnCheckOut');
-                    $scope.disable('btnCheckOutM');
-                    $scope.enable('btnCheckIn');
-                    $scope.enable('btnCheckInM');
+                    $scope.isCheckOutDisable = true;
+                    $scope.isCheckOutManualDisable = true;
+                    $scope.isCheckInDisable = false;
+                    $scope.isCheckInManualDisable = false;
                 }
-            }).error(function (data, status, headers, config) {
-                console.log(data);
+            }).error(function () {
+
             });
         };
         $scope.getStatusCheckIn();
 
         //Verifies if the user is allowed to work remotely today
-        $scope.getStatusDay = function() {
-            userService.isAllowedDay().then(function(response) {
+        $scope.getStatusDay = function () {
+            userService.isAllowedDay().then(function (response) {
                 $scope.isAllowedDay = response.success;
             });
         };
         $scope.getStatusDay();
 
 
-       $scope.chartLoader = function () {
+        $scope.chartLoader = function () {
             userService.getRemainingUsers().then(function (response) {
-                console.log(response);
-                console.log(response.data);
                 $scope.remainingUsers = response.data;
-                console.log($scope.remainingUsers);
                 userService.getNotAllowedCheckInUsers().then(function (data2) {
                     $scope.unAuthorizedUsersCheckedIn = data2.data;
-                    console.log($scope.unAuthorizedUsersCheckedIn);
                     $scope.roundProgressUnauthorizedUser = {
                         label: $scope.unAuthorizedUsersCheckedIn.length,
                         percentage: $scope.unAuthorizedUsersCheckedIn.length,
                         marks: ''
-                    }
+                    };
                     userService.getReadyUsers().then(function (data) {
                         $scope.readyUsers = data.data;
-                        console.log(data.data);
                         $scope.countCheckInOutUsers = (100 / ($scope.readyUsers.length + $scope.remainingUsers.length));
                         $scope.countNotLoggedUsers = ($scope.remainingUsers.length * $scope.countCheckInOutUsers).toFixed(1);
                         $scope.countLoggedUsers = ($scope.readyUsers.length * $scope.countCheckInOutUsers).toFixed(1);
-
-                        console.log($scope.countCheckInOutUsers);
-                        console.log($scope.countNotLoggedUsers);
-                        console.log($scope.countLoggedUsers);
                         $scope.roundProgressData = {
                             label: $scope.countNotLoggedUsers,
                             percentage: $scope.countNotLoggedUsers,
                             marks: '%'
-                        }
-                        console.log("round progress data");
-                        console.log($scope.roundProgressData);
+                        };
                         $scope.roundProgressData2 = {
                             label: $scope.countLoggedUsers,
                             percentage: $scope.countLoggedUsers,
                             marks: '%'
-                        }
-                        console.log("round progress data2");
-                        console.log($scope.roundProgressData2);
-                        
-                        $(".tip").tooltip();
+                        };
+                        $('.tip').tooltip();
                     });
 
                 });
             });
         };
-       $scope.chartLoader();
+        $scope.chartLoader();
 
-       $scope.getAllUsersbyProyectLeader = function () {
-            userService.getAllUsersbyProyectLeader().then(function(response) {
+        $scope.getAllUsersbyProyectLeader = function () {
+            userService.getAllUsersbyProyectLeader().then(function (response) {
                 $scope.usersAssignedTo = response.data;
-                console.log("todos");
-                console.log($scope.usersAssignedTo);
             });
         };
         $scope.getAllUsersbyProyectLeader();
 
         //POST-------------------------------------------------------
-        
+
         $scope.checkIn = function () {
             $scope.$emit('LOAD');
             if ($scope.isAllowedDay) {
-                var request = $http({
+                $http({
                     method: 'post',
                     url: '/TeamMember/CheckIn',
-                    params : {
+                    params: {
                         comment: "",
                         type: "Automatic"
                     }
-                }).success(function (data, status, headers, config) {
+                }).success(function (data) {
                     $scope.getStatusCheckIn();
                     if (data.data.success) {
                         if (data.data.isMailSent) {
@@ -192,21 +183,21 @@
                         $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                     }
                     $scope.$emit('UNLOAD');
-                }).error(function (data, status, headers, config) {
+                }).error(function () {
                     $scope.getStatusCheckIn();
                     $notification.error('Whoa! Something seems wrong.', 'please try again!');
                     $scope.$emit('UNLOAD');
                 });
             } else {
                 if ($scope.checkIncomment != "") {
-                    var request = $http({
+                    $http({
                         method: 'post',
                         url: '/TeamMember/CheckIn',
-                        params : {
+                        params: {
                             comment: $scope.checkIncomment,
                             type: "Exception"
                         }
-                    }).success(function (data, status, headers, config) {
+                    }).success(function (data) {
                         $scope.getStatusCheckIn();
                         if (data.data.success) {
                             if (data.data.isMailSent) {
@@ -218,7 +209,7 @@
                             $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                         }
                         $scope.$emit('UNLOAD');
-                    }).error(function (data, status, headers, config) {
+                    }).error(function () {
                         $scope.getStatusCheckIn();
                         $notification.error('Whoa! Something seems wrong.', 'please try again!');
                         $scope.$emit('UNLOAD');
@@ -253,9 +244,8 @@
 
         $scope.checkInM = function () {
             $scope.$emit('LOAD');
-            console.log($scope.checkIncomment);
             if ($scope.isAllowedDay) {
-                var request = $http({
+                $http({
                     method: 'post',
                     url: '/TeamMember/CheckInM',
                     params: {
@@ -263,7 +253,7 @@
                         type: "Manual",
                         time: $scope.checkInTime
                     }
-                }).success(function (data, status, headers, config) {
+                }).success(function (data) {
                     $scope.getStatusCheckIn();
                     if (data.data.success) {
                         if (data.data.isMailSent) {
@@ -275,14 +265,14 @@
                         $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                     }
                     $scope.$emit('UNLOAD');
-                }).error(function (data, status, headers, config) {
+                }).error(function () {
                     $scope.getStatusCheckIn();
                     $notification.error('Whoa! Something seems wrong.', 'please try again!');
                     $scope.$emit('UNLOAD');
                 });
             } else {
                 if ($scope.checkIncomment != "") {
-                    var request = $http({
+                    $http({
                         method: 'post',
                         url: '/TeamMember/CheckInM',
                         params: {
@@ -290,7 +280,7 @@
                             type: "Exception",
                             time: $scope.checkInTime
                         }
-                    }).success(function (data, status, headers, config) {
+                    }).success(function (data) {
                         $scope.getStatusCheckIn();
                         if (data.data.success) {
                             if (data.data.isMailSent) {
@@ -302,7 +292,7 @@
                             $notification.error('Error!', 'You cant CheckIn without CheckOut! or two times per day');
                         }
                         $scope.$emit('UNLOAD');
-                    }).error(function (data, status, headers, config) {
+                    }).error(function () {
                         $scope.getStatusCheckIn();
                         $notification.error('Whoa! Something seems wrong.', 'please try again!');
                         $scope.$emit('UNLOAD');
@@ -337,12 +327,12 @@
 
         $scope.checkOut = function () {
             $scope.$emit('LOAD');
-            var request = $http({
+            $http({
                 method: 'post',
                 url: '/TeamMember/CheckOut'
-            }).success(function (data, status, headers, config) {
+            }).success(function (data) {
                 $scope.getStatusCheckIn();
-                
+
                 if (data.data.success) {
                     if (data.data.isMailSent) {
                         $notification.success('CheckOut done!', 'Now you can be offline!');
@@ -353,7 +343,7 @@
                     $notification.error('Error!', 'You cant CheckOut without CheckIn');
                 }
                 $scope.$emit('UNLOAD');
-            }).error(function (data, status, headers, config) {
+            }).error(function () {
                 $scope.getStatusCheckIn();
                 $notification.error('Whoa! Something seems wrong.', 'please try again!');
                 $scope.$emit('UNLOAD');
@@ -362,15 +352,14 @@
 
         $scope.checkOutM = function () {
             $scope.$emit('LOAD');
-            var request = $http({
+            $http({
                 method: 'post',
                 url: '/TeamMember/CheckOutM',
                 params: {
                     time: $scope.checkOutTime
                 }
-            }).success(function (data, status, headers, config) {
+            }).success(function (data) {
                 $scope.getStatusCheckIn();
-                console.log(data.success);
                 if (data.data.success) {
                     if (data.data.isMailSent) {
                         $notification.success('CheckOut done!', 'Now you can be offline!');
@@ -381,7 +370,7 @@
                     $notification.error('Error!', 'You cant CheckOut without CheckIn');
                 }
                 $scope.$emit('UNLOAD');
-            }).error(function (data, status, headers, config) {
+            }).error(function () {
                 $scope.getStatusCheckIn();
                 $notification.error('Whoa! Something seems wrong.', 'please try again!');
                 $scope.$emit('UNLOAD');
@@ -396,58 +385,14 @@
                 url: '/TeamMember/UpdateProfilePicture',
                 method: 'POST',
                 file: files
-            }).success(function (data, status, headers, config) {
+            }).success(function () {
                 $notification.success('Profile picture has been updated.', '');
                 $scope.getUser();
                 $scope.$emit('UNLOAD');
-            }).error(function (data, status, headers, config) {
+            }).error(function () {
                 $notification.error('Whoa! Something seems wrong.', '');
                 $scope.$emit('UNLOAD');
             });
-        };
-
-        //Removes disable attributes for a specific id
-        $scope.enable = function (id) {
-            document.getElementById(id).removeAttribute('disabled');
-        }
-        //Sets disabled attribute for an specific id
-        $scope.disable = function (id) {
-            document.getElementById(id).setAttribute('disabled', 'disabled');
-        }
-
-        //------------------------------Public Functions------------------------
-        //Show the alert
-        $scope.showAlert = function (elementId) {
-            var svgshape = document.getElementById(elementId),
-                s = Snap(svgshape.querySelector('svg')),
-                path = s.select('path'),
-                pathConfig = {
-                    from: path.attr('d'),
-                    to: svgshape.getAttribute('data-path-to')
-                };
-
-            window.setTimeout(function () {
-
-                path.animate({ 'path': pathConfig.to }, 300, mina.easeinout);
-
-                // create the notification
-                var notification = new NotificationFx({
-                    wrapper: svgshape,
-                    message: '<p><span class="icon icon-exclamation-sign big"></span>The changes has been saved</p>',
-                    layout: 'other',
-                    effect: 'cornerexpand',
-                    type: 'notice', // notice, warning or error
-                    onClose: function () {
-                        setTimeout(function () {
-                            path.animate({ 'path': pathConfig.from }, 300, mina.easeinout);
-                        }, 200);
-                    }
-                });
-
-                // show the notification
-                notification.show();
-
-            }, 500);
-        };
+        };     
     }]);
 })();

@@ -37,9 +37,10 @@
                         </div>
 
                         <div class="panel-collapse collapse" id="collapseThree" style="height: 0px;">
-                            <div class="panel-body"><!--Panel body-->
-                                
-                            <div class="col-xs-12 col-sm-4 widget-container-span ui-sortable">
+                            <div class="panel-body">
+                                <!--Panel body-->
+
+                                <div class="col-xs-12 col-sm-4 widget-container-span ui-sortable">
                                     <div class="widget-box">
 
                                         <div class="widget-header">
@@ -54,7 +55,7 @@
                                         <div class="widget-body">
                                             <div class="widget-main padding-6">
                                                 <br />
-                                                <button id="btnCheckIn" class="btn btn-success" ng-click="checkIn()">
+                                                <button id="btnCheckIn" class="btn btn-success" ng-click="checkIn()" ng-disabled="isCheckInDisable">
                                                     <i class="icon-check bigger-230"></i>
                                                     Automatic CheckIn
                                                 </button>
@@ -89,7 +90,7 @@
                                                         </div>
                                                     </p>
                                                     <p>
-                                                        <button id="btnCheckInM" class="btn btn-success btn-mini">
+                                                        <button id="btnCheckInM" class="btn btn-success btn-mini" ng-disabled="isCheckInManualDisable">
                                                             <i class="icon-unchecked bigger-125"></i>
                                                             CheckIn
                                                         </button>
@@ -100,7 +101,7 @@
                                     </div>
                                 </div>
 
-                            
+
                                 <div id="warning-dialog" class="hide">
                                     <p>
                                         You are not authorized to work remotely today.
@@ -145,12 +146,12 @@
 
                                         <div class="widget-body">
                                             <div class="widget-main padding-6">
-                                                <br/>
-                                                <button id="btnCheckOut" class="btn btn-primary btn-large" ng-click="checkOut()">
+                                                <br />
+                                                <button id="btnCheckOut" class="btn btn-primary btn-large" ng-click="checkOut()" ng-disabled="isCheckOutDisable">
                                                     <i class="icon-unchecked bigger-230"></i>
                                                     Automatic CheckOut
                                                 </button>
-                                                <br /><br/><p></p>
+                                                <br /><br /><p></p>
                                             </div>
                                         </div>
 
@@ -181,7 +182,7 @@
                                                         </div>
                                                     </p>
                                                     <p>
-                                                        <button id="btnCheckOutM" class="btn btn-primary btn-mini ">
+                                                        <button class="btn btn-primary btn-mini" ng-disabled="isCheckOutManualDisable" ng-model="btnManualCheckOut">
                                                             <i class="icon-unchecked bigger-125"></i>
                                                             CheckOut
                                                         </button>

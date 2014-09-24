@@ -240,6 +240,14 @@
             }, 500);
         };
 
+        $scope.activeMenu = function () {
+            //Attach the active element in menu
+            $('.nav li').removeClass('active');
+            if (!$('#usersLink').hasClass('active')) {
+                $('#usersLink').addClass('active');
+            }
+        };
+
         //Reset form
         $scope.resetForm = function () {
             $scope.firstName = "";

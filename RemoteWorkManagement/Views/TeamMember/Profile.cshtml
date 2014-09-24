@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_InnerLayout.cshtml";
 }
@@ -26,8 +25,8 @@
         <fieldset>
             <div class="container">
                 <div ng-show="showInfo">
-                    
-                    
+
+
                     <div class="progress progress-small progress-striped active" ng-show="loading">
                         <div class="progress-bar progress-bar-info" style="width: 100%;"></div>
                     </div>
@@ -79,14 +78,14 @@
                                             </span>
                                         </div>
                                     </div>
-                                        
+
                                     <div class="profile-info-row">
                                         <div class="profile-info-name">Project Leader</div>
                                         <div class="profile-info-value">
                                             <span>{{idProjectLeader}}</span>
                                         </div>
                                     </div>
-                                        
+
                                     <div class="profile-info-row">
                                         <div class="profile-info-name">Sensei</div>
                                         <div class="profile-info-value">
@@ -96,10 +95,10 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                     </div>
                     <div class="row">
-                        <br/><br/>
+                        <br /><br />
                         <div id="accordion" class="accordion-style1 panel-group col-sm-9">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -130,7 +129,7 @@
                                                 <div class="widget-body">
                                                     <div class="widget-main padding-6">
                                                         <br />
-                                                        <button id="btnCheckIn" class="btn btn-success" ng-click="checkIn()">
+                                                        <button id="btnCheckIn" class="btn btn-success" ng-click="checkIn()" ng-disabled="isCheckInDisable">
                                                             <i class="icon-check bigger-230"></i>
                                                             Automatic CheckIn
                                                         </button>
@@ -165,7 +164,7 @@
                                                                 </div>
                                                             </p>
                                                             <p>
-                                                                <button id="btnCheckInM" class="btn btn-success btn-mini">
+                                                                <button id="btnCheckInM" class="btn btn-success btn-mini" ng-disabled="isCheckInManualDisable">
                                                                     <i class="icon-unchecked bigger-125"></i>
                                                                     CheckIn
                                                                 </button>
@@ -222,7 +221,7 @@
                                                 <div class="widget-body">
                                                     <div class="widget-main padding-6">
                                                         <br />
-                                                        <button id="btnCheckOut" class="btn btn-primary btn-large" ng-click="checkOut()">
+                                                        <button id="btnCheckOut" class="btn btn-primary btn-large" ng-click="checkOut()" ng-disabled="isCheckOutDisable">
                                                             <i class="icon-unchecked bigger-230"></i>
                                                             Automatic CheckOut
                                                         </button>
@@ -257,7 +256,7 @@
                                                                 </div>
                                                             </p>
                                                             <p>
-                                                                <button id="btnCheckOutM" class="btn btn-primary btn-mini ">
+                                                                <button class="btn btn-primary btn-mini" ng-disabled="isCheckOutManualDisable" ng-model="btnManualCheckOut">
                                                                     <i class="icon-unchecked bigger-125"></i>
                                                                     CheckOut
                                                                 </button>

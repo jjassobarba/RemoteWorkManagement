@@ -2,7 +2,7 @@
     ViewBag.Title = "Notifications";
     Layout = "~/Views/Shared/_InnerLayout.cshtml";
 }
-<div ng-controller="NotificationsCtrl" ng-cloak>
+<div ng-controller="NotificationsCtrl" ng-cloak ng-init="activeMenu()">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
             try { ace.settings.check('breadcrumbs', 'fixed'); } catch (e) { }

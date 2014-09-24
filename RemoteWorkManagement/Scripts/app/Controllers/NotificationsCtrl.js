@@ -156,6 +156,14 @@
 
             }, 500);
         };
+        
+        $scope.activeMenu = function () {
+            //Attach the active element in menu
+            $('.nav li').removeClass('active');
+            if (!$('#notificationsLink').hasClass('active')) {
+                $('#notificationsLink').addClass('active');
+            }
+        };
 
         $scope.resetForm = function () {
             $scope.insertNotifForm.$setPristine();
