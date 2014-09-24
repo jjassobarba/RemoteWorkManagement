@@ -1,12 +1,12 @@
-﻿<div>
+﻿
     <div id="userList" class="tab-pane">
         <div class="profile-users clearfix">
-            <div ng-repeat="user in usersFullList">
-                <div class="itemdiv memberdiv" popup>
+            
+                <div class="itemdiv memberdiv" popup ng-repeat="user in usersFullList">
                     <div class="inline position-relative">
                         <div class="user">
                             <a href="#">
-                                <img ng-src="data:image/JPEG;base64,{{user.Picture}}" alt="Test Image" />
+                                <img ng-src="data:image/JPEG;base64,{{user.Picture}}" alt="Test Image" style="height:64px;width: 64px;" />
                             </a>
                         </div>
 
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+           
         </div>
     </div>
-</div>
+

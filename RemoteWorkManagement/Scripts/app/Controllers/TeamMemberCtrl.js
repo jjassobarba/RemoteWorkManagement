@@ -13,6 +13,7 @@
         $scope.remainingUsers = [];
         $scope.readyUsers = [];
         $scope.unAuthorizedUsersCheckedIn = [];
+        $scope.usersAssignedTo = [];
         $scope.countCheckInOutUsers = 0;
         $scope.countNotLoggedUsers = 0;
         $scope.countLoggedUsers = 0;
@@ -36,7 +37,7 @@
         }, true);
 
 
-            //this block of code is just for refresh the charts in 
+            //this block of code is just for refresh the charts. 
             $timeout(function () {
                  $scope.automatic();
             }, 10000);
@@ -159,10 +160,10 @@
        $scope.chartLoader();
 
        $scope.getAllUsersbyProyectLeader = function () {
-           console.log("todos los usuariossssss");
             userService.getAllUsersbyProyectLeader().then(function(response) {
-                console.log("todos los usuarios");
-                console.log(response.data);
+                $scope.usersAssignedTo = response.data;
+                console.log("todos");
+                console.log($scope.usersAssignedTo);
             });
         };
         $scope.getAllUsersbyProyectLeader();

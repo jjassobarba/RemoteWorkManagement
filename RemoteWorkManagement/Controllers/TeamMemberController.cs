@@ -142,11 +142,14 @@ namespace RemoteWorkManagement.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 FlexTime = GetTimeBeforeCheckIn(user),
+                FlexTimeR = user.FlexTime, 
                 OtherFlexTime = user.OtherFlexTime,
                 Picture = user.Picture.IsNullOrEmpty() ? DefaultPicture : Convert.ToBase64String(user.Picture),
                 Position = user.Position,
                 ReceiveNotifications = user.ReceiveNotifications,
                 RemoteDays = user.RemoteDays,
+                ModalClass = "modal fade " + user.IdUserInfo,
+                ModalClassTarget = "." + user.IdUserInfo,
                 IdMembership = new
                 {
                     IdMembership = user.IdMembership.Id,

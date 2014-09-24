@@ -328,8 +328,9 @@ namespace RemoteWorkManagement.Controllers
                     RolName = user.IdMembership.Roles.Select(p => p.RoleName).FirstOrDefault()
                 }
             }).Cast<object>().ToList();
-
-            return Json(new { usersInfo = usersInfoList }, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new {usersInfo = usersInfoList}, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
         /// <summary>

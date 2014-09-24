@@ -275,7 +275,7 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
 
 
         /// <summary>
-        /// Gets all the team member's who are in charge of the current user
+        /// Gets all the team members who are in charge of the current user
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>

@@ -26,8 +26,8 @@
         </div>
         <fieldset>
             <div class="container">
-                <div class="row vertical-spacer">
-                    <div class="col-xs-8">
+                <div class="row ">
+                    <div class="col-xs-9">
 
                         <div class="col-xs-4 center">
                             <p>
@@ -45,7 +45,7 @@
                                      data-round-progress-outer-circle-width="10"
                                      data-round-progress-inner-circle-width="4"
                                      data-round-progress-outer-circle-radius="40"
-                                     data-round-progress-inner-circle-radius="27"
+                                     data-round-progress-inner-circle-radius="30"
                                      data-round-progress-label-font="12pt Arial"
                                      data-round-progress-outer-circle-background-color="#D8D8D8"
                                      data-round-progress-outer-circle-foreground-color="#FFBF00"
@@ -63,7 +63,7 @@
 
                                                     <div class="profile-activity clearfix" ng-repeat="remainingUser in remainingUsers">
                                                         <div>
-                                                            <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{remainingUser.Picture}}">
+                                                            <img class="pull-left" alt="" ng-src="data:image/JPEG;base64,{{remainingUser.Picture}}" style="width: 34px; height: 34px">
                                                             <a class="user" href="#"> {{remainingUser.FirstName}} {{remainingUser.LastName}}</a>
                                                         </div>
                                                         <div ng-class="[remainingUser.FlexTime.Color]">
@@ -95,7 +95,7 @@
                                      data-round-progress-outer-circle-width="10"
                                      data-round-progress-inner-circle-width="4"
                                      data-round-progress-outer-circle-radius="40"
-                                     data-round-progress-inner-circle-radius="27"
+                                     data-round-progress-inner-circle-radius="30"
                                      data-round-progress-label-font="12pt Arial"
                                      data-round-progress-outer-circle-background-color="#D8D8D8"
                                      data-round-progress-outer-circle-foreground-color="#01DF01"
@@ -113,7 +113,7 @@
 
                                                     <div class="profile-activity clearfix" ng-repeat="readyUser in readyUsers">
                                                         <div>
-                                                            <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{readyUser.Picture}}">
+                                                            <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{readyUser.Picture}}" style="width: 34px; height: 34px">
                                                             <i class="blue icon-exclamation-sign" ng-show="{{readyUser.IsManualCheckIn}}"></i>
                                                             <a class="user" href="#"> {{readyUser.FirstName}} {{readyUser.LastName}} </a>
                                                         </div>
@@ -148,7 +148,7 @@
                                      data-round-progress-outer-circle-width="10"
                                      data-round-progress-inner-circle-width="4"
                                      data-round-progress-outer-circle-radius="40"
-                                     data-round-progress-inner-circle-radius="27"
+                                     data-round-progress-inner-circle-radius="30"
                                      data-round-progress-label-font="12pt Arial"
                                      data-round-progress-outer-circle-background-color="#0080FF"
                                      data-round-progress-outer-circle-foreground-color="#0080FF"
@@ -165,7 +165,7 @@
 
                                                     <div class="profile-activity clearfix" ng-repeat="user in unAuthorizedUsersCheckedIn">
                                                         <div>
-                                                            <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{user.Picture}}">
+                                                            <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{user.Picture}}" style="width: 34px; height: 34px">
                                                             <a class="user tip" data-toggle="tooltip" data-placement="bottom" href="#"
                                                                title="{{user.CommentsCheckIn}}">{{user.FirstName}} {{user.LastName}}</a>
                                                         </div>
@@ -195,8 +195,6 @@
 
                 <div class="row">
                     <br />
-
-
 
                 </div>
             </div>

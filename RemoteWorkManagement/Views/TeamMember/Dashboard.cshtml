@@ -12,119 +12,100 @@
                 <i class="icon-home home-icon"></i>
                 <a href="/Admin/">Home</a>
             </li>
-            <li class="active">Module Name</li>
+            <li class="active">Team members</li>
         </ul>
     </div>
     <div class="page-content">
         <div notifications="top right"></div>
         <div class="page-header">
             <h1>
-                Module Name
+                Team members
             </h1>
         </div>
         <fieldset>
             <div class="container">
                 <div class="row vertical-spacer">
                     
-                        <div class="col-sm-9 infobox-container">
-                            <div class="infobox infobox-green  ">
-                                <div class="infobox-icon">
-                                    <i class="icon-comments"></i>
-                                </div>
-
-                                <div class="infobox-data">
-                                    <span class="infobox-data-number">32</span>
-                                    <div class="infobox-content">comments + 2 reviews</div>
-                                </div>
-                                <div class="stat stat-success">8%</div>
+                    <div class="col-sm-9 infobox-container">
+                        
+                        <div class="infobox infobox-pink" ng-repeat="user in usersAssignedTo">
+                            <div class="infobox-icon">
+                                <img class="pull-left" alt="Alex Doe's avatar" ng-src="data:image/JPEG;base64,{{user.Picture}}" style="height: 80%; width: 80%;">
+                            </div>
+                            <div class="infobox-data">
+                                <a class="user" style="cursor: pointer" data-toggle="modal" data-target="{{user.ModalClassTarget}}"> {{user.FirstName}} {{user.LastName}}</a>
                             </div>
                             
-                            <div class="infobox infobox-green  ">
-                                <div class="infobox-icon">
-                                    <i class="icon-comments"></i>
-                                </div>
 
-                                <div class="infobox-data">
-                                    <span class="infobox-data-number">32</span>
-                                    <div class="infobox-content">comments + 2 reviews</div>
-                                </div>
-                                <div class="stat stat-success">8%</div>
-                            </div>
+                            <div ng-class="[user.ModalClass]" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color:steelblue; color:white">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title" id="mySmallModalLabel">User Info</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--body starts-->
+                                            <<div class="row">
+                                                <div class="col-xs-12 col-sm-2 center">
+                                                    <span class="profile-picture">
+                                                        <img class="editable img-responsive" alt="" id="avatar2" ng-src="data:image/JPEG;base64,{{user.Picture}}">
+                                                    </span>
+                                                 </div><!-- /span -->
 
-                            <div class="infobox infobox-blue  ">
-                                <div class="infobox-icon">
-                                    <i class="icon-twitter"></i>
-                                </div>
+                                                <div class="col-xs-12 col-sm-10">
+                                                    <h4 class="blue">
+                                                        <span class="align-middle" style="text-align: center">{{user.FirstName}} {{user.LastName}}</span>
+                                                    </h4>
+                                            
+                                                    <div class="profile-user-info">
+                                                        <div class="profile-user-info profile-user-info-striped">
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name" style=" font-size: 11px;"> Username </div>
 
-                                <div class="infobox-data">
-                                    <span class="infobox-data-number">11</span>
-                                    <div class="infobox-content">new followers</div>
-                                </div>
+                                                                <div class="profile-info-value " style=" font-size: 11px;">
+                                                                    <span class="editable editable-click">{{user.IdMembership.Email}}</span>
+                                                                </div>
+                                                            </div>
 
-                                <div class="badge badge-success">
-                                    +32%
-                                    <i class="icon-arrow-up"></i>
-                                </div>
-                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name" style=" font-size: 11px;"> Flex Time </div>
 
-                            <div class="infobox infobox-pink  ">
-                                <div class="infobox-icon">
-                                    <i class="icon-shopping-cart"></i>
-                                </div>
+                                                                <div class="profile-info-value" style=" font-size: 11px;">
+                                                                    <span class="editable editable-click">{{user.FlexTimeR}}</span>
+                                                                </div>
+                                                            </div>
 
-                                <div class="infobox-data">
-                                    <span class="infobox-data-number">8</span>
-                                    <div class="infobox-content">new orders</div>
-                                </div>
-                                <div class="stat stat-important">4%</div>
-                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name" style=" font-size: 11px;"> Position </div>
 
-                            <div class="infobox infobox-red  ">
-                                <div class="infobox-icon">
-                                    <i class="icon-beaker"></i>
-                                </div>
+                                                                <div class="profile-info-value" style=" font-size: 11px;">
+                                                                    <span class="editable editable-click"> {{user.Position}}</span>
+                                                                </div>
+                                                            </div>
 
-                                <div class="infobox-data">
-                                    <span class="infobox-data-number">7</span>
-                                    <div class="infobox-content">experiments</div>
-                                </div>
-                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name" style=" font-size: 11px;"> Remote Work </div>
 
-                            <div class="infobox infobox-orange2  ">
-                                <div class="infobox-chart">
-                                    <span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"><canvas width="44" height="27" style="display: inline-block; width: 44px; height: 27px; vertical-align: top;"></canvas></span>
-                                </div>
-
-                                <div class="infobox-data">
-                                    <span class="infobox-data-number">6,251</span>
-                                    <div class="infobox-content">pageviews</div>
-                                </div>
-
-                                <div class="badge badge-success">
-                                    7.2%
-                                    <i class="icon-arrow-up"></i>
-                                </div>
-                            </div>
-
-                            <div class="infobox infobox-blue2  ">
-                                <div class="infobox-progress">
-                                    <div class="easy-pie-chart percentage easyPieChart" data-percent="42" data-size="46" style="width: 46px; height: 46px; line-height: 46px;">
-                                        <span class="percent">42</span>%
-                                        <canvas width="46" height="46"></canvas>
+                                                                <div class="profile-info-value" style=" font-size: 11px;">
+                                                                    <span class="editable editable-click" id="signup">{{user.RemoteDays}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /span -->
+                                             </div>
+                                            <!-- body ends-->
+                                        </div>
                                     </div>
+                                    <!-- /.modal-content -->
                                 </div>
-
-                                <div class="infobox-data">
-                                    <span class="infobox-text">traffic used</span>
-
-                                    <div class="infobox-content">
-                                        <span class="bigger-110">~</span>
-                                        58GB remaining
-                                    </div>
-                                </div>
+                                <!-- /.modal-dialog -->
                             </div>
 
-                            <div class="space-6"></div>
+                        </div>
+
+                        <div class="space-6"></div>
                             
                         
                     </div>
