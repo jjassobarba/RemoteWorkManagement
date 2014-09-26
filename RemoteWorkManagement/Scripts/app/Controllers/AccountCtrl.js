@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('RemoteManagement').controller('AccountCtrl', ['$scope', 'userService', '$http', function ($scope, userSerice, $http) {
+    angular.module('RemoteManagement').controller('AccountCtrl', ['$scope', 'userService', '$http', function ($scope, userService, $http) {
         //---------------------------Variables Declaration---------------------
         $scope.loginBox = true;
         $scope.forgotBox = false;

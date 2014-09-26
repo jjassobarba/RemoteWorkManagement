@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using FluentNHibernate.Conventions;
 using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.Hql.Ast.ANTLR;
-using NHibernate.Linq;
-using NHibernate.Mapping;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
-using System.Collections;
 
 namespace Scio.RemoteManagementModels.RepositoriesImplementations
 {
@@ -71,7 +63,7 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         /// <returns></returns>
         public Guid InsertUser(UserInfo user)
         {
-            var id = Guid.Empty;
+            Guid id;
             using (var transaction = _session.BeginTransaction())
             {
                 id = (Guid) _session.Save(user);
@@ -122,7 +114,6 @@ namespace Scio.RemoteManagementModels.RepositoriesImplementations
         {
             var today = DateTime.Now.DayOfWeek.ToString();
             var checkInOutList = _session.QueryOver<CheckInOut>().List();
-            var users = _session.QueryOver<UserInfo>().List();
 
             var userslist = _session.QueryOver<Notifications>()
                 .Where(x => x.ProjectLeaderMail == userName || x.SenseiMail == userName)

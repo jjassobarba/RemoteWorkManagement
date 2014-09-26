@@ -38,6 +38,7 @@ namespace RemoteWorkManagement.Helpers
         /// <returns></returns>
         public static bool MailSender(string mailto, string fieldValue, EmailType type)
         {
+            var success = false;
             try
             {
                 var smtp = new SmtpClient(System.Configuration.ConfigurationManager.AppSettings["smtpServer"],
@@ -50,16 +51,16 @@ namespace RemoteWorkManagement.Helpers
                             System.Configuration.ConfigurationManager.AppSettings["emailPassword"])
                 };
                 var bodyMessage = CheckEmailTemplate(type, fieldValue);
-                var mail = 
-                    new MailMessage(System.Configuration.ConfigurationManager.AppSettings["emailAccount"],mailto, "Welcome to Remote Work Management", bodyMessage);
-                mail.IsBodyHtml = true;
+                var mail = new MailMessage(System.Configuration.ConfigurationManager.AppSettings["emailAccount"], mailto,
+                        "Welcome to Remote Work Management", bodyMessage) {IsBodyHtml = true};
                 smtp.Send(mail);
-                return true;
+                success = true;
             }
             catch (Exception e)
             {
-                return false;
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
             }
+            return success;
         }
 
         /// <summary>
