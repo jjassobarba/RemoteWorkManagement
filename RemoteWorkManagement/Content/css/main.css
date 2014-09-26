@@ -17,3 +17,8 @@
 #email-dialog .add-button-top {
     margin-top: -28px;
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
