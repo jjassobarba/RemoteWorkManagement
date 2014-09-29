@@ -19,7 +19,7 @@
         $scope.countLoggedUsers = 0;
         $scope.roundProgressData = 0;
         $scope.roundProgressData2 = 0;
-        $scope.roundProgressUnauthorizedUser = 0;
+        $scope.roundProgressUnauthorizedUser = [];
         $scope.color = "red";
         $scope.$on('LOAD', function () { $scope.loading = true; });
         $scope.$on('UNLOAD', function () { $scope.loading = false; });
@@ -37,6 +37,7 @@
 
         $scope.$watch('roundProgressUnauthorizedUser', function (newValue) {
             newValue.percentage = newValue.label / 100;
+            console.log(newValue);
         }, true);
 
         $scope.$watch('roundProgressData2', function (newValue) {
@@ -124,10 +125,11 @@
                 $scope.remainingUsers = response.data;
                 userService.getNotAllowedCheckInUsers().then(function (data2) {
                     $scope.unAuthorizedUsersCheckedIn = data2.data;
+
                     $scope.roundProgressUnauthorizedUser = {
                         label: $scope.unAuthorizedUsersCheckedIn.length,
                         percentage: $scope.unAuthorizedUsersCheckedIn.length,
-                        marks: ''
+                        marks: '%'
                     };
                     userService.getReadyUsers().then(function (data) {
                         $scope.readyUsers = data.data;
@@ -393,6 +395,6 @@
                 $notification.error('Whoa! Something seems wrong.', '');
                 $scope.$emit('UNLOAD');
             });
-        };     
+        };
     }]);
 })();

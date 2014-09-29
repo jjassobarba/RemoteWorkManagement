@@ -671,6 +671,9 @@
     <Content Include="Views\TeamMember\Profile.cshtml" />
     <Content Include="Views\TeamMember\Actions.cshtml" />
     <Content Include="Views\TeamMember\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_CheckInOutPartial.cshtml" />
+    <Content Include="Views\Shared\_MyStats.cshtml" />
+    <Content Include="Views\Shared\_ChangePasswordWizard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

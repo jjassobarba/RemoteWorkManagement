@@ -1,0 +1,38 @@
+﻿<div class="row row-dashboard">
+    <h3 class="header smaller lighter blue">
+        Check In/Out
+    </h3>
+    <div>
+        <div class="col-md-offset-4">
+            <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-success btn-lg dropdown-toggle check-in-out-button" ng-disabled="isCheckInDisable">
+                    Check-In
+                    <i class="icon-angle-down icon-on-right"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-success pull-right">
+                    <li>
+                        <button class="btn btn-success btn-block">Automatic Check-In</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-success btn-block">Manual Check-In</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-primary btn-lg dropdown-toggle check-in-out-button" ng-disabled="isCheckOutDisable">
+                    Check-Out
+                    <i class="icon-angle-down icon-on-right"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-primary pull-right">
+                    <li>
+                        <button class="btn btn-primary btn-block">Automatic Check-Out</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary btn-block">Manual Check-Out</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

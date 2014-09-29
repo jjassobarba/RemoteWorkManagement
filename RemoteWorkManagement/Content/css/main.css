@@ -22,3 +22,15 @@
     float: none;
     margin: 0 auto;
 }
+
+.row-dashboard {
+    height: 150px;
+}
+
+.check-in-out-button {
+    width: 200px;
+}
+
+.dropdown-menu.pull-right {
+    left: 0;
+}

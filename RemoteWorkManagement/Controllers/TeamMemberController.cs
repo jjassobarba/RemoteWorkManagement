@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using Castle.Core.Internal;
 using Microsoft.Ajax.Utilities;
-using Newtonsoft.Json;
-using RemoteWorkManagement.DTO;
 using RemoteWorkManagement.Helpers;
 using Scio.RemoteManagementModels.Entities;
 using Scio.RemoteManagementModels.RepositoriesContracts;
@@ -38,7 +35,6 @@ namespace RemoteWorkManagement.Controllers
             _outboxRepository = outboxRepository;
             _checkInOutRepository = checkInOutRepository;
         }
-
 
         public ActionResult Profile()
         {
