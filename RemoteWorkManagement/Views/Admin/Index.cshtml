@@ -26,7 +26,10 @@
             <div notifications="top right"></div>
             <div class="container">
                 @Html.Partial("_CheckInOutPartial")
-                @Html.Partial("_MyStats")
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.Partial("_MyStats")
+                }
             </div>
         </div>
     </div>

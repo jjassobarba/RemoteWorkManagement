@@ -1,37 +1,67 @@
-﻿<div class="row row-dashboard">
+﻿<div class="row">
     <h3 class="header smaller lighter blue">
         Check In/Out
     </h3>
     <div>
-        <div class="col-md-offset-4">
-            <div class="btn-group">
-                <button data-toggle="dropdown" class="btn btn-success btn-lg dropdown-toggle check-in-out-button" ng-disabled="isCheckInDisable">
-                    Check-In
-                    <i class="icon-angle-down icon-on-right"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-success pull-right">
-                    <li>
-                        <button class="btn btn-success btn-block">Automatic Check-In</button>
-                    </li>
-                    <li>
-                        <button class="btn btn-success btn-block">Manual Check-In</button>
-                    </li>
-                </ul>
+        <div ng-show="showInfo">
+            <div class="progress progress-small progress-striped active" ng-show="loading">
+                <div class="progress-bar progress-bar-info" style="width: 100%;"></div>
             </div>
-
-            <div class="btn-group">
-                <button data-toggle="dropdown" class="btn btn-primary btn-lg dropdown-toggle check-in-out-button" ng-disabled="isCheckOutDisable">
-                    Check-Out
-                    <i class="icon-angle-down icon-on-right"></i>
+            <div class="btn-group col-sm-offset-2">
+                <button class="btn btn-success check-in-out-button" ng-disabled="isManualCheckin" ng-click="checkIn()">
+                    Check-In
                 </button>
-                <ul class="dropdown-menu dropdown-primary pull-right">
-                    <li>
-                        <button class="btn btn-primary btn-block">Automatic Check-Out</button>
-                    </li>
-                    <li>
-                        <button class="btn btn-primary btn-block">Manual Check-Out</button>
-                    </li>
-                </ul>
+                <div>
+                    <label>
+                        <input type="checkbox" class="ace ace-checkbox-2" ng-model="isManualCheckin" ng-checked="changeInStatus()" />
+                        <span class="lbl">Manual checkin</span>
+                    </label>
+                </div>
+            </div>
+            <div class="btn-group col-sm-offset-3">
+                <button class="btn btn-primary check-in-out-button" ng-disabled="isManualCheckout" ng-click="checkOut()">
+                    Check-Out
+                </button>
+                <div>
+                    <label>
+                        <input type="checkbox" class="ace ace-checkbox-2" ng-model="isManualCheckout" ng-checked="changeOutStatus()" />
+                        <span class="lbl">Manual checkout</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-offset-4">
+            <div class="col-md-3" ng-show="isManualCheckin">
+                <label for="timepickerCheckIn">Check-In time:</label>
+                <div class="input-group bootstrap-timepicker">
+                    <input id="timepickerCheckIn" type="text" class="form-control" required ng-model="checkInTime" style="width:162px"/>
+                    <span class="input-group-addon">
+                        <i class="icon-time bigger-110"></i>
+                    </span>
+                </div>
+                <div>
+                    Comments:
+                    <textarea cols="25" rows="10" ng-model="checkIncomment"></textarea>
+                </div>
+                <hr/>
+                <div class="center">
+                    <button class="btn btn-success" ng-click="checkInM()">Check-In</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-offset-4">
+            <div class="col-md-3" ng-show="isManualCheckout">
+                <label for="timepickerCheckIn">Check-Out time:</label>
+                <div class="input-group bootstrap-timepicker">
+                    <input id="timepickerCheckOut" type="text" class="form-control" required ng-model="checkOutTime" style="width: 162px"/>
+                    <span class="input-group-addon">
+                        <i class="icon-time bigger-110"></i>
+                    </span>
+                </div>
+                <hr />
+                <div class="center">
+                    <button class="btn btn-primary" ng-click="checkOutM()">Check-Out</button>
+                </div>
             </div>
         </div>
     </div>

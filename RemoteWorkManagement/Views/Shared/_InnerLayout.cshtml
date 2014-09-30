@@ -120,15 +120,12 @@
                     try { ace.settings.check('sidebar', 'fixed'); } catch (e) { }
                 </script>
                 <ul class="nav nav-list" id="navList">
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="active">
-                            <a href="/Admin/Index">
-                                <i class="icon-dashboard"></i>
-                                <span class="menu-text">Dashboard</span>
-                            </a>
-                        </li>
-                    }
+                    <li class="active">
+                        <a href="/Admin/Index">
+                            <i class="icon-dashboard"></i>
+                            <span class="menu-text">Dashboard</span>
+                        </a>
+                    </li>
                     @if (User.IsInRole("Admin"))
                     {
                         <li id="usersLink">
@@ -148,66 +145,66 @@
                         </li>
                     }
                     @*<li id="reportsLink">
-                        <a href="/Admin/Reports">
-                            <i class="icon-eye-open"></i>
-                            <span class="menu-text">Reports</span>
-                        </a>
-                    </li>*@
-                    @*<li>
-                            <a href="/Messages/Index">
-                                <i class="icon-envelope"></i>
-                                <span class="menu-text">Messages</span>
+                            <a href="/Admin/Reports">
+                                <i class="icon-eye-open"></i>
+                                <span class="menu-text">Reports</span>
                             </a>
                         </li>*@
-                    
-                    @if (User.IsInRole("TeamMember"))
-                    {
-                        <li id="teamMemberLink">
-                            <a href="/TeamMember/Dashboard">
-                                <i class="icon-group"></i>
-                                <span class="menu-text">Team members</span>
-                            </a>
-                        </li>
-                    }
-                </ul>
-                <div class="sidebar-collapse" id="sidebar-collapse">
-                    <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+                        @*<li>
+                                <a href="/Messages/Index">
+                                    <i class="icon-envelope"></i>
+                                    <span class="menu-text">Messages</span>
+                                </a>
+                            </li>*@
+
+                        @if (User.IsInRole("TeamMember"))
+                        {
+                            <li id="teamMemberLink">
+                                <a href="/TeamMember/Dashboard">
+                                    <i class="icon-group"></i>
+                                    <span class="menu-text">Team members</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="sidebar-collapse" id="sidebar-collapse">
+                        <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+                    </div>
+                    <script type="text/javascript">
+                        try { ace.settings.check('sidebar', 'collapsed'); } catch (e) { }
+                    </script>
                 </div>
-                <script type="text/javascript">
-                    try { ace.settings.check('sidebar', 'collapsed'); } catch (e) { }
-                </script>
-            </div>
-            <div class="main-content" ng-app="RemoteManagement">
-                @RenderBody()
+                <div class="main-content" ng-app="RemoteManagement">
+                    @RenderBody()
+                </div>
             </div>
         </div>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/mainScripts")
-    <script type="text/javascript" src="~/Scripts/sugar/sugar.js"></script>
-    <script type="text/javascript" src="~/Scripts/angular/angular-file-upload-shim.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/angular/angular.js"></script>
-    <script type="text/javascript" src="~/Scripts/angular/angular-file-upload.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/app.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Controllers/UsersCtrl.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Controllers/NotificationsCtrl.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Controllers/AccountCtrl.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Controllers/TeamMemberCtrl.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Services/UsersService.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Directives/chosen.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Directives/popup.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Directives/notification.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/Directives/data-round-progress.js"></script>
-    <script type="text/javascript" src="~/Scripts/angular/checklist-model.js"></script>
-    <script type="text/javascript" src="~/Scripts/notifications/modernizr.custom.js"></script>
-    <script type="text/javascript" src="~/Scripts/notifications/snap.svg-min.js"></script>
-    <script type="text/javascript" src="~/Scripts/notifications/classie.js"></script>
-    <script type="text/javascript" src="~/Scripts/notifications/notificationFx.js"></script>
-    <script type="text/javascript" src="~/Scripts/notifications/progressButton.js"></script>
-    <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/mainScripts")
+        <script type="text/javascript" src="~/Scripts/sugar/sugar.js"></script>
+        <script type="text/javascript" src="~/Scripts/angular/angular-file-upload-shim.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/angular/angular.js"></script>
+        <script type="text/javascript" src="~/Scripts/angular/angular-file-upload.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/app.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Controllers/UsersCtrl.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Controllers/NotificationsCtrl.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Controllers/AccountCtrl.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Controllers/TeamMemberCtrl.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Services/UsersService.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Directives/chosen.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Directives/popup.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Directives/notification.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Directives/data-round-progress.js"></script>
+        <script type="text/javascript" src="~/Scripts/angular/checklist-model.js"></script>
+        <script type="text/javascript" src="~/Scripts/notifications/modernizr.custom.js"></script>
+        <script type="text/javascript" src="~/Scripts/notifications/snap.svg-min.js"></script>
+        <script type="text/javascript" src="~/Scripts/notifications/classie.js"></script>
+        <script type="text/javascript" src="~/Scripts/notifications/notificationFx.js"></script>
+        <script type="text/javascript" src="~/Scripts/notifications/progressButton.js"></script>
+        <script type="text/javascript" src="~/Content/bootstrap/validator/js/bootstrapValidator.min.js"></script>
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

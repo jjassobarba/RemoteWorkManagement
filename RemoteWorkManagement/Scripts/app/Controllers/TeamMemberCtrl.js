@@ -23,10 +23,11 @@
         $scope.color = "red";
         $scope.$on('LOAD', function () { $scope.loading = true; });
         $scope.$on('UNLOAD', function () { $scope.loading = false; });
-        $scope.isCheckInDisable = true;
-        $scope.isCheckOutDisable = true;
-        $scope.isCheckInManualDisable = true;
-        $scope.isCheckOutManualDisable = true;
+        //$scope.isCheckInDisable = false;
+        //$scope.isCheckOutDisable = false;
+        //$scope.isCheckInManualDisable = true;
+        //$scope.isCheckOutManualDisable = true;
+        //$scope.isCheckboxInDisable = true;
 
         //---------------------------------------------------------------------
 
@@ -37,7 +38,6 @@
 
         $scope.$watch('roundProgressUnauthorizedUser', function (newValue) {
             newValue.percentage = newValue.label / 100;
-            console.log(newValue);
         }, true);
 
         $scope.$watch('roundProgressData2', function (newValue) {
@@ -89,27 +89,27 @@
         $scope.getUser();
 
         //Gets status checkIn
-        $scope.getStatusCheckIn = function () {
-            $http({
-                method: 'post',
-                url: '/TeamMember/GetCheckInStatus'
-            }).success(function (data) {
-                if (data.data.isEnablecheckOut) {
-                    $scope.isCheckInDisable = true;
-                    $scope.isCheckInManualDisable = true;
-                    $scope.isCheckOutDisable = false;
-                    $scope.isCheckOutManualDisable = false;
-                } else {
-                    $scope.isCheckOutDisable = true;
-                    $scope.isCheckOutManualDisable = true;
-                    $scope.isCheckInDisable = false;
-                    $scope.isCheckInManualDisable = false;
-                }
-            }).error(function () {
+        //$scope.getStatusCheckIn = function () {
+        //    $http({
+        //        method: 'post',
+        //        url: '/TeamMember/GetCheckInStatus'
+        //    }).success(function (data) {
+        //        if (data.data.isEnablecheckOut) {
+        //            $scope.isCheckboxInDisable = true;
+        //            $scope.isCheckInDisable = true;
+        //            $scope.isCheckboxOutDisable = false;
+        //            $scope.isCheckOutDisable = false;
+        //        } else {
+        //            $scope.isCheckOutDisable = true;
+        //            $scope.isCheckboxOutDisable = true;
+        //            $scope.isCheckboxInDisable = false;
+        //            $scope.isCheckInDisable = false;
+        //        }
+        //    }).error(function () {
 
-            });
-        };
-        $scope.getStatusCheckIn();
+        //    });
+        //};
+        //$scope.getStatusCheckIn();
 
         //Verifies if the user is allowed to work remotely today
         $scope.getStatusDay = function () {
@@ -154,11 +154,25 @@
         };
         $scope.chartLoader();
 
+        //$scope.changeInStatus = function () {
+        //    if ($scope.isManualCheckin)
+        //        $scope.isCheckInDisable = true;
+        //    else
+        //        $scope.isCheckInDisable = false;
+        //};
+        //$scope.changeOutStatus = function () {
+        //    if ($scope.isManualCheckout == true)
+        //        $scope.isCheckOutDisable = true;
+        //    else
+        //        $scope.isCheckOutDisable = false;
+        //};
+
         $scope.getAllUsersbyProyectLeader = function () {
             userService.getAllUsersbyProyectLeader().then(function (response) {
                 $scope.usersAssignedTo = response.data;
             });
         };
+
         $scope.getAllUsersbyProyectLeader();
 
         //POST-------------------------------------------------------
@@ -174,10 +188,10 @@
                         type: "Automatic"
                     }
                 }).success(function (data) {
-                    $scope.getStatusCheckIn();
+                    //$scope.getStatusCheckIn();
                     if (data.data.success) {
                         if (data.data.isMailSent) {
-                            $notification.success('CheckIn done!', 'Now You can work remotely!');
+                            $notification.success('CheckIn done!', 'You can start being productive!');
                         } else {
                             $notification.warning('CheckIn done!', 'Your email has not been sent.');
                         }
@@ -187,7 +201,7 @@
                     $scope.$emit('UNLOAD');
                 }).error(function () {
                     $scope.getStatusCheckIn();
-                    $notification.error('Whoa! Something seems wrong.', 'please try again!');
+                    $notification.error('Whoa! Something seems to be wrong.', 'please try again!');
                     $scope.$emit('UNLOAD');
                 });
             } else {
@@ -203,7 +217,7 @@
                         $scope.getStatusCheckIn();
                         if (data.data.success) {
                             if (data.data.isMailSent) {
-                                $notification.success('CheckIn done!', 'Now You can work remotely!');
+                                $notification.success('CheckIn done!', 'You can start being productive!');
                             } else {
                                 $notification.warning('CheckIn done!', 'Your email has not been sent.');
                             }
@@ -213,7 +227,7 @@
                         $scope.$emit('UNLOAD');
                     }).error(function () {
                         $scope.getStatusCheckIn();
-                        $notification.error('Whoa! Something seems wrong.', 'please try again!');
+                        $notification.error('Whoa! Something seems to be wrong.', 'please try again!');
                         $scope.$emit('UNLOAD');
                     });
                 } else {
@@ -256,10 +270,10 @@
                         time: $scope.checkInTime
                     }
                 }).success(function (data) {
-                    $scope.getStatusCheckIn();
+                    //$scope.getStatusCheckIn();
                     if (data.data.success) {
                         if (data.data.isMailSent) {
-                            $notification.success('CheckIn done!', 'Now You can work remotely!');
+                            $notification.success('CheckIn done!', 'You can start being productive!');
                         } else {
                             $notification.warning('CheckIn done!', 'Your email has not been sent.');
                         }
@@ -333,21 +347,19 @@
                 method: 'post',
                 url: '/TeamMember/CheckOut'
             }).success(function (data) {
-                $scope.getStatusCheckIn();
-
                 if (data.data.success) {
                     if (data.data.isMailSent) {
-                        $notification.success('CheckOut done!', 'Now you can be offline!');
+                        $notification.success('Check-out done!', 'Good job today!');
                     } else {
-                        $notification.warning('CheckOut done!', 'Your email has not been sent.');
+                        $notification.warning('Check-out done!', 'Your email has not been sent.');
                     }
                 } else {
-                    $notification.error('Error!', 'You cant CheckOut without CheckIn');
+                    $notification.error('Error!', 'You can not Check-out without Check-in');
                 }
                 $scope.$emit('UNLOAD');
             }).error(function () {
                 $scope.getStatusCheckIn();
-                $notification.error('Whoa! Something seems wrong.', 'please try again!');
+                $notification.error('Whoa! Something seems to be wrong.', 'please try again!');
                 $scope.$emit('UNLOAD');
             });
         };
@@ -361,7 +373,7 @@
                     time: $scope.checkOutTime
                 }
             }).success(function (data) {
-                $scope.getStatusCheckIn();
+                //$scope.getStatusCheckIn();
                 if (data.data.success) {
                     if (data.data.isMailSent) {
                         $notification.success('CheckOut done!', 'Now you can be offline!');

@@ -314,7 +314,7 @@
         $(this).prev().focus();
     });
     //  ./time picker
-
+    
     var form_initialized = false;
     function initialize_form() {
         if (form_initialized) return;
