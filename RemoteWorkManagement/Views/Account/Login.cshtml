@@ -37,7 +37,7 @@
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="email" class="form-control" ng-model="email" 
+                                                        <input type="email" class="form-control" ng-model="email"
                                                                placeholder="Email" style="width: 280px" required ng-change="hideMsgError()" />
                                                         <i class="icon-envelope"></i>
                                                     </span>
@@ -79,14 +79,14 @@
 
                                             <label class="block clearfix">
                                                 <span class="btn-block input-icon input-icon-right">
-                                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email", @style = "width:280px", @name = "username", @autofocus = "" })
+                                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email", @style = "width:280px", @name = "username", @autofocus = "", @id = "username" })
                                                     <i class="icon-envelope"></i>
                                                 </span>
                                             </label>
 
                                             <label class="block clearfix">
                                                 <span class="btn-block input-icon input-icon-right">
-                                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password", @style = "width:280px", @name = "password" })
+                                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password", @style = "width:280px", @name = "password", @id = "password" })
                                                     <i class="icon-lock"></i>
                                                 </span>
                                             </label>
@@ -99,14 +99,14 @@
                                                     <span class="lbl"> Remember Me</span>
                                                 </label>
 
-                                                <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                                <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" name="LoginButton">
                                                     <i class="icon-key"></i>
                                                     Login
                                                 </button>
                                             </div>
 
                                             <div class="space-4"></div>
-                                        }                                        
+                                        }
                                     </div>
                                     <div class="toolbar clearfix">
                                         <div>
