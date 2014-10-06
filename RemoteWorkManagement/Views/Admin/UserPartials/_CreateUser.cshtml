@@ -57,6 +57,8 @@
                         </select>
                     </span>
                 </label>
+            </div>
+            <div class="col-md-4">
                 <label class="control-label bolder blue">
                     Project Leader
                 </label>
@@ -67,8 +69,6 @@
                         </select>
                     </span>
                 </label>
-            </div>
-            <div class="col-md-4">
                 <label class="control-label bolder blue">
                     Sensei
                 </label>
@@ -83,7 +83,7 @@
                     <div class="pull-left">
                         <div class=" control-group ">
                             <label class=" control-label bolder blue">
-                                Days to work in remote
+                                Work Remote Days
                             </label>
                             <div class="checkbox" ng-repeat="day in daysOfTheWeek">
                                 <label>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="offset2">
                         <div class="control-group">
-                            <label class="control-label bolder blue">Flextime Schedule</label>
+                            <label class="control-label bolder blue">Flextime</label>
                             <div class="radio" ng-repeat="flexTime in flexTimeSchedule">
                                 <label>
                                     <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedFlex" value="{{flexTime}}" />

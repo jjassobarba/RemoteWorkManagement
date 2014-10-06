@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="LoginSuite\LoginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserSuite\UserSuite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\packages\Selenium.WebDriver.ChromeDriver.2.10.0.0\content\chromedriver.exe">
