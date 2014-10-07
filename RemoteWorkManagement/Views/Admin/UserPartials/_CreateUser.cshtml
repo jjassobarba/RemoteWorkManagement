@@ -87,7 +87,7 @@
                             </label>
                             <div class="checkbox" ng-repeat="day in daysOfTheWeek">
                                 <label>
-                                    <input checklist-model="selectedDays.days" name="cbOptions" type="checkbox" class="ace" checklist-value="day" />
+                                    <input checklist-model="selectedDays.days" name="cbOptions" type="checkbox" class="ace" checklist-value="day" id="{{day}}"/>
                                     <span class="lbl">{{day}}</span>
                                 </label>
                             </div>
@@ -98,7 +98,7 @@
                             <label class="control-label bolder blue">Flextime</label>
                             <div class="radio" ng-repeat="flexTime in flexTimeSchedule">
                                 <label>
-                                    <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedFlex" value="{{flexTime}}" />
+                                    <input name="flexTimeOptions" type="radio" class="ace" ng-model="$parent.selectedFlex" value="{{flexTime}}" id="{{flexTime}}"/>
                                     <span class="lbl">{{flexTime}}</span>
                                 </label>
                             </div>

@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace Scio.IntegrationTests.UserSuite
 {
@@ -57,8 +58,25 @@ namespace Scio.IntegrationTests.UserSuite
             email.SendKeys(randomData + "@gmail.com");
             var position = _driver.FindElement(By.Name("position"));
             position.SendKeys("app dev");
-            var role = _driver.FindElement(By.XPath("//select[@id='role-select']/option[@value='0']"));
-            role.Click();
+            var roleChosen = _driver.FindElement(By.Id("role_select_chosen"));
+            roleChosen.Click();
+            var selectRole = _driver.FindElement(By.ClassName("active-result"));
+            selectRole.Click();
+            var leaderChosen = _driver.FindElement(By.Id("plSelect_chosen"));
+            leaderChosen.Click();
+            var leaderChosenResults = _driver.FindElement(By.ClassName("active-result"));
+            leaderChosenResults.Click();
+            var senseiChosen = _driver.FindElement(By.Id("senseiSelect_chosen"));
+            senseiChosen.Click();
+            var workRemoteDay = _driver.FindElement(By.Id("Monday"));
+            workRemoteDay.Click();
+            var flexTime = _driver.FindElement(By.Id("08:00 - 17:00"));
+            flexTime.Click();
+            var registerButton = _driver.FindElement(By.ClassName("progress-button"));
+            registerButton.Click();
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+            userNameField = wait.Until(driver => driver.FindElement(By.Name("firstname")));
+            Assert.IsEmpty(userNameField.Text);
         }
     }
 }
